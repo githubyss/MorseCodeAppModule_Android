@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Base application theme. -->
+    <!--<style name="mscdAppTheme" parent="Theme.AppCompat.NoActionBar">-->
+    <!--<item name="colorPrimary">@color/comkitColorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/comkitColorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/comkitColorAccent</item>-->
+    <!--</style>-->
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <item
+            android:id="@+id/actionFlashlight"
+            android:orderInCategory="1"
+            android:icon="@drawable/mscd_ic_flash_off_white"
+            android:title="@string/mscdMenuActionFlashlight"
+            app:showAsAction="ifRoom"
+            />
+
+    <item
+            android:id="@+id/actionSpeaker"
+            android:orderInCategory="2"
+            android:icon="@drawable/mscd_ic_speaker_off_white"
+            android:title="@string/mscdMenuActionSpeaker"
+            app:showAsAction="ifRoom"
+            />
+
+    <item
+            android:id="@+id/actionVibrator"
+            android:icon="@drawable/mscd_ic_vibration_on_white"
+            android:orderInCategory="3"
+            android:title="@string/mscdMenuActionVibrator"
+            app:showAsAction="ifRoom"
+            />
+</menu>

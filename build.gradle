@@ -1,35 +1,14 @@
 apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+apply plugin: 'com.alibaba.arouter'
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
     }
 }
 
@@ -38,10 +17,59 @@ dependencies {
 
     implementation project(':CommonKitSdk_Android')
 
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compileOnly 'com.android.support:appcompat-v7:26.1.0'
+    /* Kotlin */
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    /* Compatibility Support */
+    implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_V7_VERSION"
+
+    /* Material Design Support */
+    implementation "com.android.support:design:$ANDROID_SUPPORT_MATERIAL_DESIGN_VERSION"
+
+    /* ARouter */
+    implementation "com.alibaba:arouter-api:$AROUTER_API_VERSION"
+    kapt "com.alibaba:arouter-compiler:$AROUTER_COMPILE_VERSION"
+
+    /* Test */
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+android {
+    buildToolsVersion '26.0.2'
+    compileSdkVersion 26
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 26
+
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }

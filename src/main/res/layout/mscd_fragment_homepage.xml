@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/comkitLayoutBgColorLightGray"
+        android:orientation="vertical"
+        >
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            >
+
+        <LinearLayout
+                android:id="@+id/llBtnContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+            <Button
+                    android:id="@+id/btnMorseCodeTranslator"
+                    style="@style/comkitCommonBtnDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mscdHomepageMorseCodeTranslator"
+                    />
+
+            <Button
+                    android:id="@+id/btnMorseCodeLearning"
+                    style="@style/comkitCommonBtnDefault"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mscdHomepageMorseCodeLearning"
+                    />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

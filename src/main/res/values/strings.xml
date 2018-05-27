@@ -1,3 +1,28 @@
 <resources>
-    <string name="app_name">Morse Code Android</string>
+    <string name="mscdAppName">Morse Code Android</string>
+
+    <string name="mscdMenuActionFlashlight">Flashlight</string>
+    <string name="mscdMenuActionSpeaker">Speaker</string>
+    <string name="mscdMenuActionVibrator">Vibrator</string>
+
+    <string name="mscdHomepageTitle">Morse Code Android</string>
+    <string name="mscdHomepageMorseCodeTranslator">Morse Code Translator</string>
+    <string name="mscdHomepageMorseCodeLearning">Morse Code Learning</string>
+
+    <string name="mscdTranslatorTitle">Morse Code Translator</string>
+    <string name="mscdTranslator"></string>
+
+    <string name="mscdLearningTitle">Morse Code Learning</string>
+    <string name="mscdLearningRecommendedSequence">Recommended training sequence:</string>
+    <string name="mscdLearningMsgLength">Message length</string>
+    <string name="mscdLearningMsgLengthUnits">(w)</string>
+    <string name="mscdLearningMsgLengthDefault">10</string>
+    <string name="mscdLearningKeySpeed">Key speed</string>
+    <string name="mscdLearningKeySpeedUnits">(wpm)</string>
+    <string name="mscdLearningKeySpeedDefault">26</string>
+    <string name="mscdLearningDitDuration">Dit duration</string>
+    <string name="mscdLearningDitDurationUnits">(ms)</string>
+    <string name="mscdLearningDitDurationDefault">50</string>
+    <string name="mscdLearningTransmitted">Transmitted messages.</string>
+    <string name="mscdLearningRecoded">Recoded messages.</string>
 </resources>
