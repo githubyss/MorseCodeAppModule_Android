@@ -1,4 +1,4 @@
-package com.githubyss.mobile.morsecode.app.converter
+package com.githubyss.mobile.morsecode.app.util.converter
 
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
@@ -21,6 +21,7 @@ class MscdMorseCodeConverterConfig private constructor() {
         val INSTANCE = MscdMorseCodeConverterConfig()
     }
 
+
     /** Basic delay to be used to init ditdah delay, gap delay and other delays to build char delay patterns, units is (ms). by Ace Yan */
     private var baseDelay = 50L
     var ditDelay = baseDelay
@@ -39,6 +40,8 @@ class MscdMorseCodeConverterConfig private constructor() {
     /** Char-delayPatternList map. by Ace Yan */
     var char2DelayPatternListMap = HashMap<Char, List<Long>>()
 
+    var beBuilt = false
+
 
     object Builder {
         private var baseDelay = 50L
@@ -50,7 +53,6 @@ class MscdMorseCodeConverterConfig private constructor() {
             }
 
             this@Builder.baseDelay = baseDelay
-
             return this@Builder
         }
 
@@ -74,6 +76,8 @@ class MscdMorseCodeConverterConfig private constructor() {
             }
             config.char2DelayPatternArrayMap = this@Builder.buildChar2DelayPatternArrayMap(config)
             config.char2DelayPatternListMap = this@Builder.buildChar2DelayPatternListMap(config)
+
+            config.beBuilt = true
         }
 
         /**

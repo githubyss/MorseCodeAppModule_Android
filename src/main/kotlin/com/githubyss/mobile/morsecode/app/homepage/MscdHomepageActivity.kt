@@ -43,13 +43,10 @@ class MscdHomepageActivity : ComkitBaseActivity() {
             R.id.actionFlashlight -> {
             }
 
-            R.id.actionSpeaker -> {
+            R.id.actionAudio -> {
             }
 
             R.id.actionVibrator -> {
-            }
-
-            else -> {
             }
         }
         return true

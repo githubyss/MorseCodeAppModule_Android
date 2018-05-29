@@ -13,10 +13,10 @@
             />
 
     <item
-            android:id="@+id/actionSpeaker"
+            android:id="@+id/actionAudio"
             android:orderInCategory="2"
-            android:icon="@drawable/mscd_ic_speaker_off_white"
-            android:title="@string/mscdMenuActionSpeaker"
+            android:icon="@drawable/mscd_ic_audio_off_white"
+            android:title="@string/mscdMenuActionAudio"
             app:showAsAction="ifRoom"
             />
 

@@ -2,7 +2,7 @@
     <string name="mscdAppName">Morse Code Android</string>
 
     <string name="mscdMenuActionFlashlight">Flashlight</string>
-    <string name="mscdMenuActionSpeaker">Speaker</string>
+    <string name="mscdMenuActionAudio">Audio</string>
     <string name="mscdMenuActionVibrator">Vibrator</string>
 
     <string name="mscdHomepageTitle">Morse Code Android</string>

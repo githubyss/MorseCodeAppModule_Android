@@ -1,4 +1,4 @@
-package com.githubyss.mobile.morsecode.app.converter
+package com.githubyss.mobile.morsecode.app.util.converter
 
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 
@@ -20,23 +20,25 @@ class MscdMorseCodeConverter {
     }
 
 
+    private val config = MscdMorseCodeConverterConfig.instance
+
+
     /**
-     * MscdMorseCodeConverter.buildMessageStringDelayPatternArray(message, config)
+     * MscdMorseCodeConverter.buildMessageStringDelayPatternArray(message)
      * <Description>
      * <Details>
      *
      * @param message
-     * @param config
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    fun buildMessageStringDelayPatternArray(message: String, config: MscdMorseCodeConverterConfig): Array<Long> {
-        val charGapDelay = config.charGapDelay
-        val wordGapDelay = config.wordGapDelay
-        val startDelay = config.startDelay
+    fun buildMessageStringDelayPatternArray(message: String): Array<Long> {
+        val charGapDelay = this@MscdMorseCodeConverter.config.charGapDelay
+        val wordGapDelay = this@MscdMorseCodeConverter.config.wordGapDelay
+        val startDelay = this@MscdMorseCodeConverter.config.startDelay
 
-        val char2DelayPatternArrayMap = config.char2DelayPatternArrayMap
+        val char2DelayPatternArrayMap = this@MscdMorseCodeConverter.config.char2DelayPatternArrayMap
 
         if (message.isEmpty()) {
             return arrayOf(startDelay)
@@ -99,31 +101,33 @@ class MscdMorseCodeConverter {
             }
         }
 
+        /** Init delayPatternArray of message. by Ace Yan */
         val messageDelayPatternArray = Array(messageDelayPatternArraySize, { it -> it.toLong() })
         messageDelayPatternArray[0] = startDelay
         lastCharWasWhiteSpace = true
 
-        var position = 1
+        var positionInDelayPatternArray = 1
 
+        /** Traverse message to calculate out each item in delayPatternArray of message. by Ace Yan */
         for (idx in 0 until messageLength) {
             val charAtIdx = message[idx]
             if (Character.isWhitespace(charAtIdx)) {
                 if (!lastCharWasWhiteSpace) {
-                    messageDelayPatternArray[position] = wordGapDelay
-                    position++
+                    messageDelayPatternArray[positionInDelayPatternArray] = wordGapDelay
+                    positionInDelayPatternArray++
                     lastCharWasWhiteSpace = true
                 }
             } else {
                 if (!lastCharWasWhiteSpace) {
-                    messageDelayPatternArray[position] = charGapDelay
-                    position++
+                    messageDelayPatternArray[positionInDelayPatternArray] = charGapDelay
+                    positionInDelayPatternArray++
                 }
 
                 lastCharWasWhiteSpace = false
 
                 val charDelayPatternArray = char2DelayPatternArrayMap[charAtIdx] ?: emptyArray()
-                System.arraycopy(charDelayPatternArray, 0, messageDelayPatternArray, position, charDelayPatternArray.size)
-                position += (charDelayPatternArray.size)
+                System.arraycopy(charDelayPatternArray, 0, messageDelayPatternArray, positionInDelayPatternArray, charDelayPatternArray.size)
+                positionInDelayPatternArray += (charDelayPatternArray.size)
             }
         }
 
@@ -133,22 +137,21 @@ class MscdMorseCodeConverter {
     }
 
     /**
-     * MscdMorseCodeConverter.buildMessageStringDelayPatternList(message, config)
+     * MscdMorseCodeConverter.buildMessageStringDelayPatternList(message)
      * <Description>
      * <Details>
      *
      * @param message
-     * @param config
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    fun buildMessageStringDelayPatternList(message: String, config: MscdMorseCodeConverterConfig): List<Long> {
-        val charGapDelay = config.charGapDelay
-        val wordGapDelay = config.wordGapDelay
-        val startDelay = config.startDelay
+    fun buildMessageStringDelayPatternList(message: String): List<Long> {
+        val charGapDelay = this@MscdMorseCodeConverter.config.charGapDelay
+        val wordGapDelay = this@MscdMorseCodeConverter.config.wordGapDelay
+        val startDelay = this@MscdMorseCodeConverter.config.startDelay
 
-        val char2DelayPatternListMap = config.char2DelayPatternListMap
+        val char2DelayPatternListMap = this@MscdMorseCodeConverter.config.char2DelayPatternListMap
 
         if (message.isEmpty()) {
             return arrayListOf(startDelay)
