@@ -41,15 +41,18 @@ class MscdAudioDataGenerator {
             /** Calculate out sine wave signal according to audioEncodingPcmFormat and audioFrequency. by Ace Yan */
             when (audioEncodingPcmFormat) {
                 AudioFormat.ENCODING_PCM_FLOAT -> {
-                    audioDataArray[idxOfAudioDataArray] = 1 * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArray])
+                    audioDataArray[idxOfAudioDataArray] = 1 * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArray])
                 }
 
                 AudioFormat.ENCODING_PCM_16BIT -> {
-                    audioDataArray[idxOfAudioDataArray] = Short.MAX_VALUE * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArray])
+                    audioDataArray[idxOfAudioDataArray] = Short.MAX_VALUE * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArray])
                 }
 
                 AudioFormat.ENCODING_PCM_8BIT -> {
-                    audioDataArray[idxOfAudioDataArray] = Byte.MAX_VALUE * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArray])
+                    audioDataArray[idxOfAudioDataArray] = Byte.MAX_VALUE * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArray])
+                }
+
+                else -> {
                 }
             }
         }
@@ -101,15 +104,18 @@ class MscdAudioDataGenerator {
                 for (idxOfAudioDataArrayOfEachDelay in 0 until audioDataArraySizeOfEachDelay) {
                     when (audioEncodingPcmFormat) {
                         AudioFormat.ENCODING_PCM_FLOAT -> {
-                            audioDataArray[positionInAudioDataArray] = 1 * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArrayOfEachDelay])
+                            audioDataArray[positionInAudioDataArray] = 1 * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArrayOfEachDelay])
                         }
 
                         AudioFormat.ENCODING_PCM_16BIT -> {
-                            audioDataArray[positionInAudioDataArray] = Short.MAX_VALUE * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArrayOfEachDelay])
+                            audioDataArray[positionInAudioDataArray] = Short.MAX_VALUE * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArrayOfEachDelay])
                         }
 
                         AudioFormat.ENCODING_PCM_8BIT -> {
-                            audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * Math.sin(2 * Math.PI * audioFrequencyInHz * timeSampleArray[idxOfAudioDataArrayOfEachDelay])
+                            audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * calculateOutSineWaveData(audioFrequencyInHz, timeSampleArray[idxOfAudioDataArrayOfEachDelay])
+                        }
+
+                        else -> {
                         }
                     }
                     positionInAudioDataArray++
@@ -146,5 +152,9 @@ class MscdAudioDataGenerator {
         }
 
         return timeSampleArray
+    }
+
+    private fun calculateOutSineWaveData(audioFrequencyInHz: Int, timeSample: Double): Double {
+        return Math.sin(2 * Math.PI * audioFrequencyInHz * timeSample)
     }
 }

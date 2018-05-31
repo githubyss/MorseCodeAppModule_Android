@@ -1,17 +1,17 @@
-package com.githubyss.mobile.morsecode.app.homepage
+package com.githubyss.mobile.morsecode.app.homepage.demo
 
 import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
 import com.githubyss.mobile.common.kit.base.ComkitIBaseView
 
 /**
- * MscdHomepageContract.kt
+ * MscdHomepageDemoContract.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-interface MscdHomepageContract {
+interface MscdHomepageDemoContract {
     interface IView : ComkitIBaseView<IPresenter> {
     }
 

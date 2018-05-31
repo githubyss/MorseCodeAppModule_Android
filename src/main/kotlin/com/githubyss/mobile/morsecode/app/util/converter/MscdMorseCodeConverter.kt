@@ -142,7 +142,7 @@ class MscdMorseCodeConverter {
      * <Details>
      *
      * @param message
-     * @return
+     * @return List<Long> Readable only.
      * @author Ace Yan
      * @github githubyss
      */

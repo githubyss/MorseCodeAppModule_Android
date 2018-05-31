@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/comkitBothMatchParentStyle"
+        android:background="@color/comkitLayoutBgColorLightGray"
+        android:orientation="vertical"
+        >
+
+    <ScrollView
+            style="@style/comkitBothMatchParentStyle"
+            android:layout_marginLeft="@dimen/comkitSideMarginDefault"
+            android:layout_marginRight="@dimen/comkitSideMarginDefault"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            >
+
+        <LinearLayout
+                android:id="@+id/llSvContent"
+                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                android:orientation="vertical"
+                >
+
+            <LinearLayout
+                    android:id="@+id/llBtnContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:orientation="vertical"
+                    >
+
+                <Button
+                        android:id="@+id/btnMorseCodeTranslator"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mscdHomepageMorseCodeTranslator"
+                        />
+
+                <Button
+                        android:id="@+id/btnMorseCodeLearning"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mscdHomepageMorseCodeLearning"
+                        />
+
+                <Button
+                        android:id="@+id/btnBuildAudioConfig"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Build Audio Config"
+                        />
+
+                <Button
+                        android:id="@+id/btnStartPlayAudio"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Start Play Audio"
+                        />
+
+                <Button
+                        android:id="@+id/btnStopAllPlayAudio"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stop All Play Audio"
+                        />
+
+                <Button
+                        android:id="@+id/btnStopCurrentPlayAudio"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stop Current Play Audio"
+                        />
+
+                <Button
+                        android:id="@+id/btnPausePlayAudio"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pause Play Audio"
+                        />
+
+                <Button
+                        android:id="@+id/btnResumePlayAudio"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Resume Play Audio"
+                        />
+
+                <Button
+                        android:id="@+id/btnReleaseAudioTrack"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Release Audio Track"
+                        />
+
+                <Button
+                        android:id="@+id/btnLogcatAudioTrackState"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logcat Audio Track State"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

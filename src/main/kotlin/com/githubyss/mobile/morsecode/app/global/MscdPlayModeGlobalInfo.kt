@@ -12,6 +12,6 @@ import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
  */
 object MscdPlayModeGlobalInfo {
     var flashlightStatus = MscdStatusConstants.PlayModeStatus.FLASHLIGHT_OFF
-    var speakerStatus = MscdStatusConstants.PlayModeStatus.SPEAKER_OFF
+    var audioStatus = MscdStatusConstants.PlayModeStatus.AUDIO_OFF
     var vibratorStatus = MscdStatusConstants.PlayModeStatus.VIBRATION_OFF
 }

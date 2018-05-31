@@ -21,5 +21,11 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/comkitAppTheme"
                 />
+
+        <activity
+                android:name=".learningpage.MscdLearningActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/comkitAppTheme"
+                />
     </application>
 </manifest>

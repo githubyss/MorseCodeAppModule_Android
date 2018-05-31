@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/comkitBothMatchParentStyle"
+        android:background="@color/comkitLayoutBgColorLightGray"
+        android:orientation="vertical"
+        >
+
+    <ScrollView
+            style="@style/comkitBothMatchParentStyle"
+            android:layout_marginLeft="@dimen/comkitSideMarginDefault"
+            android:layout_marginRight="@dimen/comkitSideMarginDefault"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            >
+
+        <LinearLayout
+                android:id="@+id/llSvContent"
+                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                android:orientation="vertical"
+                >
+
+            <LinearLayout
+                    android:id="@+id/llDescriptionContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:orientation="vertical"
+                    android:visibility="invisible"
+                    >
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mscdCharSelectingRecommendedSequence"
+                        android:textColor="@color/comkitColorBlack"
+                        android:textSize="@dimen/comkitTextSize20Sp"
+                        />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/llCharSelectingContainer"
+                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow1"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetK"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetK"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetM"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetM"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetR"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetR"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetS"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetS"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetU"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetU"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetA"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetA"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow2"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetP"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetP"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetT"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetT"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetL"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetL"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetO"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetO"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetW"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetW"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetI"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetI"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow3"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnSignDot"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharSignDot"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetN"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetN"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetJ"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetJ"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetE"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetE"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetF"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetF"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber0"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber0"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow4"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetY"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetY"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnSignComma"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharSignComma"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetV"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetV"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetG"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetG"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber5"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber5"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnSignSlash"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharSignSlash"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow5"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetQ"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetQ"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber9"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber9"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetZ"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetZ"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetH"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetH"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber3"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber3"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber8"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber8"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow6"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetB"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetB"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnSignQuestion"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharSignQuestion"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber4"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber4"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber2"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber2"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber7"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber7"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetC"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetC"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharSelectingRow7"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber1"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber1"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetD"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetD"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnNumber6"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharNumber6"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnAlphabetX"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text="@string/mscdCharAlphabetX"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnReserve1"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text=""
+                            android:visibility="invisible"
+                            />
+
+                    <CheckBox
+                            android:id="@+id/chkBtnReserve2"
+                            style="@style/mscdCharSelectingChkBtnStyle"
+                            android:text=""
+                            android:visibility="invisible"
+                            />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/llConfigContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:orientation="vertical"
+                    >
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/llBtnContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:orientation="vertical"
+                    >
+
+                <Button
+                        android:id="@+id/btnConfirm"
+                        style="@style/mscdCommonBtnStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/comkitConfirm"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

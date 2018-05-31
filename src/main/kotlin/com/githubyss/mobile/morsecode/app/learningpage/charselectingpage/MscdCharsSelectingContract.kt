@@ -1,21 +1,23 @@
-package com.githubyss.mobile.morsecode.app.homepage
+package com.githubyss.mobile.morsecode.app.learningpage.charselectingpage
 
+import android.widget.CheckBox
 import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
 import com.githubyss.mobile.common.kit.base.ComkitIBaseView
 
 /**
- * MscdHomepageContract.kt
+ * MscdCharsSelectingContract.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-interface MscdHomepageContract {
+interface MscdCharsSelectingContract {
     interface IView : ComkitIBaseView<IPresenter> {
+        fun gotoTrainingPage()
     }
 
     interface IPresenter : ComkitIBasePresenter {
-        fun onActivityResult(requestCode: Int, resultCode: Int)
+        fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>)
     }
 }

@@ -219,7 +219,7 @@ class MscdMorseCodeConverterConfig private constructor() {
          * <Details>
          *
          * @param config
-         * @return
+         * @return HashMap<Char, List<Long>> Value of the map is readable only.
          * @author Ace Yan
          * @github githubyss
          */

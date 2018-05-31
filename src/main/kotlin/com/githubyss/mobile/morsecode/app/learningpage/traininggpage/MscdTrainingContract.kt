@@ -1,21 +1,21 @@
-package com.githubyss.mobile.morsecode.app.homepage
+package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
 import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
 import com.githubyss.mobile.common.kit.base.ComkitIBaseView
 
 /**
- * MscdHomepageContract.kt
+ * MscdTrainingContract.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-interface MscdHomepageContract {
+interface MscdTrainingContract {
     interface IView : ComkitIBaseView<IPresenter> {
+
     }
 
     interface IPresenter : ComkitIBasePresenter {
-        fun onActivityResult(requestCode: Int, resultCode: Int)
     }
 }

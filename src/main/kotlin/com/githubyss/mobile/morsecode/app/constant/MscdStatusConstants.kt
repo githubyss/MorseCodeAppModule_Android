@@ -14,8 +14,8 @@ object MscdStatusConstants {
         val FLASHLIGHT_ON = "on"
         val FLASHLIGHT_OFF = "off"
 
-        val SPEAKER_ON = "on"
-        val SPEAKER_OFF = "off"
+        val AUDIO_ON = "on"
+        val AUDIO_OFF = "off"
 
         val VIBRATION_ON = "on"
         val VIBRATION_OFF = "off"

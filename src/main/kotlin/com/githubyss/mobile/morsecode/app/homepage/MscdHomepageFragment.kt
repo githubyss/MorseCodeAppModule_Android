@@ -1,20 +1,16 @@
 package com.githubyss.mobile.morsecode.app.homepage
 
 import android.content.Intent
-import android.media.AudioFormat
-import android.media.AudioManager
-import android.media.AudioTrack
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
 import kotlinx.android.synthetic.main.mscd_fragment_homepage.*
 
 /**
@@ -28,7 +24,7 @@ import kotlinx.android.synthetic.main.mscd_fragment_homepage.*
 @Route(path = "/morsecode/app/homepage/MscdHomepageFragment")
 class MscdHomepageFragment : ComkitBaseFragment() {
     companion object {
-        val TAG = "/morsecode/app/homepage/MscdHomepageFragment"
+        val TAG = "MscdHomepageFragment"
     }
 
     private lateinit var rootView: View
@@ -36,13 +32,7 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     private lateinit var mscdHomepageIPresenter: MscdHomepageContract.IPresenter
     private var mscdHomepageIView = object : MscdHomepageContract.IView {
         override fun setPresenter(iPresenter: MscdHomepageContract.IPresenter) {
-            mscdHomepageIPresenter = iPresenter
-        }
-
-        override fun gotoTranslatorPage() {
-        }
-
-        override fun gotoLearningPage() {
+            this@MscdHomepageFragment.mscdHomepageIPresenter = iPresenter
         }
     }
 
@@ -50,56 +40,14 @@ class MscdHomepageFragment : ComkitBaseFragment() {
         val id = v.id
         when (id) {
             R.id.btnMorseCodeTranslator -> {
-                logcatMessageDelayPatternArray("AB AB")
+//                ARouter.getInstance().build("/morsecode/app/translatorpage/MscdTranslatorActivity").navigation()
             }
 
             R.id.btnMorseCodeLearning -> {
-                initMorseCodeConverterConfig(100L)
+                ARouter.getInstance().build("/morsecode/app/learningpage/MscdLearningActivity").navigation()
             }
 
-            R.id.btnBuildAudioConfig -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Before create().")
-
-                MscdAudioConfig.Builder
-                        .setAudioFrequencyInHz(880)
-                        .setAudioSampleRateInHz(44100)
-                        .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
-                        .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
-                        .setAudioStreamType(AudioManager.STREAM_MUSIC)
-                        .setAudioPlayMode(AudioTrack.MODE_STREAM)
-                        .create()
-
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "After create().")
-            }
-
-            R.id.btnStartPlayAudio -> {
-                MscdAudioPlayer.instance.startAudioPlayAsyncTask("MORSE  CODE")
-            }
-
-            R.id.btnStopAllPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayAsyncTask()
-                MscdAudioPlayer.instance.stopAllPlayAudio()
-            }
-
-            R.id.btnStopCurrentPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayAsyncTask()
-                MscdAudioPlayer.instance.stopCurrentPlayAudio()
-            }
-
-            R.id.btnPausePlayAudio -> {
-                MscdAudioPlayer.instance.pausePlayAudio()
-            }
-
-            R.id.btnResumePlayAudio -> {
-                MscdAudioPlayer.instance.resumePlayAudio()
-            }
-
-            R.id.btnReleaseAudioTrack -> {
-                MscdAudioPlayer.instance.releaseAudioTrack()
-            }
-
-            R.id.btnLogcatAudioTrackState -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Manual logcat.")
+            else -> {
             }
         }
     }
@@ -112,14 +60,6 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     override fun initView() {
         btnMorseCodeTranslator.setOnClickListener(this@MscdHomepageFragment.onClickListener)
         btnMorseCodeLearning.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnBuildAudioConfig.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnReleaseAudioTrack.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnStartPlayAudio.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnStopAllPlayAudio.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnStopCurrentPlayAudio.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnPausePlayAudio.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnResumePlayAudio.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnLogcatAudioTrackState.setOnClickListener(this@MscdHomepageFragment.onClickListener)
     }
 
     private fun logcatMessageDelayPatternArray(message: String) {

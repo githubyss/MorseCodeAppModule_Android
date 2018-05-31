@@ -2,12 +2,12 @@ package com.githubyss.mobile.morsecode.app.homepage
 
 import android.app.Fragment
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.githubyss.mobile.common.kit.base.ComkitBaseActivity
+import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.R
+import com.githubyss.mobile.morsecode.app.base.MscdBaseActivity
 
 /**
  * MscdHomepageActivity.kt
@@ -18,37 +18,28 @@ import com.githubyss.mobile.morsecode.app.R
  * @github githubyss
  */
 @Route(path = "/morsecode/app/homepage/MscdHomepageActivity")
-class MscdHomepageActivity : ComkitBaseActivity() {
+class MscdHomepageActivity : MscdBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val fragment = ARouter.getInstance().build("/morsecode/app/homepage/MscdHomepageFragment").navigation() as Fragment
-        addFragment(fragment, "/morsecode/app/homepage/MscdHomepageFragment", false)
+        addFragment(fragment, "MscdHomepageFragment", false)
     }
 
     override fun onResume() {
         super.onResume()
 
         setToolbarTitle(R.string.mscdHomepageTitle)
-        setToolbarNavigationIcon(R.drawable.mscd_ic_arrow_back_white)
-    }
+        setToolbarOnLongClickListener(
+                object : OnComkitBaseToolbarLongClickListener {
+                    override fun onLongClick(v: View): Boolean {
+                        val fragment = ARouter.getInstance().build("/morsecode/app/homepage/demo/MscdHomepageDemoFragment").navigation() as Fragment
+                        replaceFragment(fragment, "MscdHomepageDemoFragment", true)
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mscd_menu_play_mode, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.actionFlashlight -> {
-            }
-
-            R.id.actionAudio -> {
-            }
-
-            R.id.actionVibrator -> {
-            }
-        }
-        return true
+                        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> onLongClick() >>> ")
+                        return true
+                    }
+                }
+        )
     }
 }
