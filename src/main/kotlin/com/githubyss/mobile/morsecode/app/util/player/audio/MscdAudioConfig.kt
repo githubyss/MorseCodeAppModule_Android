@@ -23,16 +23,31 @@ class MscdAudioConfig {
 
 
     var audioFrequencyInHz = 1000
+        private set
+
     var audioSampleRateInHz = 44100
+        private set
+
     var audioChannelFormat = AudioFormat.CHANNEL_OUT_MONO
+        private set
+
     var audioEncodingPcmFormat = AudioFormat.ENCODING_PCM_16BIT
+        private set
+
     var audioMinBufferSize = AudioTrack.getMinBufferSize(audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat)
+        private set
 
     var audioStreamType = AudioManager.STREAM_MUSIC
+        private set
+
     var audioPlayMode = AudioTrack.MODE_STREAM
+        private set
+
     var audioTrack = AudioTrack(audioStreamType, audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioPlayMode)
+        private set
 
     var beBuilt = false
+        private set
 
 
     object Builder {
@@ -50,7 +65,7 @@ class MscdAudioConfig {
                 frequency = 1000
             }
 
-            Builder.audioFrequencyInHz = frequency
+            this@Builder.audioFrequencyInHz = frequency
             return this@Builder
         }
 
@@ -60,46 +75,46 @@ class MscdAudioConfig {
                 sampleRate = 44100
             }
 
-            Builder.audioSampleRateInHz = sampleRate
+            this@Builder.audioSampleRateInHz = sampleRate
             return this@Builder
         }
 
         fun setAudioChannelFormat(audioChannelFormat: Int): Builder {
-            Builder.audioChannelFormat = audioChannelFormat
+            this@Builder.audioChannelFormat = audioChannelFormat
             return this@Builder
         }
 
         fun setAudioEncodingPcmFormat(audioEncodingPcmFormat: Int): Builder {
-            Builder.audioEncodingPcmFormat = audioEncodingPcmFormat
+            this@Builder.audioEncodingPcmFormat = audioEncodingPcmFormat
             return this@Builder
         }
 
         fun setAudioStreamType(audioStreamType: Int): Builder {
-            Builder.audioStreamType = audioStreamType
+            this@Builder.audioStreamType = audioStreamType
             return this@Builder
         }
 
         fun setAudioPlayMode(audioPlayMode: Int): Builder {
-            Builder.audioPlayMode = audioPlayMode
+            this@Builder.audioPlayMode = audioPlayMode
             return this@Builder
         }
 
         fun create(): MscdAudioConfig {
-            applyConfig(instance)
+            this@Builder.applyConfig(instance)
 
             return instance
         }
 
         private fun applyConfig(config: MscdAudioConfig) {
-            config.audioFrequencyInHz = audioFrequencyInHz
-            config.audioSampleRateInHz = audioSampleRateInHz
-            config.audioChannelFormat = audioChannelFormat
-            config.audioEncodingPcmFormat = audioEncodingPcmFormat
+            config.audioFrequencyInHz = this@Builder.audioFrequencyInHz
+            config.audioSampleRateInHz = this@Builder.audioSampleRateInHz
+            config.audioChannelFormat = this@Builder.audioChannelFormat
+            config.audioEncodingPcmFormat = this@Builder.audioEncodingPcmFormat
 
-            config.audioMinBufferSize = buildMinBufferSize(config)
+            config.audioMinBufferSize = this@Builder.buildMinBufferSize(config)
 
-            config.audioStreamType = audioStreamType
-            config.audioPlayMode = audioPlayMode
+            config.audioStreamType = this@Builder.audioStreamType
+            config.audioPlayMode = this@Builder.audioPlayMode
 
             /**
              * You must release the old instance of AudioTrack before build a new one to prevent the error as follow:
@@ -117,7 +132,7 @@ class MscdAudioConfig {
             config.audioTrack.release()
 
             /** It will build a brand new instance of AudioTrack when you are building a new MscdAudioConfig. by Ace Yan */
-            config.audioTrack = buildAudioTrack(config)
+            config.audioTrack = this@Builder.buildAudioTrack(config)
 
             config.beBuilt = true
         }

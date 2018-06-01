@@ -2,6 +2,8 @@ package com.githubyss.mobile.morsecode.app.learningpage.charselectingpage
 
 import android.widget.CheckBox
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringStrategy
 
 /**
  * MscdCharsSelectingPresenter.kt
@@ -24,7 +26,9 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                 return
             }
 
-
+            MscdRandomStringGenerator.instance.mscdRandomStringStrategy = MscdRegularRandomStringStrategy()
+//            MscdRandomStringGenerator.instance.mscdRandomStringStrategy = MscdRulelessRandomStringStrategy()
+            var randomMessage = MscdRandomStringGenerator.instance.buildRandomString(selectedCharList, 20, 7)
         }
     }
 
@@ -43,7 +47,7 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                 .filter { it.isChecked }
                 .mapTo(selectedCharList) { it.text.toString() }
 
-        ComkitLogcatUtils.`object`(chkBtnList)
+        ComkitLogcatUtils.`object`(selectedCharList)
 
         return selectedCharList
     }

@@ -24,23 +24,39 @@ class MscdMorseCodeConverterConfig private constructor() {
 
     /** Basic delay to be used to init ditdah delay, gap delay and other delays to build char delay patterns, units is (ms). by Ace Yan */
     private var baseDelay = 50L
+
     var ditDelay = baseDelay
+        private set
+
     var dahDelay = baseDelay * 3
+        private set
+
     var ditDahGapDelay = baseDelay
+        private set
+
     var charGapDelay = baseDelay * 3
+        private set
+
     var wordGapDelay = baseDelay * 7
+        private set
+
     var startDelay = baseDelay * 10
+        private set
 
     /** Char-ditdahString map. by Ace Yan */
     var char2DitdahStringMap = HashMap<Char, String>()
+        private set
 
     /** Char-delayPatternArray map. by Ace Yan */
     var char2DelayPatternArrayMap = HashMap<Char, Array<Long>>()
+        private set
 
     /** Char-delayPatternList map. by Ace Yan */
     var char2DelayPatternListMap = HashMap<Char, List<Long>>()
+        private set
 
     var beBuilt = false
+        private set
 
 
     object Builder {
