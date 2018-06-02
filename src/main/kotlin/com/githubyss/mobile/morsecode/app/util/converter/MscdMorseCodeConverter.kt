@@ -7,6 +7,8 @@ import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
  * <Description>
  * <Details>
  *
+ * @designPatterns Singleton, Builder
+ *
  * @author Ace Yan
  * @github githubyss
  */
@@ -20,7 +22,12 @@ class MscdMorseCodeConverter {
     }
 
 
-    private val config = MscdMorseCodeConverterConfig.instance
+    /** To decide whether call create() to build the config by default variate value in itself when it was not built by user by judging the boolean value hasBuilt when getting instance of MscdMorseCodeConverterConfig. by Ace Yan */
+    private val config =
+            if (!MscdMorseCodeConverterConfig.instance.hasBuilt)
+                MscdMorseCodeConverterConfig.Builder.create()
+            else
+                MscdMorseCodeConverterConfig.instance
 
 
     /**

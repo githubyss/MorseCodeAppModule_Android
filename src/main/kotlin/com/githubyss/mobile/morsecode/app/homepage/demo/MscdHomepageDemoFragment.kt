@@ -61,7 +61,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
                         .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
                         .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
                         .setAudioStreamType(AudioManager.STREAM_MUSIC)
-                        .setAudioPlayMode(AudioTrack.MODE_STREAM)
+                        .setAudioTrackMode(AudioTrack.MODE_STREAM)
                         .create()
 
                 MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "After create().")
@@ -97,6 +97,17 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
                 MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Manual logcat.")
             }
 
+            R.id.btnInitMorseCodeConverterConfig -> {
+                MscdMorseCodeConverterConfig.Builder
+                        .setBaseDelay(100)
+                        .create()
+            }
+
+            R.id.btnLogcatMessageDelayPatternArray -> {
+                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray("MORSE  CODE")
+                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
+            }
+
             else -> {
             }
         }
@@ -118,17 +129,8 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
         btnPausePlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
         btnResumePlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
         btnLogcatAudioTrackState.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-    }
-
-    private fun logcatMessageDelayPatternArray(message: String) {
-        MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray(message)
-        MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
-    }
-
-    private fun initMorseCodeConverterConfig(delay: Long) {
-        MscdMorseCodeConverterConfig.Builder
-                .setBaseDelay(delay)
-                .create()
+        btnInitMorseCodeConverterConfig.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
+        btnLogcatMessageDelayPatternArray.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
     }
 
 

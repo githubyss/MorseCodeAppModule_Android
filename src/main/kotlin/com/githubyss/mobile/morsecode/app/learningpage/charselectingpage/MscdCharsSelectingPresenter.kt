@@ -3,7 +3,8 @@ package com.githubyss.mobile.morsecode.app.learningpage.charselectingpage
 import android.widget.CheckBox
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringStrategy
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGeneratorConfig
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringStrategy
 
 /**
  * MscdCharsSelectingPresenter.kt
@@ -26,8 +27,8 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                 return
             }
 
-            MscdRandomStringGenerator.instance.mscdRandomStringStrategy = MscdRegularRandomStringStrategy()
-//            MscdRandomStringGenerator.instance.mscdRandomStringStrategy = MscdRulelessRandomStringStrategy()
+//            MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringStrategy()).create()
+            MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringStrategy()).create()
             var randomMessage = MscdRandomStringGenerator.instance.buildRandomString(selectedCharList, 20, 7)
         }
     }

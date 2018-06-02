@@ -105,6 +105,22 @@
                         android:layout_height="wrap_content"
                         android:text="Logcat Audio Track State"
                         />
+
+                <Button
+                        android:id="@+id/btnInitMorseCodeConverterConfig"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Init Morse Code Converter Config"
+                        />
+
+                <Button
+                        android:id="@+id/btnLogcatMessageDelayPatternArray"
+                        style="@style/comkitCommonBtnDefaultStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logcat Message Delay Pattern Array"
+                        />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

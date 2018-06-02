@@ -8,6 +8,8 @@ import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
  * <Description>
  * <Details>
  *
+ * @designPatterns Singleton, Builder
+ *
  * @author Ace Yan
  * @github githubyss
  */
@@ -55,7 +57,7 @@ class MscdMorseCodeConverterConfig private constructor() {
     var char2DelayPatternListMap = HashMap<Char, List<Long>>()
         private set
 
-    var beBuilt = false
+    var hasBuilt = false
         private set
 
 
@@ -74,7 +76,6 @@ class MscdMorseCodeConverterConfig private constructor() {
 
         fun create(): MscdMorseCodeConverterConfig {
             this@Builder.applyConfig(instance)
-
             return instance
         }
 
@@ -93,7 +94,7 @@ class MscdMorseCodeConverterConfig private constructor() {
             config.char2DelayPatternArrayMap = this@Builder.buildChar2DelayPatternArrayMap(config)
             config.char2DelayPatternListMap = this@Builder.buildChar2DelayPatternListMap(config)
 
-            config.beBuilt = true
+            config.hasBuilt = true
         }
 
         /**

@@ -5,7 +5,7 @@ package com.githubyss.mobile.morsecode.app.util.randommessage
  * <Description>
  * <Details>
  *
- * @designPatterns Singleton, Strategy
+ * @designPatterns Singleton, Builder, Strategy
  *
  * @author Ace Yan
  * @github githubyss
@@ -19,9 +19,20 @@ class MscdRandomStringGenerator {
         val INSTANCE = MscdRandomStringGenerator()
     }
 
-    lateinit var mscdRandomStringStrategy: MscdRandomStringStrategy
+
+    /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
+    private val config =
+            if (!MscdRandomStringGeneratorConfig.instance.hasBuilt)
+                MscdRandomStringGeneratorConfig.Builder.create()
+            else
+                MscdRandomStringGeneratorConfig.instance
+
 
     fun buildRandomString(selectedCharList: List<String>, targetedStringLength: Long, count: Int): String {
-        return mscdRandomStringStrategy.buildRandomString(selectedCharList, targetedStringLength, count)
+        if (!this@MscdRandomStringGenerator.config.hasBuilt) {
+            MscdRandomStringGeneratorConfig.Builder.create()
+        }
+
+        return this@MscdRandomStringGenerator.config.mscdRandomStringStrategy.buildRandomString(selectedCharList, targetedStringLength, count)
     }
 }

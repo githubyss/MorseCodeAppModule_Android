@@ -9,8 +9,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.morsecode.app.R
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 import kotlinx.android.synthetic.main.mscd_fragment_homepage.*
 
 /**
@@ -60,17 +58,6 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     override fun initView() {
         btnMorseCodeTranslator.setOnClickListener(this@MscdHomepageFragment.onClickListener)
         btnMorseCodeLearning.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-    }
-
-    private fun logcatMessageDelayPatternArray(message: String) {
-        MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray(message)
-        MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
-    }
-
-    private fun initMorseCodeConverterConfig(delay: Long) {
-        MscdMorseCodeConverterConfig.Builder
-                .setBaseDelay(delay)
-                .create()
     }
 
 

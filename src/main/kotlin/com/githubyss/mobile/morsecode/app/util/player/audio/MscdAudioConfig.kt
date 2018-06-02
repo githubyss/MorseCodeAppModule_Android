@@ -9,6 +9,8 @@ import android.media.AudioTrack
  * <Description>
  * <Details>
  *
+ * @designPatterns Singleton, Builder
+ *
  * @author Ace Yan
  * @github githubyss
  */
@@ -40,13 +42,13 @@ class MscdAudioConfig {
     var audioStreamType = AudioManager.STREAM_MUSIC
         private set
 
-    var audioPlayMode = AudioTrack.MODE_STREAM
+    var audioTrackMode = AudioTrack.MODE_STREAM
         private set
 
-    var audioTrack = AudioTrack(audioStreamType, audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioPlayMode)
+    var audioTrack = AudioTrack(audioStreamType, audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioTrackMode)
         private set
 
-    var beBuilt = false
+    var hasBuilt = false
         private set
 
 
@@ -57,7 +59,7 @@ class MscdAudioConfig {
         private var audioEncodingPcmFormat = AudioFormat.ENCODING_PCM_16BIT
 
         private var audioStreamType = AudioManager.STREAM_MUSIC
-        private var audioPlayMode = AudioTrack.MODE_STREAM
+        private var audioTrackMode = AudioTrack.MODE_STREAM
 
         fun setAudioFrequencyInHz(audioFrequencyInHz: Int): Builder {
             var frequency = audioFrequencyInHz
@@ -94,14 +96,13 @@ class MscdAudioConfig {
             return this@Builder
         }
 
-        fun setAudioPlayMode(audioPlayMode: Int): Builder {
-            this@Builder.audioPlayMode = audioPlayMode
+        fun setAudioTrackMode(audioTrackMode: Int): Builder {
+            this@Builder.audioTrackMode = audioTrackMode
             return this@Builder
         }
 
         fun create(): MscdAudioConfig {
             this@Builder.applyConfig(instance)
-
             return instance
         }
 
@@ -114,7 +115,7 @@ class MscdAudioConfig {
             config.audioMinBufferSize = this@Builder.buildMinBufferSize(config)
 
             config.audioStreamType = this@Builder.audioStreamType
-            config.audioPlayMode = this@Builder.audioPlayMode
+            config.audioTrackMode = this@Builder.audioTrackMode
 
             /**
              * You must release the old instance of AudioTrack before build a new one to prevent the error as follow:
@@ -134,7 +135,7 @@ class MscdAudioConfig {
             /** It will build a brand new instance of AudioTrack when you are building a new MscdAudioConfig. by Ace Yan */
             config.audioTrack = this@Builder.buildAudioTrack(config)
 
-            config.beBuilt = true
+            config.hasBuilt = true
         }
 
         private fun buildMinBufferSize(config: MscdAudioConfig): Int {
@@ -151,7 +152,7 @@ class MscdAudioConfig {
             val audioEncodingPcmFormat = config.audioEncodingPcmFormat
 
             val audioStreamType = config.audioStreamType
-            val audioPlayMode = config.audioPlayMode
+            val audioPlayMode = config.audioTrackMode
 
             val audioMinBufferSize = config.audioMinBufferSize
 

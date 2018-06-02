@@ -2,12 +2,13 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
 
 import android.media.AudioFormat
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 
 /**
  * MscdAudioDataGenerator.kt
  * <Description>
  * <Details>
+ *
+ * @designPatterns Singleton, Builder
  *
  * @author Ace Yan
  * @github githubyss
@@ -22,7 +23,12 @@ class MscdAudioDataGenerator {
     }
 
 
-    private val config = MscdAudioConfig.instance
+    /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
+    private val config =
+            if (!MscdAudioConfig.instance.hasBuilt)
+                MscdAudioConfig.Builder.create()
+            else
+                MscdAudioConfig.instance
 
 
     fun buildSineWaveAudioDataArray(audioDurationInMs: Long): Array<Double> {
@@ -127,10 +133,6 @@ class MscdAudioDataGenerator {
     }
 
     fun buildSineWaveAudioDataArray(message: String): Array<Double> {
-        /** Init MscdMorseCodeConverterConfig by default data in itself when it was not built. by Ace Yan */
-        if (!MscdMorseCodeConverterConfig.instance.beBuilt) {
-            MscdMorseCodeConverterConfig.Builder.create()
-        }
         return buildSineWaveAudioDataArray(MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray(message))
     }
 

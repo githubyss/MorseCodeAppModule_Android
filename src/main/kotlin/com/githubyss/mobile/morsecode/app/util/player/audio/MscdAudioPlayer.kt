@@ -11,6 +11,8 @@ import com.githubyss.mobile.common.kit.util.ComkitTypeCastUtils
  * <Description>
  * <Details>
  *
+ * @designPatterns Singleton, Builder
+ *
  * @author Ace Yan
  * @github githubyss
  */
@@ -24,7 +26,13 @@ class MscdAudioPlayer {
     }
 
 
-    private val config = MscdAudioConfig.instance
+    /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
+    private val config =
+            if (!MscdAudioConfig.instance.hasBuilt)
+                MscdAudioConfig.Builder.create()
+            else
+                MscdAudioConfig.instance
+
     private var audioPlayAsyncTask: AudioPlayAsyncTask? = null
 
 
@@ -69,7 +77,7 @@ class MscdAudioPlayer {
 
 
     fun startAudioPlayAsyncTask(audioData: Array<Double>) {
-        if (!MscdAudioConfig.instance.beBuilt) {
+        if (!MscdAudioConfig.instance.hasBuilt) {
             MscdAudioConfig.Builder.create()
         }
         this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
@@ -78,7 +86,7 @@ class MscdAudioPlayer {
 
     fun startAudioPlayAsyncTask(audioDurationInMs: Long) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(audioDurationInMs)
-        if (!MscdAudioConfig.instance.beBuilt) {
+        if (!MscdAudioConfig.instance.hasBuilt) {
             MscdAudioConfig.Builder.create()
         }
         this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
@@ -87,7 +95,7 @@ class MscdAudioPlayer {
 
     fun startAudioPlayAsyncTask(delayPatternArray: Array<Long>) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(delayPatternArray)
-        if (!MscdAudioConfig.instance.beBuilt) {
+        if (!MscdAudioConfig.instance.hasBuilt) {
             MscdAudioConfig.Builder.create()
         }
         this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
@@ -96,7 +104,7 @@ class MscdAudioPlayer {
 
     fun startAudioPlayAsyncTask(message: String) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(message)
-        if (!MscdAudioConfig.instance.beBuilt) {
+        if (!MscdAudioConfig.instance.hasBuilt) {
             MscdAudioConfig.Builder.create()
         }
         this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
