@@ -11,5 +11,9 @@ package com.githubyss.mobile.morsecode.app.util.randommessage
  * @github githubyss
  */
 interface MscdRandomStringStrategy {
-    fun buildRandomString(charList: List<String>, size: Long, count: Int): String
+    companion object {
+        var hasCancelled = false
+    }
+
+    fun buildRandomString(charList: List<String>, stringLength: Long, wordSize: Int): String
 }

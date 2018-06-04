@@ -20,12 +20,14 @@
                 android:name=".homepage.MscdHomepageActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/comkitAppTheme"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
                 />
 
         <activity
                 android:name=".learningpage.MscdLearningActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/comkitAppTheme"
+                android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
                 />
     </application>
 </manifest>

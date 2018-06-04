@@ -1,5 +1,6 @@
 package com.githubyss.mobile.morsecode.app.learningpage.charselectingpage
 
+import android.os.Bundle
 import android.widget.CheckBox
 import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
 import com.githubyss.mobile.common.kit.base.ComkitIBaseView
@@ -14,10 +15,12 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  */
 interface MscdCharsSelectingContract {
     interface IView : ComkitIBaseView<IPresenter> {
-        fun gotoTrainingPage()
+        fun showHint(hint: String)
+        fun onRandomTrainingMessageBuilt(message: String)
+        fun gotoTrainingPage(bundle: Bundle)
     }
 
     interface IPresenter : ComkitIBasePresenter {
-        fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>)
+        fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String)
     }
 }

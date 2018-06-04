@@ -14,7 +14,7 @@ import android.media.AudioTrack
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioConfig {
+class MscdAudioConfig private constructor(){
     companion object {
         var instance = Holder.INSTANCE
     }

@@ -68,16 +68,16 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnStartPlayAudio -> {
-                MscdAudioPlayer.instance.startAudioPlayAsyncTask("MORSE  CODE")
+                MscdAudioPlayer.instance.startAudioPlayerAsyncTask("MORSE  CODE")
             }
 
             R.id.btnStopAllPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayAsyncTask()
+//                MscdAudioPlayer.instance.cancelAudioPlayerAsyncTask()
                 MscdAudioPlayer.instance.stopAllPlayAudio()
             }
 
             R.id.btnStopCurrentPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayAsyncTask()
+//                MscdAudioPlayer.instance.cancelAudioPlayerAsyncTask()
                 MscdAudioPlayer.instance.stopCurrentPlayAudio()
             }
 
@@ -142,7 +142,8 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater?.inflate(R.layout.mscd_fragment_homepage_demo, container, false) ?: this@MscdHomepageDemoFragment.rootView
+        this@MscdHomepageDemoFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_homepage_demo, container, false) ?: this@MscdHomepageDemoFragment.rootView
+        return this@MscdHomepageDemoFragment.rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

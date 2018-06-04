@@ -13,7 +13,7 @@ import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioDataGenerator {
+class MscdAudioDataGenerator private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }

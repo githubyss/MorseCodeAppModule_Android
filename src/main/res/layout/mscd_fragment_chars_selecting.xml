@@ -8,15 +8,15 @@
 
     <ScrollView
             style="@style/comkitBothMatchParentStyle"
-            android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-            android:layout_marginRight="@dimen/comkitSideMarginDefault"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
         <LinearLayout
                 android:id="@+id/llSvContent"
-                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                style="@style/comkitBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
+                android:layout_marginRight="@dimen/comkitSideMarginDefault"
                 android:orientation="vertical"
                 >
 
@@ -346,6 +346,115 @@
                     android:orientation="vertical"
                     >
 
+                <LinearLayout
+                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        android:orientation="horizontal"
+                        >
+
+                    <TextView
+                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            android:paddingRight="0dp"
+                            android:text="@string/mscdCharSelectingConfigMsgLength"
+                            />
+
+                    <EditText
+                            android:id="@+id/etMessageLength"
+                            style="@style/mscdCharSelectingConfigInputStyle"
+                            android:maxLength="10"
+                            android:text="@string/mscdCharSelectingConfigMsgLengthDefault"
+                            />
+
+                    <TextView
+                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            android:paddingLeft="0dp"
+                            android:paddingRight="0dp"
+                            android:text="@string/mscdCharSelectingConfigMsgLengthUnits"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        android:orientation="horizontal"
+                        >
+
+                    <TextView
+                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            android:paddingRight="0dp"
+                            android:text="@string/mscdCharSelectingConfigWordSize"
+                            />
+
+                    <EditText
+                            android:id="@+id/etWordSize"
+                            style="@style/mscdCharSelectingConfigInputStyle"
+                            android:maxLength="2"
+                            android:text="@string/mscdCharSelectingConfigWordSizeDefault"
+                            />
+
+                    <TextView
+                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            android:paddingLeft="0dp"
+                            android:paddingRight="0dp"
+                            android:text="@string/mscdCharSelectingConfigWordSizeUnits"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        android:orientation="vertical"
+                        >
+
+                    <LinearLayout
+                            style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                            android:orientation="horizontal"
+                            >
+
+                        <TextView
+                                style="@style/mscdCharSelectingConfigLabelStyle"
+                                android:paddingRight="0dp"
+                                android:text="@string/mscdCharSelectingConfigKeySpeed"
+                                />
+
+                        <EditText
+                                android:id="@+id/etKeySpeed"
+                                style="@style/mscdCharSelectingConfigInputStyle"
+                                android:maxLength="2"
+                                android:text="@string/mscdCharSelectingConfigKeySpeedDefault"
+                                />
+
+                        <TextView
+                                style="@style/mscdCharSelectingConfigLabelStyle"
+                                android:paddingLeft="0dp"
+                                android:paddingRight="0dp"
+                                android:text="@string/mscdCharSelectingConfigKeySpeedUnits"
+                                />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                            android:orientation="horizontal"
+                            >
+
+                        <TextView
+                                style="@style/mscdCharSelectingConfigLabelStyle"
+                                android:paddingRight="0dp"
+                                android:text="@string/mscdCharSelectingConfigDitDuration"
+                                />
+
+                        <EditText
+                                android:id="@+id/etDitDuration"
+                                style="@style/mscdCharSelectingConfigInputStyle"
+                                android:maxLength="2"
+                                android:text="@string/mscdCharSelectingConfigDitDurationDefault"
+                                />
+
+                        <TextView
+                                style="@style/mscdCharSelectingConfigLabelStyle"
+                                android:paddingLeft="0dp"
+                                android:paddingRight="0dp"
+                                android:text="@string/mscdCharSelectingConfigDitDurationUnits"
+                                />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

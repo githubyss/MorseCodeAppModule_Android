@@ -69,7 +69,8 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater?.inflate(R.layout.mscd_fragment_homepage, container, false) ?: this@MscdHomepageFragment.rootView
+        this@MscdHomepageFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_homepage, container, false) ?: this@MscdHomepageFragment.rootView
+        return this@MscdHomepageFragment.rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

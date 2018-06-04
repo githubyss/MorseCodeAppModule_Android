@@ -16,19 +16,35 @@
 
     <string name="mscdCharSelectingTitle">Char Selecting</string>
     <string name="mscdCharSelectingRecommendedSequence">Recommended training sequence:</string>
-    <string name="mscdCharSelectingMsgLength">Message length</string>
-    <string name="mscdCharSelectingMsgLengthUnits">(w)</string>
-    <string name="mscdCharSelectingMsgLengthDefault">10</string>
-    <string name="mscdCharSelectingKeySpeed">Key speed</string>
-    <string name="mscdCharSelectingKeySpeedUnits">(wpm)</string>
-    <string name="mscdCharSelectingKeySpeedDefault">26</string>
-    <string name="mscdCharSelectingDitDuration">Dit duration</string>
-    <string name="mscdCharSelectingDitDurationUnits">(ms)</string>
-    <string name="mscdCharSelectingDitDurationDefault">50</string>
-    <string name="mscdCharSelectingTransmitted">Transmitted messages.</string>
-    <string name="mscdCharSelectingRecoded">Recoded messages.</string>
+    <string name="mscdCharSelectingHintAtLeastOneChar">Please select one char at least.</string>
+    <string name="mscdCharSelectingHintBuildingSucceeded">Random string building succeeded.</string>
+    <string name="mscdCharSelectingHintBuildingFailed">Random string building failed.</string>
+    <string name="mscdCharSelectingHintBuildingCancelled">Random string building cancelled.</string>
+    <string name="mscdCharSelectingHintBuildingFailingInfo">Failing Info:</string>
+    <string name="mscdCharSelectingConfigMsgLength">Message length</string>
+    <string name="mscdCharSelectingConfigMsgLengthUnits">(char ex. spacing)</string>
+    <string name="mscdCharSelectingConfigMsgLengthDefault">12345678</string>
+    <string name="mscdCharSelectingConfigMsgLengthHintCorrect">You should input a correct message length in positive integer.</string>
+    <string name="mscdCharSelectingConfigMsgLengthHintNotZero">The message length should not be zero.</string>
+    <string name="mscdCharSelectingConfigWordSize">Maximal word size</string>
+    <string name="mscdCharSelectingConfigWordSizeUnits">(char)</string>
+    <string name="mscdCharSelectingConfigWordSizeDefault">5</string>
+    <string name="mscdCharSelectingConfigWordSizeHintCorrect">You should input a correct word size in positive integer.</string>
+    <string name="mscdCharSelectingConfigWordSizeHintNotZero">The word size should not be zero.</string>
+    <string name="mscdCharSelectingConfigKeySpeed">Key speed</string>
+    <string name="mscdCharSelectingConfigKeySpeedUnits">(wpm)</string>
+    <string name="mscdCharSelectingConfigKeySpeedDefault">26</string>
+    <string name="mscdCharSelectingConfigKeySpeedHintCorrect">You should input a correct key speed in positive integer.</string>
+    <string name="mscdCharSelectingConfigKeySpeedHintNotZero">The key speed should not be zero.</string>
+    <string name="mscdCharSelectingConfigDitDuration">Dit duration</string>
+    <string name="mscdCharSelectingConfigDitDurationUnits">(ms)</string>
+    <string name="mscdCharSelectingConfigDitDurationDefault">50</string>
+    <string name="mscdCharSelectingConfigDitDurationHintCorrect">You should input a correct dit duration in positive integer.</string>
+    <string name="mscdCharSelectingConfigDitDurationHintNotZero">The dit duration should not be zero.</string>
 
     <string name="mscdTrainingTitle">Training</string>
+    <string name="mscdTrainingTransmitted">Transmitted messages.</string>
+    <string name="mscdTrainingRecoded">Recoded messages.</string>
 
     <string name="mscdCharAlphabetA">A</string>
     <string name="mscdCharAlphabetB">B</string>

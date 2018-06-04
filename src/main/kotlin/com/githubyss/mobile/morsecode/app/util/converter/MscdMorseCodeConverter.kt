@@ -12,7 +12,7 @@ import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
  * @author Ace Yan
  * @github githubyss
  */
-class MscdMorseCodeConverter {
+class MscdMorseCodeConverter private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }

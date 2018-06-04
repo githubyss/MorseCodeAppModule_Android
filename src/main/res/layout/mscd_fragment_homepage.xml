@@ -8,15 +8,15 @@
 
     <ScrollView
             style="@style/comkitBothMatchParentStyle"
-            android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-            android:layout_marginRight="@dimen/comkitSideMarginDefault"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
         <LinearLayout
                 android:id="@+id/llSvContent"
-                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                style="@style/comkitBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
+                android:layout_marginRight="@dimen/comkitSideMarginDefault"
                 android:orientation="vertical"
                 >
 

@@ -8,14 +8,45 @@
         >
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-            android:layout_marginRight="@dimen/comkitSideMarginDefault"
+            style="@style/comkitBothMatchParentStyle"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
+        <LinearLayout
+                android:id="@+id/llSvContent"
+                style="@style/comkitBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
+                android:layout_marginRight="@dimen/comkitSideMarginDefault"
+                android:orientation="vertical"
+                >
 
+            <LinearLayout
+                    android:id="@+id/llMorseCodeCopyDisplay"
+                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:visibility="invisible"
+                    >
+
+                <TextView
+                        style="@style/comkitBothMatchParentStyle"
+
+                        />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:id="@+id/llCharSelectingContainer"
+                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+            </LinearLayout>
+
+
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

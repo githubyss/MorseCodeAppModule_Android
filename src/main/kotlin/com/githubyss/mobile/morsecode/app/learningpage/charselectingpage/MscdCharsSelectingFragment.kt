@@ -10,7 +10,9 @@ import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
+import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.morsecode.app.R
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
 import kotlinx.android.synthetic.main.mscd_fragment_chars_selecting.*
 
 /**
@@ -36,7 +38,18 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
             this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter = iPresenter
         }
 
-        override fun gotoTrainingPage() {
+        override fun showHint(hint: String) {
+            changeBtnStatus(btnConfirm, true)
+            ComkitToastUtils.showMessage(msgStr = hint)
+//            Snackbar.make(this@MscdCharsSelectingFragment.rootView, hint, Snackbar.LENGTH_SHORT)
+//                    .show()
+        }
+
+        override fun onRandomTrainingMessageBuilt(message: String) {
+            changeBtnStatus(btnConfirm, true)
+        }
+
+        override fun gotoTrainingPage(bundle: Bundle) {
             val fragment = ARouter.getInstance().build("/morsecode/app/learningpage/traininggpage/MscdTrainingFragment").navigation() as Fragment
             replaceFragment(fragment, "MscdTrainingFragment", true)
         }
@@ -46,7 +59,8 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         val id = v.id
         when (id) {
             R.id.btnConfirm -> {
-                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList)
+                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString())
+                changeBtnStatus(btnConfirm, false)
             }
 
             else -> {
@@ -83,7 +97,8 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater?.inflate(R.layout.mscd_fragment_chars_selecting, container, false) ?: this@MscdCharsSelectingFragment.rootView
+        this@MscdCharsSelectingFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_chars_selecting, container, false) ?: this@MscdCharsSelectingFragment.rootView
+        return this@MscdCharsSelectingFragment.rootView
     }
 
     override fun onResume() {
@@ -97,5 +112,11 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
 
         initView()
         initData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        MscdRandomStringGenerator.instance.cancelRandomStringGeneratorAsyncTask()
     }
 }

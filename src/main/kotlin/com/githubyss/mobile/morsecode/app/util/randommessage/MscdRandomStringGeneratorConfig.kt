@@ -10,7 +10,7 @@ package com.githubyss.mobile.morsecode.app.util.randommessage
  * @author Ace Yan
  * @github githubyss
  */
-class MscdRandomStringGeneratorConfig {
+class MscdRandomStringGeneratorConfig private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
@@ -20,7 +20,7 @@ class MscdRandomStringGeneratorConfig {
     }
 
 
-    var mscdRandomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
+    var randomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
         private set
 
     var hasBuilt = false
@@ -28,10 +28,10 @@ class MscdRandomStringGeneratorConfig {
 
 
     object Builder {
-        private var mscdRandomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
+        private var randomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
 
         fun setStrategy(strategy: MscdRandomStringStrategy): Builder {
-            this@Builder.mscdRandomStringStrategy = strategy
+            this@Builder.randomStringStrategy = strategy
             return this@Builder
         }
 
@@ -41,7 +41,7 @@ class MscdRandomStringGeneratorConfig {
         }
 
         private fun applyConfig(config: MscdRandomStringGeneratorConfig) {
-            config.mscdRandomStringStrategy = this@Builder.mscdRandomStringStrategy
+            config.randomStringStrategy = this@Builder.randomStringStrategy
 
             config.hasBuilt = true
         }

@@ -16,7 +16,7 @@ import com.githubyss.mobile.common.kit.util.ComkitTypeCastUtils
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioPlayer {
+class MscdAudioPlayer private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
@@ -33,13 +33,17 @@ class MscdAudioPlayer {
             else
                 MscdAudioConfig.instance
 
-    private var audioPlayAsyncTask: AudioPlayAsyncTask? = null
+    private var audioPlayerAsyncTask: AudioPlayerAsyncTask? = null
 
 
-    private inner class AudioPlayAsyncTask : AsyncTask<Array<Double>, Int, Boolean>() {
-        override fun onPreExecute() {
-        }
+    interface OnAudioPlayListener {
+        fun onFinished()
+        fun onStopped()
+        fun onPaused()
+        fun onCancelled()
+    }
 
+    private inner class AudioPlayerAsyncTask : AsyncTask<Array<Double>, Int, Boolean>() {
         override fun doInBackground(vararg params: Array<Double>?): Boolean {
             if (isCancelled) {
                 ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> doInBackground() >>> isCancelled")
@@ -49,15 +53,12 @@ class MscdAudioPlayer {
             logcatAudioTrackState("doInBackground", this@MscdAudioPlayer.config.audioTrack, "Execution started! Before startPlayAudio().")
 
             return try {
-                startPlayAudio(params[0] ?: emptyArray())
+                this@MscdAudioPlayer.startPlayAudio(params[0] ?: emptyArray())
                 true
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(exception)
                 false
             }
-        }
-
-        override fun onProgressUpdate(vararg values: Int?) {
         }
 
         override fun onPostExecute(result: Boolean?) {
@@ -76,44 +77,32 @@ class MscdAudioPlayer {
     }
 
 
-    fun startAudioPlayAsyncTask(audioData: Array<Double>) {
-        if (!MscdAudioConfig.instance.hasBuilt) {
-            MscdAudioConfig.Builder.create()
-        }
-        this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
-        this@MscdAudioPlayer.audioPlayAsyncTask?.execute(audioData)
+    fun startAudioPlayerAsyncTask(audioData: Array<Double>) {
+        this@MscdAudioPlayer.audioPlayerAsyncTask = AudioPlayerAsyncTask()
+        this@MscdAudioPlayer.audioPlayerAsyncTask?.execute(audioData)
     }
 
-    fun startAudioPlayAsyncTask(audioDurationInMs: Long) {
+    fun startAudioPlayerAsyncTask(audioDurationInMs: Long) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(audioDurationInMs)
-        if (!MscdAudioConfig.instance.hasBuilt) {
-            MscdAudioConfig.Builder.create()
-        }
-        this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
-        this@MscdAudioPlayer.audioPlayAsyncTask?.execute(audioData)
+        this@MscdAudioPlayer.audioPlayerAsyncTask = AudioPlayerAsyncTask()
+        this@MscdAudioPlayer.audioPlayerAsyncTask?.execute(audioData)
     }
 
-    fun startAudioPlayAsyncTask(delayPatternArray: Array<Long>) {
+    fun startAudioPlayerAsyncTask(delayPatternArray: Array<Long>) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(delayPatternArray)
-        if (!MscdAudioConfig.instance.hasBuilt) {
-            MscdAudioConfig.Builder.create()
-        }
-        this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
-        this@MscdAudioPlayer.audioPlayAsyncTask?.execute(audioData)
+        this@MscdAudioPlayer.audioPlayerAsyncTask = AudioPlayerAsyncTask()
+        this@MscdAudioPlayer.audioPlayerAsyncTask?.execute(audioData)
     }
 
-    fun startAudioPlayAsyncTask(message: String) {
+    fun startAudioPlayerAsyncTask(message: String) {
         val audioData = MscdAudioDataGenerator.instance.buildSineWaveAudioDataArray(message)
-        if (!MscdAudioConfig.instance.hasBuilt) {
-            MscdAudioConfig.Builder.create()
-        }
-        this@MscdAudioPlayer.audioPlayAsyncTask = AudioPlayAsyncTask()
-        this@MscdAudioPlayer.audioPlayAsyncTask?.execute(audioData)
+        this@MscdAudioPlayer.audioPlayerAsyncTask = AudioPlayerAsyncTask()
+        this@MscdAudioPlayer.audioPlayerAsyncTask?.execute(audioData)
     }
 
-    fun cancelAudioPlayAsyncTask() {
-        if (this@MscdAudioPlayer.audioPlayAsyncTask?.status == AsyncTask.Status.RUNNING) {
-            this@MscdAudioPlayer.audioPlayAsyncTask?.cancel(true)
+    fun cancelAudioPlayerAsyncTask() {
+        if (this@MscdAudioPlayer.audioPlayerAsyncTask?.status == AsyncTask.Status.RUNNING) {
+            this@MscdAudioPlayer.audioPlayerAsyncTask?.cancel(true)
         }
     }
 
@@ -127,7 +116,7 @@ class MscdAudioPlayer {
      * @author Ace Yan
      * @github githubyss
      */
-    fun startPlayAudio(audioData: Array<Double>): Boolean {
+    private fun startPlayAudio(audioData: Array<Double>): Boolean {
         val audioTrack = this@MscdAudioPlayer.config.audioTrack
 
         logcatAudioTrackState("startPlayAudio", audioTrack, "Before try play().")

@@ -1,6 +1,9 @@
 package com.githubyss.mobile.morsecode.app.util.randommessage
 
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitResUtils
+import com.githubyss.mobile.morsecode.app.R
+import java.io.EOFException
 import java.util.*
 
 /**
@@ -15,49 +18,65 @@ import java.util.*
  */
 class MscdRulelessRandomStringStrategy : MscdRandomStringStrategy {
     /**
-     * MscdRulelessRandomStringStrategy.buildRandomString(charList, size, count)
+     * MscdRulelessRandomStringStrategy.buildRandomString(charList, stringLength, wordSize)
      * <Description>
      * <Details>
      *
      * @param charList Chars be used to build the random string.
-     * @param size Size of valid chars in target random string.
-     * @param count Maximal char count of one word which built by the algorithm.
+     * @param stringLength Size of valid chars in target random string.
+     * @param wordSize Maximal stringLength of one word which built by the algorithm.
      * @return String
      * @author Ace Yan
      * @github githubyss
      */
-    override fun buildRandomString(charList: List<String>, size: Long, count: Int): String {
+    override fun buildRandomString(charList: List<String>, stringLength: Long, wordSize: Int): String {
         if (charList.isEmpty()
-                || size <= 0L
-                || count <= 0) {
+                || stringLength <= 0L
+                || wordSize <= 0) {
             return ""
         }
 
         /** A random seed is built to build random index to select char from the charList. by Ace Yan */
         val randomSeedForCharIdx = Random()
 
-        /** A random seed is built to build random count to build word. by Ace Yan */
+        /** A random seed is built to build random wordSize to build word. by Ace Yan */
         val randomSeedForCharCountInOneWord = Random()
 
         val randomStringBuilder = StringBuilder()
 
-        var randomCount = count.toLong()
-        var randomCountCalculated = randomCount
-        for (idx in 0 until size) {
-            val charIdx = randomSeedForCharIdx.nextInt(charList.size)
+        var randomWordSize = wordSize.toLong()
+        var randomWordSizeCalculated = randomWordSize
 
-            if ((idx % randomCountCalculated) == 0L) {
-                randomStringBuilder.append(" ")
-                randomCount = randomSeedForCharCountInOneWord.nextInt(count).toLong() + 1
-                randomCountCalculated = randomCount + idx
+        return try {
+            for (idx in 0 until stringLength) {
+                if (MscdRandomStringStrategy.hasCancelled) {
+//                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> Cancelled actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
+//                    ComkitLogcatUtils.`object`(randomStringBuilder)
+                    return randomStringBuilder.toString()
+                }
+
+                val charIdx = randomSeedForCharIdx.nextInt(charList.size)
+
+                if ((idx % randomWordSizeCalculated) == 0L) {
+                    randomStringBuilder.append(" ")
+                    randomWordSize = randomSeedForCharCountInOneWord.nextInt(wordSize).toLong() + 1
+                    randomWordSizeCalculated = randomWordSize + idx
+                }
+                randomStringBuilder.append(charList[charIdx])
+
+//            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> charIdx = $charIdx, randomWordSize = $randomWordSize, randomWordSizeCalculated = $randomWordSizeCalculated")
             }
-            randomStringBuilder.append(charList[charIdx])
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> charIdx = $charIdx, randomCount = $randomCount, randomCountCalculated = $randomCountCalculated")
+            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> Succeeded actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
+            ComkitLogcatUtils.`object`(randomStringBuilder)
+
+            randomStringBuilder.toString()
+        } catch (exception: EOFException) {
+            ComkitLogcatUtils.e(exception)
+            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
+        } catch (exception: OutOfMemoryError) {
+            ComkitLogcatUtils.e(exception)
+            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
         }
-
-        ComkitLogcatUtils.`object`(randomStringBuilder)
-
-        return randomStringBuilder.toString()
     }
 }
