@@ -1,9 +1,11 @@
 package com.githubyss.mobile.morsecode.app.learningpage.charselectingpage
 
+import android.os.Bundle
 import android.widget.CheckBox
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
+import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGeneratorConfig
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringStrategy
@@ -70,6 +72,23 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                         }
                     }
             )
+        }
+
+        override fun buildGotoTrainingPageBundle(trainingMsgStr: String, ditDuration: String) {
+            if (ditDuration.isEmpty()) {
+                mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdCharSelectingConfigDitDurationHintCorrect))
+                return
+            }
+
+            if (ditDuration.toLong() == 0L) {
+                mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdCharSelectingConfigDitDurationHintNotZero))
+                return
+            }
+
+            val bundle = Bundle()
+            bundle.putString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE, trainingMsgStr)
+            bundle.putLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY, ditDuration.toLong())
+            mscdCharSelectingIView.gotoTrainingPage(bundle)
         }
     }
 

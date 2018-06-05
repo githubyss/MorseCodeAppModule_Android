@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/comkitBothMatchParentStyle"
         android:background="@color/comkitLayoutBgColorLightGray"
         android:orientation="vertical"
         >
@@ -26,27 +25,366 @@
                     style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     >
 
-                <TextView
-                        style="@style/comkitBothMatchParentStyle"
-
+                <com.githubyss.mobile.common.kit.ui.textview.ComkitMonospaceTextView
+                        android:id="@+id/tvMorseCodeCopy"
+                        style="@style/mscdTrainingMorseCodeCopyDisplayStyle"
+                        android:maxLines="10"
+                        android:text="@string/mscdTrainingRecoded"
                         />
-
             </LinearLayout>
 
+            <!--<include layout="@layout/comkit_view_separator_horizontal_common_default" />-->
 
             <LinearLayout
-                    android:id="@+id/llCharSelectingContainer"
-                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
-                    android:layout_weight="1"
+                    android:id="@+id/llCharClickContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
+                <LinearLayout
+                        android:id="@+id/llCharClickRow1"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnAlphabetK"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetK"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetM"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetM"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetR"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetR"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetS"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetS"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetU"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetU"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetA"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetA"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow2"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnAlphabetP"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetP"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetT"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetT"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetL"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetL"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetO"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetO"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetW"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetW"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetI"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetI"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow3"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnSignDot"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharSignDot"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetN"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetN"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetJ"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetJ"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetE"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetE"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetF"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetF"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber0"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber0"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow4"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnAlphabetY"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetY"
+                            />
+
+                    <Button
+                            android:id="@+id/btnSignComma"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharSignComma"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetV"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetV"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetG"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetG"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber5"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber5"
+                            />
+
+                    <Button
+                            android:id="@+id/btnSignSlash"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharSignSlash"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow5"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnAlphabetQ"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetQ"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber9"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber9"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetZ"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetZ"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetH"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetH"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber3"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber3"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber8"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber8"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow6"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnAlphabetB"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetB"
+                            />
+
+                    <Button
+                            android:id="@+id/btnSignQuestion"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharSignQuestion"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber4"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber4"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber2"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber2"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber7"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber7"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetC"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetC"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow7"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnNumber1"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber1"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetD"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetD"
+                            />
+
+                    <Button
+                            android:id="@+id/btnNumber6"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharNumber6"
+                            />
+
+                    <Button
+                            android:id="@+id/btnAlphabetX"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharAlphabetX"
+                            />
+
+                    <Button
+                            android:id="@+id/btnReserve1"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text=""
+                            android:visibility="invisible"
+                            />
+
+                    <Button
+                            android:id="@+id/btnReserve2"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text=""
+                            android:visibility="invisible"
+                            />
+                </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                    android:id="@+id/llBtnContainer"
+                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:orientation="vertical"
+                    >
 
+                <LinearLayout
+                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        android:orientation="horizontal"
+                        >
+
+                    <Button
+                            android:id="@+id/btnStartPlay"
+                            style="@style/mscdCommonBtnStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/comkitStart"
+                            />
+
+                    <Button
+                            android:id="@+id/btnStopPlay"
+                            style="@style/mscdCommonBtnStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/comkitStop"
+                            />
+                </LinearLayout>
+
+                <Button
+                        android:id="@+id/btnSubmit"
+                        style="@style/mscdCommonBtnStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/comkitSubmit"
+                        />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

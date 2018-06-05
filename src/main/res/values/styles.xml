@@ -8,8 +8,9 @@
     <!--</style>-->
 
 
-    <!-- Bottom button style. -->
-    <style name="mscdCommonBtnStyle" parent="comkitCommonBtnDefaultStyle">
+    <!-- Common button style. -->
+    <style name="mscdCommonBtnStyle"
+           parent="comkitCommonBtnDefaultStyle">
         <item name="android:layout_marginBottom">@dimen/comkitSideMarginDefault</item>
         <item name="android:layout_marginTop">@dimen/comkitSideMarginDefault</item>
         <item name="android:paddingLeft">@dimen/comkitSideMarginDefault</item>
@@ -17,7 +18,8 @@
     </style>
 
     <!-- Char selecting button style. -->
-    <style name="mscdCharSelectingTglBtnStyle" parent="comkitCommonTglBtnDefaultStyle">
+    <style name="mscdCharSelectingTglBtnStyle"
+           parent="comkitCommonTglBtnDefaultStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -28,7 +30,8 @@
     </style>
 
     <!-- Char selecting button style. -->
-    <style name="mscdCharSelectingChkBtnStyle" parent="comkitCommonChkBtnDefaultStyle">
+    <style name="mscdCharSelectingChkBtnStyle"
+           parent="comkitCommonChkBtnDefaultStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_weight">1</item>
@@ -39,7 +42,24 @@
         <item name="android:button">@drawable/comkit_chk_btn_common_default</item>
     </style>
 
-    <style name="mscdCharSelectingConfigLabelStyle" parent="comkitCommonLabelStyle">
+    <!-- Char click button style. -->
+    <style name="mscdCharClickBtnStyle"
+           parent="comkitCommonBtnDefaultStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:background">@drawable/mscd_btn_char_click</item>
+        <item name="android:textColor">@color/mscdCharClickBtnTextColorDefault</item>
+        <item name="android:textSize">@dimen/mscdCharClickBtnTextSizeDefault</item>
+    </style>
+
+    <!-- Char selecting label style. -->
+    <style name="mscdCharSelectingConfigLabelStyle"
+           parent="comkitCommonLabelStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">5dp</item>
@@ -48,7 +68,9 @@
         <item name="android:paddingRight">5dp</item>
     </style>
 
-    <style name="mscdCharSelectingConfigInputStyle" parent="comkitCommonInputStyle">
+    <!-- Char selecting input style. -->
+    <style name="mscdCharSelectingConfigInputStyle"
+           parent="comkitCommonInputStyle">
         <item name="android:inputType">number</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
@@ -56,5 +78,17 @@
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
+    </style>
+
+    <!-- Training morse code copy display style. -->
+    <style name="mscdTrainingMorseCodeCopyDisplayStyle"
+           parent="comkitCommonTextDisplayStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:scrollbars">vertical</item>
     </style>
 </resources>

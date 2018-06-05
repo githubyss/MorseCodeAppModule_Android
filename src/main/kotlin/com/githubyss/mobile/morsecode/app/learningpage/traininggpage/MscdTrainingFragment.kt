@@ -1,12 +1,17 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.morsecode.app.R
+import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
+import kotlinx.android.synthetic.main.mscd_fragment_training.*
+
 
 /**
  * MscdTrainingFragment.kt
@@ -24,6 +29,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
     private lateinit var rootView: View
 
+    private var trainingMsgStr = ""
+    private var ditDuration = 0L
+
     private lateinit var mscdTrainingIPresenter: MscdTrainingContract.IPresenter
     private var mscdTrainingIView = object : MscdTrainingContract.IView {
         override fun setPresenter(iPresenter: MscdTrainingContract.IPresenter) {
@@ -34,6 +42,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private val onClickListener = View.OnClickListener { v ->
         val id = v.id
         when (id) {
+            R.id.btnSubmit -> {
+            }
+
             else -> {
             }
         }
@@ -45,6 +56,38 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     override fun initView() {
+        tvMorseCodeCopy.movementMethod = ScrollingMovementMethod.getInstance()
+        tvMorseCodeCopy.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN,
+                MotionEvent.ACTION_MOVE -> {
+                    v?.parent?.requestDisallowInterceptTouchEvent(true)
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    v?.parent?.requestDisallowInterceptTouchEvent(false)
+                }
+
+                else -> {
+                    v?.parent?.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+
+            false
+        }
+
+        btnStartPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
+        btnStopPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
+        btnSubmit.setOnClickListener(this@MscdTrainingFragment.onClickListener)
+    }
+
+    override fun initData() {
+        this@MscdTrainingFragment.trainingMsgStr = arguments.getString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE)
+        this@MscdTrainingFragment.ditDuration = arguments.getLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
+    }
+
+    override fun refreshView() {
+        tvMorseCodeCopy.text = this@MscdTrainingFragment.trainingMsgStr
     }
 
 
@@ -70,5 +113,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initData()
+        refreshView()
     }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Char click button default dimens. -->
+    <dimen name="mscdCharClickBtnCornerRadiusDefault">10dp</dimen>
+    <dimen name="mscdCharClickBtnStrokeWidthDefault">0dp</dimen>
+    <dimen name="mscdCharClickBtnTextSizeDefault">19sp</dimen>
+</resources>

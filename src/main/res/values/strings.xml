@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="mscdAppName">Morse Code Android</string>
 
@@ -23,7 +24,7 @@
     <string name="mscdCharSelectingHintBuildingFailingInfo">Failing Info:</string>
     <string name="mscdCharSelectingConfigMsgLength">Message length</string>
     <string name="mscdCharSelectingConfigMsgLengthUnits">(char ex. spacing)</string>
-    <string name="mscdCharSelectingConfigMsgLengthDefault">12345678</string>
+    <string name="mscdCharSelectingConfigMsgLengthDefault">200</string>
     <string name="mscdCharSelectingConfigMsgLengthHintCorrect">You should input a correct message length in positive integer.</string>
     <string name="mscdCharSelectingConfigMsgLengthHintNotZero">The message length should not be zero.</string>
     <string name="mscdCharSelectingConfigWordSize">Maximal word size</string>

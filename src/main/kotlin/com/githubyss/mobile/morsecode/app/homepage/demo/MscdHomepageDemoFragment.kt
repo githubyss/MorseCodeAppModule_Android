@@ -105,7 +105,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
 
             R.id.btnLogcatMessageDelayPatternArray -> {
                 MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray("MORSE  CODE")
-                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
+//                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
             }
 
             else -> {

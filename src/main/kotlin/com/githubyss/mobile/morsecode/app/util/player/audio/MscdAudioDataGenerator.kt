@@ -132,6 +132,9 @@ class MscdAudioDataGenerator private constructor() {
         return audioDataArray
     }
 
+//    fun buildSineWaveAudioDataArray(delayPatternList: List<Long>): Array<Double> {
+//    }
+
     fun buildSineWaveAudioDataArray(message: String): Array<Double> {
         return buildSineWaveAudioDataArray(MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray(message))
     }

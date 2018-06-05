@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Char click button default colors. -->
+    <color name="mscdCharClickBtnBgColorDefaultNormal">#999999</color>
+    <color name="mscdCharClickBtnBgColorDefaultPressed">#3399FF</color>
+    <color name="mscdCharClickBtnBgColorDefaultDisabled">#E8E8E8</color>
+    <color name="mscdCharClickBtnStrokeColorDefault">#FFFFFF</color>
+    <color name="mscdCharClickBtnTextColorDefault">#FFFFFF</color>
+</resources>

@@ -38,19 +38,19 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
             this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter = iPresenter
         }
 
-        override fun showHint(hint: String) {
+        override fun showHint(hintStr: String) {
             changeBtnStatus(btnConfirm, true)
-            ComkitToastUtils.showMessage(msgStr = hint)
-//            Snackbar.make(this@MscdCharsSelectingFragment.rootView, hint, Snackbar.LENGTH_SHORT)
-//                    .show()
+            ComkitToastUtils.showMessage(msgStr = hintStr)
         }
 
-        override fun onRandomTrainingMessageBuilt(message: String) {
+        override fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String) {
             changeBtnStatus(btnConfirm, true)
+            mscdCharsSelectingIPresenter.buildGotoTrainingPageBundle(randomTrainingMsgStr, etDitDuration.text.toString())
         }
 
         override fun gotoTrainingPage(bundle: Bundle) {
             val fragment = ARouter.getInstance().build("/morsecode/app/learningpage/traininggpage/MscdTrainingFragment").navigation() as Fragment
+            fragment.arguments = bundle
             replaceFragment(fragment, "MscdTrainingFragment", true)
         }
     }
@@ -59,8 +59,8 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         val id = v.id
         when (id) {
             R.id.btnConfirm -> {
-                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString())
                 changeBtnStatus(btnConfirm, false)
+                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString())
             }
 
             else -> {

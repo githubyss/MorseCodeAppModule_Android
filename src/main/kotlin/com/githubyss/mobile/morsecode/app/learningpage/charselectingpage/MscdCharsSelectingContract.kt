@@ -15,12 +15,13 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  */
 interface MscdCharsSelectingContract {
     interface IView : ComkitIBaseView<IPresenter> {
-        fun showHint(hint: String)
-        fun onRandomTrainingMessageBuilt(message: String)
+        fun showHint(hintStr: String)
+        fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String)
         fun gotoTrainingPage(bundle: Bundle)
     }
 
     interface IPresenter : ComkitIBasePresenter {
         fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String)
+        fun buildGotoTrainingPageBundle(trainingMsgStr: String, ditDuration: String)
     }
 }
