@@ -28,9 +28,9 @@
                     android:visibility="visible"
                     >
 
-                <com.githubyss.mobile.common.kit.ui.textview.ComkitMonospaceTextView
+                <TextView
                         android:id="@+id/tvMorseCodeCopy"
-                        style="@style/mscdTrainingMorseCodeCopyDisplayStyle"
+                        style="@style/mscdMorseCodeCopyDisplayStyle"
                         android:maxLines="10"
                         android:text="@string/mscdTrainingRecoded"
                         />
@@ -357,8 +357,7 @@
                             style="@style/mscdCommonBtnStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="0dp"
-                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:text="@string/comkitStart"
                             />
@@ -368,9 +367,8 @@
                             style="@style/mscdCommonBtnStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="0dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="0dp"
                             android:layout_weight="1"
                             android:text="@string/comkitStop"
                             />

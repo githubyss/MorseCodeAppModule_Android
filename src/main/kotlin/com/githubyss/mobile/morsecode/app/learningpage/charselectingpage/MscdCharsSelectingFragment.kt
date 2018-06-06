@@ -10,6 +10,8 @@ import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
+import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
+import com.githubyss.mobile.common.kit.util.ComkitFontUtils
 import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
@@ -45,7 +47,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
 
         override fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String) {
             changeBtnStatus(btnConfirm, true)
-            mscdCharsSelectingIPresenter.buildGotoTrainingPageBundle(randomTrainingMsgStr, etDitDuration.text.toString())
+            this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter.buildGotoTrainingPageBundle(randomTrainingMsgStr, etDitDuration.text.toString())
         }
 
         override fun gotoTrainingPage(bundle: Bundle) {
@@ -60,7 +62,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         when (id) {
             R.id.btnConfirm -> {
                 changeBtnStatus(btnConfirm, false)
-                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString())
+                this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString())
             }
 
             else -> {
@@ -75,15 +77,18 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
 
     override fun initView() {
         btnConfirm.setOnClickListener(this@MscdCharsSelectingFragment.onClickListener)
+
+        ComkitFontUtils.replaceFontFromAsset(llCharSelectingContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llConfigContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {
-        chkBtnList = ArrayList()
+        this@MscdCharsSelectingFragment.chkBtnList = ArrayList()
 
         for (idxOfOutsideLlContainer in 0 until llCharSelectingContainer.childCount) {
             val charSelectingBtnContainer = llCharSelectingContainer.getChildAt(idxOfOutsideLlContainer) as LinearLayout
             for (idxOfInsideBtnContainer in 0 until charSelectingBtnContainer.childCount) {
-                chkBtnList.add(charSelectingBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
+                this@MscdCharsSelectingFragment.chkBtnList.add(charSelectingBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
             }
         }
     }

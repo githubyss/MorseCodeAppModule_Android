@@ -4,4 +4,9 @@
     <dimen name="mscdCharClickBtnCornerRadiusDefault">10dp</dimen>
     <dimen name="mscdCharClickBtnStrokeWidthDefault">0dp</dimen>
     <dimen name="mscdCharClickBtnTextSizeDefault">19sp</dimen>
+
+    <!-- Morse code copy display default dimens. -->
+    <dimen name="mscdMorseCodeCopyDisplayCornerRadiusDefault">10dp</dimen>
+    <dimen name="mscdMorseCodeCopyDisplayStrokeWidthDefault">0dp</dimen>
+    <dimen name="mscdMorseCodeCopyDisplayTextSizeDefault">16sp</dimen>
 </resources>

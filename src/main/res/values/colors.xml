@@ -6,4 +6,11 @@
     <color name="mscdCharClickBtnBgColorDefaultDisabled">#E8E8E8</color>
     <color name="mscdCharClickBtnStrokeColorDefault">#FFFFFF</color>
     <color name="mscdCharClickBtnTextColorDefault">#FFFFFF</color>
+
+    <!-- Morse code copy display default colors. -->
+    <color name="mscdMorseCodeCopyDisplayBgColorDefaultNormal">#D3D3D3</color>
+    <color name="mscdMorseCodeCopyDisplayStrokeColorDefault">#FFFFFF</color>
+    <color name="mscdMorseCodeCopyDisplayTextColorDefaultSkip">#FFFFFF</color>
+    <color name="mscdMorseCodeCopyDisplayTextColorDefaultCorrect">#008000</color>
+    <color name="mscdMorseCodeCopyDisplayTextColorDefaultIncorrect">#FF0000</color>
 </resources>

@@ -80,15 +80,20 @@
         <item name="android:paddingRight">5dp</item>
     </style>
 
-    <!-- Training morse code copy display style. -->
-    <style name="mscdTrainingMorseCodeCopyDisplayStyle"
+    <!-- Morse code copy display style. -->
+    <style name="mscdMorseCodeCopyDisplayStyle"
            parent="comkitCommonTextDisplayStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/comkitSideMarginDefault</item>
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">@dimen/comkitSideMarginDefault</item>
+        <item name="android:paddingRight">@dimen/comkitSideMarginDefault</item>
         <item name="android:scrollbars">vertical</item>
+        <item name="android:background">@drawable/mscd_morse_code_copy_display</item>
+        <item name="android:textColor">@color/mscdMorseCodeCopyDisplayTextColorDefaultSkip</item>
+        <item name="android:textSize">@dimen/mscdMorseCodeCopyDisplayTextSizeDefault</item>
     </style>
 </resources>

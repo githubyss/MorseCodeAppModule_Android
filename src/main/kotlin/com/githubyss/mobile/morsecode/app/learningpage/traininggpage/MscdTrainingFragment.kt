@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
+import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
+import com.githubyss.mobile.common.kit.util.ComkitFontUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
@@ -79,6 +81,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         btnStartPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
         btnStopPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
         btnSubmit.setOnClickListener(this@MscdTrainingFragment.onClickListener)
+
+        ComkitFontUtils.replaceFontFromAsset(llMorseCodeCopyDisplay, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llCharClickContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {
