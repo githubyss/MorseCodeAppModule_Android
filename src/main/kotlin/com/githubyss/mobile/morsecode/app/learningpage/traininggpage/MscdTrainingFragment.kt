@@ -12,6 +12,7 @@ import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
 import com.githubyss.mobile.common.kit.util.ComkitFontUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
+import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
 
 
@@ -32,7 +33,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private lateinit var rootView: View
 
     private var trainingMsgStr = ""
-    private var ditDuration = 0L
+    private var baseDelay = 0L
 
     private lateinit var mscdTrainingIPresenter: MscdTrainingContract.IPresenter
     private var mscdTrainingIView = object : MscdTrainingContract.IView {
@@ -44,6 +45,14 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private val onClickListener = View.OnClickListener { v ->
         val id = v.id
         when (id) {
+            R.id.btnStartPlay -> {
+                MscdPlayerController.instance.startPlay(this@MscdTrainingFragment.trainingMsgStr, this@MscdTrainingFragment.baseDelay)
+            }
+
+            R.id.btnStopPlay -> {
+                MscdPlayerController.instance.stopPlay()
+            }
+
             R.id.btnSubmit -> {
             }
 
@@ -88,7 +97,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
     override fun initData() {
         this@MscdTrainingFragment.trainingMsgStr = arguments.getString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE)
-        this@MscdTrainingFragment.ditDuration = arguments.getLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
+        this@MscdTrainingFragment.baseDelay = arguments.getLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
     }
 
     override fun refreshView() {
@@ -120,5 +129,12 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         initView()
         initData()
         refreshView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        MscdPlayerController.instance.stopPlay()
+        MscdPlayerController.instance.releaseResource()
     }
 }

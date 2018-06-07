@@ -339,6 +339,18 @@
                             android:visibility="invisible"
                             />
                 </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/llCharClickRow8"
+                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        >
+
+                    <Button
+                            android:id="@+id/btnSkip"
+                            style="@style/mscdCharClickBtnStyle"
+                            android:text="@string/mscdCharSkip"
+                            />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

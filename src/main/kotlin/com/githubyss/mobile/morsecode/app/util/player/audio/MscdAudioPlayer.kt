@@ -367,6 +367,7 @@ class MscdAudioPlayer private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
+    @Deprecated("Unuseful")
     fun resumePlayAudio(): Boolean {
         val audioTrack = this@MscdAudioPlayer.config.audioTrack
 

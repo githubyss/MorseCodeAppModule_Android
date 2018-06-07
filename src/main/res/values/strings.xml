@@ -100,4 +100,5 @@
     <string name="mscdCharSignDollar">$</string>
     <!--<string name="mscdCharSignAmpersand">&</string>-->
     <string name="mscdCharSignAt">\@</string>
+    <string name="mscdCharSkip">Skip</string>
 </resources>
