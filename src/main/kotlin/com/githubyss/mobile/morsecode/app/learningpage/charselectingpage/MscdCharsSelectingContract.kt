@@ -21,7 +21,7 @@ interface MscdCharsSelectingContract {
     }
 
     interface IPresenter : ComkitIBasePresenter {
-        fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String)
+        fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String, needRuleless: Boolean)
         fun buildGotoTrainingPageBundle(trainingMsgStr: String, ditDuration: String)
     }
 }

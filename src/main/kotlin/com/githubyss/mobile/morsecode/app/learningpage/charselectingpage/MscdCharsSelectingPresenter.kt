@@ -8,6 +8,7 @@ import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGeneratorConfig
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringStrategy
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringStrategy
 
 /**
@@ -24,7 +25,7 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
         override fun onStandby() {
         }
 
-        override fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String) {
+        override fun buildRandomTrainingMessage(chkBtnList: List<CheckBox>, messageLength: String, wordSize: String, needRuleless: Boolean) {
             val selectedCharList = getSelectedCharList(chkBtnList)
 
             if (selectedCharList.isEmpty()) {
@@ -52,9 +53,12 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                 return
             }
 
+            if (needRuleless) {
+                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringStrategy()).create()
+            } else {
+                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringStrategy()).create()
+            }
 
-//            MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringStrategy()).create()
-            MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringStrategy()).create()
             MscdRandomStringGenerator.instance.startRandomStringGeneratorAsyncTask(
                     selectedCharList, messageLength.toLong(), wordSize.toInt(),
                     object : MscdRandomStringGenerator.OnRandomStringGenerateListener {

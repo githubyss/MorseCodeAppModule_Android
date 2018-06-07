@@ -343,6 +343,8 @@
             <LinearLayout
                     android:id="@+id/llConfigContainer"
                     style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     >
 
@@ -360,7 +362,7 @@
                     <EditText
                             android:id="@+id/etMessageLength"
                             style="@style/mscdCharSelectingConfigInputStyle"
-                            android:maxLength="10"
+                            android:maxLength="5"
                             android:text="@string/mscdCharSelectingConfigMsgLengthDefault"
                             />
 
@@ -400,58 +402,83 @@
 
                 <LinearLayout
                         style="@style/comkitOnlyWidthMatchParentLayoutStyle"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         >
 
                     <LinearLayout
-                            style="@style/comkitOnlyWidthMatchParentLayoutStyle"
-                            android:orientation="horizontal"
+                            style="@style/comkitBothWrapContentStyle"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
                             >
 
-                        <TextView
-                                style="@style/mscdCharSelectingConfigLabelStyle"
-                                android:paddingRight="0dp"
-                                android:text="@string/mscdCharSelectingConfigKeySpeed"
-                                />
+                        <LinearLayout
+                                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                                android:orientation="horizontal"
+                                >
 
-                        <EditText
-                                android:id="@+id/etKeySpeed"
-                                style="@style/mscdCharSelectingConfigInputStyle"
-                                android:maxLength="2"
-                                android:text="@string/mscdCharSelectingConfigKeySpeedDefault"
-                                />
+                            <TextView
+                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    android:paddingRight="0dp"
+                                    android:text="@string/mscdCharSelectingConfigKeySpeed"
+                                    />
 
-                        <TextView
-                                style="@style/mscdCharSelectingConfigLabelStyle"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
-                                android:text="@string/mscdCharSelectingConfigKeySpeedUnits"
-                                />
+                            <EditText
+                                    android:id="@+id/etKeySpeed"
+                                    style="@style/mscdCharSelectingConfigInputStyle"
+                                    android:maxLength="4"
+                                    android:text="@string/mscdCharSelectingConfigKeySpeedDefault"
+                                    />
+
+                            <TextView
+                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    android:paddingLeft="0dp"
+                                    android:paddingRight="0dp"
+                                    android:text="@string/mscdCharSelectingConfigKeySpeedUnits"
+                                    />
+                        </LinearLayout>
+
+                        <LinearLayout
+                                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                                android:orientation="horizontal"
+                                >
+
+                            <TextView
+                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    android:paddingRight="0dp"
+                                    android:text="@string/mscdCharSelectingConfigDitDuration"
+                                    />
+
+                            <EditText
+                                    android:id="@+id/etDitDuration"
+                                    style="@style/mscdCharSelectingConfigInputStyle"
+                                    android:maxLength="4"
+                                    android:text="@string/mscdCharSelectingConfigDitDurationDefault"
+                                    />
+
+                            <TextView
+                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    android:paddingLeft="0dp"
+                                    android:paddingRight="0dp"
+                                    android:text="@string/mscdCharSelectingConfigDitDurationUnits"
+                                    />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                            style="@style/comkitOnlyWidthMatchParentLayoutStyle"
-                            android:orientation="horizontal"
+                            style="@style/comkitBothWrapContentStyle"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
                             >
 
-                        <TextView
-                                style="@style/mscdCharSelectingConfigLabelStyle"
-                                android:paddingRight="0dp"
-                                android:text="@string/mscdCharSelectingConfigDitDuration"
-                                />
-
-                        <EditText
-                                android:id="@+id/etDitDuration"
-                                style="@style/mscdCharSelectingConfigInputStyle"
-                                android:maxLength="2"
-                                android:text="@string/mscdCharSelectingConfigDitDurationDefault"
-                                />
-
-                        <TextView
-                                style="@style/mscdCharSelectingConfigLabelStyle"
-                                android:paddingLeft="0dp"
-                                android:paddingRight="0dp"
-                                android:text="@string/mscdCharSelectingConfigDitDurationUnits"
+                        <ToggleButton
+                                android:id="@+id/tglBtnRandomStringGenerateStrategy"
+                                style="@style/comkitCommonTglBtnDefaultStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:textOff="Regular"
+                                android:textOn="Ruleless"
                                 />
                     </LinearLayout>
                 </LinearLayout>

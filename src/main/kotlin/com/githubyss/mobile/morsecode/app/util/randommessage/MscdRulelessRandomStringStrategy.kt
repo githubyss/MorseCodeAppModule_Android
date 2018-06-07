@@ -57,7 +57,7 @@ class MscdRulelessRandomStringStrategy : MscdRandomStringStrategy {
 
                 val charIdx = randomSeedForCharIdx.nextInt(charList.size)
 
-                if ((idx % randomWordSizeCalculated) == 0L) {
+                if ((idx % randomWordSizeCalculated) == 0L && idx != 0L) {
                     randomStringBuilder.append(" ")
                     randomWordSize = randomSeedForCharCountInOneWord.nextInt(wordSize).toLong() + 1
                     randomWordSizeCalculated = randomWordSize + idx
