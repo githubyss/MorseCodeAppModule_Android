@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.randommessage
 
 /**
- * MscdRandomStringStrategy.kt
+ * MscdRandomStringGenerateStrategy.kt
  * <Description>
  * <Details>
  *
@@ -10,7 +10,7 @@ package com.githubyss.mobile.morsecode.app.util.randommessage
  * @author Ace Yan
  * @github githubyss
  */
-interface MscdRandomStringStrategy {
+interface MscdRandomStringGenerateStrategy {
     companion object {
         var hasCancelled = false
     }

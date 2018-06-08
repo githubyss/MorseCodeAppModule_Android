@@ -7,7 +7,7 @@ import java.io.EOFException
 import java.util.*
 
 /**
- * MscdRulelessRandomStringStrategy.kt
+ * MscdRulelessRandomStringGenerateStrategy.kt
  * <Description> Build a random string with ruleless interval.
  * <Details>
  *
@@ -16,9 +16,9 @@ import java.util.*
  * @author Ace Yan
  * @github githubyss
  */
-class MscdRulelessRandomStringStrategy : MscdRandomStringStrategy {
+class MscdRulelessRandomStringGenerateStrategy : MscdRandomStringGenerateStrategy {
     /**
-     * MscdRulelessRandomStringStrategy.buildRandomString(charList, stringLength, wordSize)
+     * MscdRulelessRandomStringGenerateStrategy.buildRandomString(charList, stringLength, wordSize)
      * <Description>
      * <Details>
      *
@@ -49,7 +49,7 @@ class MscdRulelessRandomStringStrategy : MscdRandomStringStrategy {
 
         return try {
             for (idx in 0 until stringLength) {
-                if (MscdRandomStringStrategy.hasCancelled) {
+                if (MscdRandomStringGenerateStrategy.hasCancelled) {
 //                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> Cancelled actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
 //                    ComkitLogcatUtils.`object`(randomStringBuilder)
                     return randomStringBuilder.toString()

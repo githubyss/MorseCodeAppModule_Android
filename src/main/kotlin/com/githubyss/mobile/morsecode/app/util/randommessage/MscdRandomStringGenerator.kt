@@ -89,7 +89,7 @@ class MscdRandomStringGenerator private constructor() {
         bundle.putInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE, wordSize)
 
         ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled false.")
-        MscdRandomStringStrategy.hasCancelled = false
+        MscdRandomStringGenerateStrategy.hasCancelled = false
         ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
 
         this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask = RandomStringGeneratorAsyncTask(onRandomStringGenerateListener)
@@ -100,7 +100,7 @@ class MscdRandomStringGenerator private constructor() {
         ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
         if (this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
             this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask?.cancel(true)
-            MscdRandomStringStrategy.hasCancelled = true
+            MscdRandomStringGenerateStrategy.hasCancelled = true
             ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled true.")
         }
     }
@@ -110,6 +110,6 @@ class MscdRandomStringGenerator private constructor() {
             MscdRandomStringGeneratorConfig.Builder.create()
         }
 
-        return this@MscdRandomStringGenerator.config.randomStringStrategy.buildRandomString(charList, stringLength, wordSize)
+        return this@MscdRandomStringGenerator.config.randomStringGenerateStrategy.buildRandomString(charList, stringLength, wordSize)
     }
 }

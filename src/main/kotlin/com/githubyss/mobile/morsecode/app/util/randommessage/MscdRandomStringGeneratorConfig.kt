@@ -20,7 +20,7 @@ class MscdRandomStringGeneratorConfig private constructor() {
     }
 
 
-    var randomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
+    var randomStringGenerateStrategy = MscdRegularRandomStringGenerateStrategy() as MscdRandomStringGenerateStrategy
         private set
 
     var hasBuilt = false
@@ -28,10 +28,10 @@ class MscdRandomStringGeneratorConfig private constructor() {
 
 
     object Builder {
-        private var randomStringStrategy = MscdRegularRandomStringStrategy() as MscdRandomStringStrategy
+        private var randomStringGenerateStrategy = MscdRegularRandomStringGenerateStrategy() as MscdRandomStringGenerateStrategy
 
-        fun setStrategy(strategy: MscdRandomStringStrategy): Builder {
-            this@Builder.randomStringStrategy = strategy
+        fun setStrategy(strategy: MscdRandomStringGenerateStrategy): Builder {
+            this@Builder.randomStringGenerateStrategy = strategy
             return this@Builder
         }
 
@@ -41,7 +41,7 @@ class MscdRandomStringGeneratorConfig private constructor() {
         }
 
         private fun applyConfig(config: MscdRandomStringGeneratorConfig) {
-            config.randomStringStrategy = this@Builder.randomStringStrategy
+            config.randomStringGenerateStrategy = this@Builder.randomStringGenerateStrategy
 
             config.hasBuilt = true
         }

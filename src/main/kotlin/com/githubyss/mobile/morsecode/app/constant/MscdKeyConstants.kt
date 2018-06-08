@@ -22,7 +22,7 @@ object MscdKeyConstants {
     }
 
     object RandomStringGeneratorConfigKey {
-        val RANDOM_STRING_STRATEGY = "randomStringStrategy"
+        val RANDOM_STRING_GENERATE_STRATEGY = "randomStringGenerateStrategy"
     }
 
     object CharSelectingKey {

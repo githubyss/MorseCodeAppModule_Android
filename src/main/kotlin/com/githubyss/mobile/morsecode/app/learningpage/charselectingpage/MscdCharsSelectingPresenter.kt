@@ -8,8 +8,8 @@ import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGeneratorConfig
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringStrategy
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringStrategy
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringGenerateStrategy
+import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringGenerateStrategy
 
 /**
  * MscdCharsSelectingPresenter.kt
@@ -54,9 +54,9 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
             }
 
             if (needRuleless) {
-                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringStrategy()).create()
+                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringGenerateStrategy()).create()
             } else {
-                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringStrategy()).create()
+                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringGenerateStrategy()).create()
             }
 
             MscdRandomStringGenerator.instance.startRandomStringGeneratorAsyncTask(
