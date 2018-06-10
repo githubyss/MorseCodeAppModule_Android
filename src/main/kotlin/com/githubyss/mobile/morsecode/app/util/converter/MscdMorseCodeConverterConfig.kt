@@ -1,5 +1,6 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
+import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
 
 /**
@@ -163,7 +164,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 //        char2DitdahStringMap.put(MscdEncodeConstants.Chars.SIGN_AMPERSAND, MscdEncodeConstants.Ditdahs.SIGN_AMPERSAND)
             char2DitdahStringMap.put(MscdEncodeConstants.Chars.SIGN_AT, MscdEncodeConstants.Ditdahs.SIGN_AT)
 
-//            ComkitLogcatUtils.`object`(char2DitdahStringMap)
+            ComkitLogcatUtils.`object`(char2DitdahStringMap)
 
             return char2DitdahStringMap
         }
@@ -224,7 +225,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DelayPatternArrayMap.put(charKey, charDelayPatternArray)
             }
 
-//            ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
+            ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
 
             return char2DelayPatternArrayMap
         }
@@ -271,7 +272,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DelayPatternListMap.put(charKey, charDelayPatternList)
             }
 
-//            ComkitLogcatUtils.`object`(char2DelayPatternListMap)
+            ComkitLogcatUtils.`object`(char2DelayPatternListMap)
 
             return char2DelayPatternListMap
         }

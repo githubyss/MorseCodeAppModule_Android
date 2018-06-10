@@ -1,5 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
+import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+
 /**
  * MscdMorseCodeConverter.kt
  * <Description>
@@ -21,7 +23,7 @@ class MscdMorseCodeConverter private constructor() {
 
 
     /** To decide whether call create() to build the config by default variate value in itself when it was not built by user by judging the boolean value hasBuilt when getting instance of MscdMorseCodeConverterConfig. by Ace Yan */
-    private val config =
+    private val morseCodeConverterConfig =
             if (!MscdMorseCodeConverterConfig.instance.hasBuilt)
                 MscdMorseCodeConverterConfig.Builder
                         .create()
@@ -40,11 +42,11 @@ class MscdMorseCodeConverter private constructor() {
      * @github githubyss
      */
     fun buildMessageStringDelayPatternArray(message: String): Array<Int> {
-        val charGapDelay = this@MscdMorseCodeConverter.config.charGapDelay
-        val wordGapDelay = this@MscdMorseCodeConverter.config.wordGapDelay
-        val startDelay = this@MscdMorseCodeConverter.config.startDelay
+        val charGapDelay = morseCodeConverterConfig.charGapDelay
+        val wordGapDelay = morseCodeConverterConfig.wordGapDelay
+        val startDelay = morseCodeConverterConfig.startDelay
 
-        val char2DelayPatternArrayMap = this@MscdMorseCodeConverter.config.char2DelayPatternArrayMap
+        val char2DelayPatternArrayMap = morseCodeConverterConfig.char2DelayPatternArrayMap
 
         if (message.isEmpty()) {
             return arrayOf(startDelay)
@@ -141,7 +143,7 @@ class MscdMorseCodeConverter private constructor() {
                     }
                 }
 
-//        ComkitLogcatUtils.`object`(messageDelayPatternArray)
+        ComkitLogcatUtils.`object`(messageDelayPatternArray)
 
         return messageDelayPatternArray
     }
@@ -157,11 +159,11 @@ class MscdMorseCodeConverter private constructor() {
      * @github githubyss
      */
     fun buildMessageStringDelayPatternList(message: String): List<Int> {
-        val charGapDelay = this@MscdMorseCodeConverter.config.charGapDelay
-        val wordGapDelay = this@MscdMorseCodeConverter.config.wordGapDelay
-        val startDelay = this@MscdMorseCodeConverter.config.startDelay
+        val charGapDelay = morseCodeConverterConfig.charGapDelay
+        val wordGapDelay = morseCodeConverterConfig.wordGapDelay
+        val startDelay = morseCodeConverterConfig.startDelay
 
-        val char2DelayPatternListMap = this@MscdMorseCodeConverter.config.char2DelayPatternListMap
+        val char2DelayPatternListMap = morseCodeConverterConfig.char2DelayPatternListMap
 
         if (message.isEmpty()) {
             return arrayListOf(startDelay)
@@ -195,7 +197,7 @@ class MscdMorseCodeConverter private constructor() {
                     }
                 }
 
-//        ComkitLogcatUtils.`object`(messageDelayPatternList)
+        ComkitLogcatUtils.`object`(messageDelayPatternList)
 
         return messageDelayPatternList
     }

@@ -19,6 +19,6 @@ class MscdHomepagePresenter(iView: MscdHomepageContract.IView) {
     }
 
     init {
-        this@MscdHomepagePresenter.mscdHomepageIView.setPresenter(this@MscdHomepagePresenter.mscdHomepageIPresenter)
+        mscdHomepageIView.setPresenter(mscdHomepageIPresenter)
     }
 }

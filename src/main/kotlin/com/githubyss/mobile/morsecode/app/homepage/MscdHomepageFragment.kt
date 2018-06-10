@@ -30,7 +30,7 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     private lateinit var mscdHomepageIPresenter: MscdHomepageContract.IPresenter
     private var mscdHomepageIView = object : MscdHomepageContract.IView {
         override fun setPresenter(iPresenter: MscdHomepageContract.IPresenter) {
-            this@MscdHomepageFragment.mscdHomepageIPresenter = iPresenter
+            mscdHomepageIPresenter = iPresenter
         }
     }
 
@@ -52,12 +52,12 @@ class MscdHomepageFragment : ComkitBaseFragment() {
 
 
     override fun bindPresenter() {
-        MscdHomepagePresenter(this@MscdHomepageFragment.mscdHomepageIView)
+        MscdHomepagePresenter(mscdHomepageIView)
     }
 
     override fun initView() {
-        btnMorseCodeTranslator.setOnClickListener(this@MscdHomepageFragment.onClickListener)
-        btnMorseCodeLearning.setOnClickListener(this@MscdHomepageFragment.onClickListener)
+        btnMorseCodeTranslator.setOnClickListener(onClickListener)
+        btnMorseCodeLearning.setOnClickListener(onClickListener)
     }
 
 
@@ -65,12 +65,12 @@ class MscdHomepageFragment : ComkitBaseFragment() {
         super.onCreate(savedInstanceState)
 
         bindPresenter()
-        this@MscdHomepageFragment.mscdHomepageIPresenter.onStandby()
+        mscdHomepageIPresenter.onStandby()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        this@MscdHomepageFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_homepage, container, false) ?: this@MscdHomepageFragment.rootView
-        return this@MscdHomepageFragment.rootView
+        rootView = inflater?.inflate(R.layout.mscd_fragment_homepage, container, false) ?: rootView
+        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -82,6 +82,6 @@ class MscdHomepageFragment : ComkitBaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        this@MscdHomepageFragment.mscdHomepageIPresenter.onActivityResult(requestCode, resultCode)
+        mscdHomepageIPresenter.onActivityResult(requestCode, resultCode)
     }
 }

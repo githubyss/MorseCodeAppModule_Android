@@ -60,7 +60,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
             changeBtnStatus(btnStartPlay, true)
-            this@MscdTrainingFragment.audioData = audioDataArray
+           audioData = audioDataArray
         }
     }
 

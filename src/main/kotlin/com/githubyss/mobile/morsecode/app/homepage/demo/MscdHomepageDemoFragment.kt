@@ -37,7 +37,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
     private lateinit var mscdHomepageDemoIPresenter: MscdHomepageDemoContract.IPresenter
     private var mscdHomepageDemoIView = object : MscdHomepageDemoContract.IView {
         override fun setPresenter(iPresenter: MscdHomepageDemoContract.IPresenter) {
-            this@MscdHomepageDemoFragment.mscdHomepageDemoIPresenter = iPresenter
+            mscdHomepageDemoIPresenter = iPresenter
         }
     }
 
@@ -115,22 +115,22 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
 
 
     override fun bindPresenter() {
-        MscdHomepageDemoPresenter(this@MscdHomepageDemoFragment.mscdHomepageDemoIView)
+        MscdHomepageDemoPresenter(mscdHomepageDemoIView)
     }
 
     override fun initView() {
-        btnMorseCodeTranslator.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnMorseCodeLearning.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnBuildAudioConfig.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnReleaseAudioTrack.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnStartPlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnStopAllPlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnStopCurrentPlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnPausePlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnResumePlayAudio.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnLogcatAudioTrackState.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnInitMorseCodeConverterConfig.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
-        btnLogcatMessageDelayPatternArray.setOnClickListener(this@MscdHomepageDemoFragment.onClickListener)
+        btnMorseCodeTranslator.setOnClickListener(onClickListener)
+        btnMorseCodeLearning.setOnClickListener(onClickListener)
+        btnBuildAudioConfig.setOnClickListener(onClickListener)
+        btnReleaseAudioTrack.setOnClickListener(onClickListener)
+        btnStartPlayAudio.setOnClickListener(onClickListener)
+        btnStopAllPlayAudio.setOnClickListener(onClickListener)
+        btnStopCurrentPlayAudio.setOnClickListener(onClickListener)
+        btnPausePlayAudio.setOnClickListener(onClickListener)
+        btnResumePlayAudio.setOnClickListener(onClickListener)
+        btnLogcatAudioTrackState.setOnClickListener(onClickListener)
+        btnInitMorseCodeConverterConfig.setOnClickListener(onClickListener)
+        btnLogcatMessageDelayPatternArray.setOnClickListener(onClickListener)
     }
 
 
@@ -138,12 +138,12 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
         super.onCreate(savedInstanceState)
 
         bindPresenter()
-        this@MscdHomepageDemoFragment.mscdHomepageDemoIPresenter.onStandby()
+        mscdHomepageDemoIPresenter.onStandby()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        this@MscdHomepageDemoFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_homepage_demo, container, false) ?: this@MscdHomepageDemoFragment.rootView
-        return this@MscdHomepageDemoFragment.rootView
+        rootView = inflater?.inflate(R.layout.mscd_fragment_homepage_demo, container, false) ?: rootView
+        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -155,6 +155,6 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        this@MscdHomepageDemoFragment.mscdHomepageDemoIPresenter.onActivityResult(requestCode, resultCode)
+        mscdHomepageDemoIPresenter.onActivityResult(requestCode, resultCode)
     }
 }
