@@ -10,8 +10,8 @@ package com.githubyss.mobile.morsecode.app.util.player.controller.action
  * @author Ace Yan
  * @github githubyss
  */
-class MscdFlashlightOnAction : MscdPlayerAction {
-    override fun startPlay(message: String, baseDelay: Long) {
+class MscdFlashlightOnAction : MscdFlashlightAction {
+    override fun startPlay(flashlightData: Array<Any>) {
     }
 
     override fun stopPlay() {

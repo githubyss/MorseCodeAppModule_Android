@@ -18,10 +18,6 @@
     <string name="mscdCharSelectingTitle">Char Selecting</string>
     <string name="mscdCharSelectingRecommendedSequence">Recommended training sequence:</string>
     <string name="mscdCharSelectingHintAtLeastOneChar">Please select one char at least.</string>
-    <string name="mscdCharSelectingHintBuildingSucceeded">Random string building succeeded.</string>
-    <string name="mscdCharSelectingHintBuildingFailed">Random string building failed.</string>
-    <string name="mscdCharSelectingHintBuildingCancelled">Random string building cancelled.</string>
-    <string name="mscdCharSelectingHintBuildingFailingInfo">Failing Info:</string>
     <string name="mscdCharSelectingConfigMsgLength">Message length</string>
     <string name="mscdCharSelectingConfigMsgLengthUnits">(char ex. spacing)</string>
     <string name="mscdCharSelectingConfigMsgLengthDefault">200</string>
@@ -46,6 +42,17 @@
     <string name="mscdTrainingTitle">Training</string>
     <string name="mscdTrainingTransmitted">Transmitted messages.</string>
     <string name="mscdTrainingRecoded">Recoded messages.</string>
+
+
+    <string name="mscdAudioDataGenerateSucceeded">Audio data generate succeeded.</string>
+    <string name="mscdAudioDataGenerateFailed">Audio data generate failed.</string>
+    <string name="mscdAudioDataGenerateCancelled">Audio data generate cancelled.</string>
+
+    <string name="mscdRandomStringGenerateSucceeded">Random string generate succeeded.</string>
+    <string name="mscdRandomStringGenerateFailed">Random string generate failed.</string>
+    <string name="mscdRandomStringGenerateCancelled">Random string generate cancelled.</string>
+
+    <string name="mscdFailingInfo">Failing Info:</string>
 
     <string name="mscdCharAlphabetA">A</string>
     <string name="mscdCharAlphabetB">B</string>

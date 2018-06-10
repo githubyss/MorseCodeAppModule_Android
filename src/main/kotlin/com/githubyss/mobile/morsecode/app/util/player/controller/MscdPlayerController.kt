@@ -24,9 +24,9 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
     }
 
 
-    private var audioAction = MscdAudioOffAction() as MscdPlayerAction
-    private var flashlightAction = MscdFlashlightOffAction() as MscdPlayerAction
-    private var vibratorAction = MscdVibratorOffAction() as MscdPlayerAction
+    private var audioAction = MscdAudioOffAction() as MscdAudioAction
+    private var flashlightAction = MscdFlashlightOffAction() as MscdFlashlightAction
+    private var vibratorAction = MscdVibratorOffAction() as MscdVibratorAction
 
 
     fun init() {
@@ -35,10 +35,10 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
         vibratorAction = if (MscdPlayModeGlobalInfo.vibratorStatus == MscdStatusConstants.PlayModeStatus.VIBRATION_ON) MscdVibratorOnAction() else MscdVibratorOffAction()
     }
 
-    fun startPlay(message: String, baseDelay: Long) {
-        audioAction.startPlay(message, baseDelay)
-        flashlightAction.startPlay(message, baseDelay)
-        vibratorAction.startPlay(message, baseDelay)
+    fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>) {
+        audioAction.startPlay(audioData)
+        flashlightAction.startPlay(flashlightData)
+        vibratorAction.startPlay(vibratorData)
     }
 
     fun stopPlay() {

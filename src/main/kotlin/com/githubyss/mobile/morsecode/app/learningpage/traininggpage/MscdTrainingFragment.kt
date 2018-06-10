@@ -1,5 +1,8 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
+import android.media.AudioFormat
+import android.media.AudioManager
+import android.media.AudioTrack
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
@@ -10,8 +13,14 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
 import com.githubyss.mobile.common.kit.util.ComkitFontUtils
+import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
+import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioConfig
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateSineWaveStrategy
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGeneratorConfig
 import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
 
@@ -33,12 +42,25 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private lateinit var rootView: View
 
     private var trainingMsgStr = ""
-    private var baseDelay = 0L
+    private var baseDelay = 0
+
+    private var audioData = emptyArray<Float>()
+    private var flashlightData = emptyArray<Any>()
+    private var vibratorData = emptyArray<Any>()
 
     private lateinit var mscdTrainingIPresenter: MscdTrainingContract.IPresenter
     private var mscdTrainingIView = object : MscdTrainingContract.IView {
         override fun setPresenter(iPresenter: MscdTrainingContract.IPresenter) {
-            this@MscdTrainingFragment.mscdTrainingIPresenter = iPresenter
+            mscdTrainingIPresenter = iPresenter
+        }
+
+        override fun showHint(hintStr: String) {
+            ComkitToastUtils.showMessage(msgStr = hintStr)
+        }
+
+        override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
+            changeBtnStatus(btnStartPlay, true)
+            this@MscdTrainingFragment.audioData = audioDataArray
         }
     }
 
@@ -46,10 +68,17 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         val id = v.id
         when (id) {
             R.id.btnStartPlay -> {
-                MscdPlayerController.instance.startPlay(this@MscdTrainingFragment.trainingMsgStr, this@MscdTrainingFragment.baseDelay)
+                changeBtnStatus(btnStartPlay, false)
+                changeBtnStatus(btnStopPlay, true)
+
+                initAudioConfig()
+
+                MscdPlayerController.instance.startPlay(audioData, flashlightData, vibratorData)
             }
 
             R.id.btnStopPlay -> {
+                changeBtnStatus(btnStartPlay, true)
+                changeBtnStatus(btnStopPlay, false)
                 MscdPlayerController.instance.stopPlay()
             }
 
@@ -63,7 +92,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
 
     override fun bindPresenter() {
-        MscdTrainingPresenter(this@MscdTrainingFragment.mscdTrainingIView)
+        MscdTrainingPresenter(mscdTrainingIView)
     }
 
     override fun initView() {
@@ -87,21 +116,59 @@ class MscdTrainingFragment : ComkitBaseFragment() {
             false
         }
 
-        btnStartPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
-        btnStopPlay.setOnClickListener(this@MscdTrainingFragment.onClickListener)
-        btnSubmit.setOnClickListener(this@MscdTrainingFragment.onClickListener)
+        btnStartPlay.setOnClickListener(onClickListener)
+        btnStopPlay.setOnClickListener(onClickListener)
+        btnSubmit.setOnClickListener(onClickListener)
+
+        changeBtnStatus(btnStartPlay, false)
+        changeBtnStatus(btnStopPlay, false)
+        changeBtnStatus(btnSubmit, false)
 
         ComkitFontUtils.replaceFontFromAsset(llMorseCodeCopyDisplay, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
         ComkitFontUtils.replaceFontFromAsset(llCharClickContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {
-        this@MscdTrainingFragment.trainingMsgStr = arguments.getString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE)
-        this@MscdTrainingFragment.baseDelay = arguments.getLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
+        trainingMsgStr = arguments.getString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE)
+        baseDelay = arguments.getInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
     }
 
     override fun refreshView() {
-        tvMorseCodeCopy.text = this@MscdTrainingFragment.trainingMsgStr
+        tvMorseCodeCopy.text = trainingMsgStr
+    }
+
+
+    private fun initConfig() {
+        initMorseCodeConverterConfig()
+        initAudioConfig()
+        initAudioDataGeneratorConfig()
+    }
+
+    private fun initMorseCodeConverterConfig() {
+        MscdMorseCodeConverterConfig.Builder
+                .setBaseDelay(baseDelay)
+                .create()
+    }
+
+    private fun initAudioConfig() {
+        MscdAudioConfig.Builder
+                .setAudioFrequencyInHz(880)
+                .setAudioSampleRateInHz(4000)
+                .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
+                .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
+                .setAudioStreamType(AudioManager.STREAM_MUSIC)
+                .setAudioTrackMode(AudioTrack.MODE_STREAM)
+                .create()
+    }
+
+    private fun initAudioDataGeneratorConfig() {
+        MscdAudioDataGeneratorConfig.Builder
+                .setStrategy(MscdAudioDataGenerateSineWaveStrategy())
+                .create()
+    }
+
+    private fun generatePlayerData() {
+        mscdTrainingIPresenter.buildPlayerData(trainingMsgStr)
     }
 
 
@@ -109,12 +176,12 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         super.onCreate(savedInstanceState)
 
         bindPresenter()
-        this@MscdTrainingFragment.mscdTrainingIPresenter.onStandby()
+        mscdTrainingIPresenter.onStandby()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        this@MscdTrainingFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_training, container, false) ?: this@MscdTrainingFragment.rootView
-        return this@MscdTrainingFragment.rootView
+        rootView = inflater?.inflate(R.layout.mscd_fragment_training, container, false) ?: rootView
+        return rootView
     }
 
     override fun onResume() {
@@ -128,11 +195,15 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         initView()
         initData()
+        initConfig()
+        generatePlayerData()
         refreshView()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
+        MscdAudioDataGenerator.instance.stopGenerateAudioData()
 
         MscdPlayerController.instance.stopPlay()
         MscdPlayerController.instance.releaseResource()

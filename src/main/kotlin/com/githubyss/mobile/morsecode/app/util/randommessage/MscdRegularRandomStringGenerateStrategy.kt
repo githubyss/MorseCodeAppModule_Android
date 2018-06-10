@@ -22,8 +22,8 @@ class MscdRegularRandomStringGenerateStrategy : MscdRandomStringGenerateStrategy
      * <Description>
      * <Details>
      *
-     * @param charList Chars be used to build the random string.
-     * @param stringLength Size of valid chars in target random string.
+     * @param charList
+     * @param stringLength
      * @param wordSize Constant stringLength of one word which built by the algorithm.
      * @return
      * @author Ace Yan
@@ -65,10 +65,10 @@ class MscdRegularRandomStringGenerateStrategy : MscdRandomStringGenerateStrategy
             randomStringBuilder.toString()
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(exception)
-            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
+            "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         } catch (exception: OutOfMemoryError) {
             ComkitLogcatUtils.e(exception)
-            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
+            "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         }
     }
 }

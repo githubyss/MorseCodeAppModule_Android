@@ -28,37 +28,43 @@ class MscdRandomStringGenerator private constructor() {
     }
 
 
-    /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
-    private val config =
-            if (!MscdRandomStringGeneratorConfig.instance.hasBuilt)
-                MscdRandomStringGeneratorConfig.Builder.create()
-            else
-                MscdRandomStringGeneratorConfig.instance
-
-    private var randomStringGeneratorAsyncTask: RandomStringGeneratorAsyncTask? = null
-
-
     interface OnRandomStringGenerateListener {
         fun onSucceeded(randomString: String)
         fun onFailed(failingInfo: String)
         fun onCancelled()
     }
 
+
+    /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
+    private val config =
+            if (!MscdRandomStringGeneratorConfig.instance.hasBuilt)
+                MscdRandomStringGeneratorConfig.Builder
+                        .create()
+            else
+                MscdRandomStringGeneratorConfig.instance
+
+    private var randomStringGeneratorAsyncTask: RandomStringGeneratorAsyncTask? = null
+
+
     private inner class RandomStringGeneratorAsyncTask(private val onRandomStringGenerateListener: OnRandomStringGenerateListener) : AsyncTask<Bundle, Int, String>() {
         override fun doInBackground(vararg params: Bundle): String {
             if (isCancelled) {
-                ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> isCancelled")
                 return ""
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
 
-            val bundle = params[0]
-            val charList = bundle.getStringArrayList(MscdKeyConstants.CharSelectingKey.CHAR_LIST)
-            val stringLength = bundle.getLong(MscdKeyConstants.CharSelectingKey.STRING_LENGTH)
-            val wordSize = bundle.getInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE)
-
-            return this@MscdRandomStringGenerator.buildRandomString(charList, stringLength, wordSize)
+            return try {
+                val bundle = params[0]
+                val charList = bundle.getStringArrayList(MscdKeyConstants.CharSelectingKey.CHAR_LIST)
+                val stringLength = bundle.getLong(MscdKeyConstants.CharSelectingKey.STRING_LENGTH)
+                val wordSize = bundle.getInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE)
+                buildRandomString(charList, stringLength, wordSize)
+            } catch (exception: InterruptedException) {
+                ComkitLogcatUtils.e(exception)
+                ""
+            }
         }
 
         override fun onPostExecute(result: String) {
@@ -66,17 +72,17 @@ class MscdRandomStringGenerator private constructor() {
                 return
             }
 
-            if (result.contains(ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo))) {
+            if (result.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
                 onRandomStringGenerateListener.onFailed(result)
                 return
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
             onRandomStringGenerateListener.onSucceeded(result)
         }
 
         override fun onCancelled() {
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
             onRandomStringGenerateListener.onCancelled()
         }
     }
@@ -92,24 +98,20 @@ class MscdRandomStringGenerator private constructor() {
         MscdRandomStringGenerateStrategy.hasCancelled = false
         ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
 
-        this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask = RandomStringGeneratorAsyncTask(onRandomStringGenerateListener)
-        this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask?.execute(bundle)
+        randomStringGeneratorAsyncTask = RandomStringGeneratorAsyncTask(onRandomStringGenerateListener)
+        randomStringGeneratorAsyncTask?.execute(bundle)
     }
 
     fun cancelRandomStringGeneratorAsyncTask() {
         ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
-        if (this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
-            this@MscdRandomStringGenerator.randomStringGeneratorAsyncTask?.cancel(true)
+        if (randomStringGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
+            randomStringGeneratorAsyncTask?.cancel(true)
             MscdRandomStringGenerateStrategy.hasCancelled = true
             ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled true.")
         }
     }
 
     private fun buildRandomString(charList: List<String>, stringLength: Long, wordSize: Int): String {
-        if (!this@MscdRandomStringGenerator.config.hasBuilt) {
-            MscdRandomStringGeneratorConfig.Builder.create()
-        }
-
-        return this@MscdRandomStringGenerator.config.randomStringGenerateStrategy.buildRandomString(charList, stringLength, wordSize)
+        return config.randomStringGenerateStrategy.buildRandomString(charList, stringLength, wordSize)
     }
 }

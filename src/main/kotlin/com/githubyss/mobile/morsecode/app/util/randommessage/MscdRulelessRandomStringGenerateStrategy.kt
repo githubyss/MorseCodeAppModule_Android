@@ -22,10 +22,10 @@ class MscdRulelessRandomStringGenerateStrategy : MscdRandomStringGenerateStrateg
      * <Description>
      * <Details>
      *
-     * @param charList Chars be used to build the random string.
-     * @param stringLength Size of valid chars in target random string.
+     * @param charList
+     * @param stringLength
      * @param wordSize Maximal stringLength of one word which built by the algorithm.
-     * @return String
+     * @return
      * @author Ace Yan
      * @github githubyss
      */
@@ -73,10 +73,10 @@ class MscdRulelessRandomStringGenerateStrategy : MscdRandomStringGenerateStrateg
             randomStringBuilder.toString()
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(exception)
-            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
+            "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         } catch (exception: OutOfMemoryError) {
             ComkitLogcatUtils.e(exception)
-            "${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailingInfo)} ${exception.javaClass.simpleName}!"
+            "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         }
     }
 }

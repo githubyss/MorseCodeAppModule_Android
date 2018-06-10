@@ -1,6 +1,5 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
 
 /**
@@ -25,7 +24,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 
 
     /** Basic delay to be used to init ditdah delay, gap delay and other delays to build char delay patterns, units is (ms). by Ace Yan */
-    private var baseDelay = 50L
+    private var baseDelay = 50
 
     var ditDelay = baseDelay
         private set
@@ -50,11 +49,11 @@ class MscdMorseCodeConverterConfig private constructor() {
         private set
 
     /** Char-delayPatternArray map. by Ace Yan */
-    var char2DelayPatternArrayMap = HashMap<Char, Array<Long>>()
+    var char2DelayPatternArrayMap = HashMap<Char, Array<Int>>()
         private set
 
     /** Char-delayPatternList map. by Ace Yan */
-    var char2DelayPatternListMap = HashMap<Char, List<Long>>()
+    var char2DelayPatternListMap = HashMap<Char, List<Int>>()
         private set
 
     var hasBuilt = false
@@ -62,12 +61,12 @@ class MscdMorseCodeConverterConfig private constructor() {
 
 
     object Builder {
-        private var baseDelay = 50L
+        private var baseDelay = 50
 
-        fun setBaseDelay(delay: Long): Builder {
+        fun setBaseDelay(delay: Int): Builder {
             var baseDelay = delay
-            if (baseDelay <= 0L) {
-                baseDelay = 50L
+            if (baseDelay <= 0) {
+                baseDelay = 50
             }
 
             this@Builder.baseDelay = baseDelay
@@ -164,7 +163,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 //        char2DitdahStringMap.put(MscdEncodeConstants.Chars.SIGN_AMPERSAND, MscdEncodeConstants.Ditdahs.SIGN_AMPERSAND)
             char2DitdahStringMap.put(MscdEncodeConstants.Chars.SIGN_AT, MscdEncodeConstants.Ditdahs.SIGN_AT)
 
-            ComkitLogcatUtils.`object`(char2DitdahStringMap)
+//            ComkitLogcatUtils.`object`(char2DitdahStringMap)
 
             return char2DitdahStringMap
         }
@@ -179,14 +178,14 @@ class MscdMorseCodeConverterConfig private constructor() {
          * @author Ace Yan
          * @github githubyss
          */
-        private fun buildChar2DelayPatternArrayMap(config: MscdMorseCodeConverterConfig): HashMap<Char, Array<Long>> {
+        private fun buildChar2DelayPatternArrayMap(config: MscdMorseCodeConverterConfig): HashMap<Char, Array<Int>> {
             val ditDelay = config.ditDelay
             val dahDelay = config.dahDelay
             val ditDahGapDelay = config.ditDahGapDelay
 
             val char2DitdahStringMap = config.char2DitdahStringMap
 
-            val char2DelayPatternArrayMap = LinkedHashMap<Char, Array<Long>>()
+            val char2DelayPatternArrayMap = LinkedHashMap<Char, Array<Int>>()
 
             /** Traverse char-ditdahString map to build char-delayPatternArray map. by Ace Yan */
             for (entry in char2DitdahStringMap.entries) {
@@ -205,7 +204,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                  * by Ace Yan
                  */
                 val charDelayPatternArraySize = charDitdahStringLength * 2 - 1
-                val charDelayPatternArray = Array(charDelayPatternArraySize, { it -> it.toLong() })
+                val charDelayPatternArray = Array(charDelayPatternArraySize, { it -> it })
 
                 /** Traverse ditdahString value to get delayPatternArray. by Ace Yan */
                 for (idx in 0 until charDitdahStringLength) {
@@ -225,7 +224,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DelayPatternArrayMap.put(charKey, charDelayPatternArray)
             }
 
-            ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
+//            ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
 
             return char2DelayPatternArrayMap
         }
@@ -240,14 +239,14 @@ class MscdMorseCodeConverterConfig private constructor() {
          * @author Ace Yan
          * @github githubyss
          */
-        private fun buildChar2DelayPatternListMap(config: MscdMorseCodeConverterConfig): HashMap<Char, List<Long>> {
+        private fun buildChar2DelayPatternListMap(config: MscdMorseCodeConverterConfig): HashMap<Char, List<Int>> {
             val ditDelay = config.ditDelay
             val dahDelay = config.dahDelay
             val ditDahGapDelay = config.ditDahGapDelay
 
             val char2DitdahStringMap = config.char2DitdahStringMap
 
-            val char2DelayPatternListMap = LinkedHashMap<Char, List<Long>>()
+            val char2DelayPatternListMap = LinkedHashMap<Char, List<Int>>()
 
             for (entry in char2DitdahStringMap.entries) {
                 val charKey = entry.key
@@ -255,7 +254,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 
                 val charDitdahStringLength = charDitdahString.length
 
-                val charDelayPatternList = ArrayList<Long>()
+                val charDelayPatternList = ArrayList<Int>()
 
                 for (idx in 0 until charDitdahStringLength) {
                     if (charDitdahString[idx] == MscdEncodeConstants.Codes.DIT) {
@@ -272,7 +271,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DelayPatternListMap.put(charKey, charDelayPatternList)
             }
 
-            ComkitLogcatUtils.`object`(char2DelayPatternListMap)
+//            ComkitLogcatUtils.`object`(char2DelayPatternListMap)
 
             return char2DelayPatternListMap
         }

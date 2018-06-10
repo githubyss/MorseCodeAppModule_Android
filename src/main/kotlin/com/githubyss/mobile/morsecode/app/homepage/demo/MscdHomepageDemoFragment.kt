@@ -57,7 +57,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
 
                 MscdAudioConfig.Builder
                         .setAudioFrequencyInHz(880)
-                        .setAudioSampleRateInHz(44100)
+                        .setAudioSampleRateInHz(4000)
                         .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
                         .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
                         .setAudioStreamType(AudioManager.STREAM_MUSIC)
@@ -68,7 +68,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnStartPlayAudio -> {
-                MscdAudioPlayer.instance.startAudioPlayerAsyncTask("MORSE  CODE")
+                MscdAudioPlayer.instance.startAudioPlayerAsyncTask("O")
             }
 
             R.id.btnStopAllPlayAudio -> {
@@ -104,8 +104,8 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnLogcatMessageDelayPatternArray -> {
-                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray("MORSE  CODE")
-//                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
+//                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray("MORSE  CODE")
+                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
             }
 
             else -> {

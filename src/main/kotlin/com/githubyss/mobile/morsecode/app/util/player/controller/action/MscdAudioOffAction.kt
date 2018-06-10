@@ -10,8 +10,8 @@ package com.githubyss.mobile.morsecode.app.util.player.controller.action
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioOffAction : MscdPlayerAction {
-    override fun startPlay(message: String, baseDelay: Long) {
+class MscdAudioOffAction : MscdAudioAction {
+    override fun startPlay(audioDataArray: Array<Float>) {
     }
 
     override fun stopPlay() {

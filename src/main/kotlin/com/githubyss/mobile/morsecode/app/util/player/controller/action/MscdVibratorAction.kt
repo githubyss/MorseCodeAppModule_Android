@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.controller.action
 
 /**
- * MscdPlayerAction.ktt
+ * MscdAudioAction.kt
  * <Description>
  * <Details>
  *
@@ -10,8 +10,8 @@ package com.githubyss.mobile.morsecode.app.util.player.controller.action
  * @author Ace Yan
  * @github githubyss
  */
-interface MscdPlayerAction {
-    fun startPlay(message: String, baseDelay: Long)
+interface MscdVibratorAction {
+    fun startPlay(vibratorData: Array<Any>)
     fun stopPlay()
     fun releaseResource()
 }

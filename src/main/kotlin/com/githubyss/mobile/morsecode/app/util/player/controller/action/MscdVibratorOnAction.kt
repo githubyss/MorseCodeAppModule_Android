@@ -10,8 +10,8 @@ package com.githubyss.mobile.morsecode.app.util.player.controller.action
  * @author Ace Yan
  * @github githubyss
  */
-class MscdVibratorOnAction : MscdPlayerAction {
-    override fun startPlay(message: String, baseDelay: Long) {
+class MscdVibratorOnAction : MscdVibratorAction {
+    override fun startPlay(vibratorData: Array<Any>) {
     }
 
     override fun stopPlay() {

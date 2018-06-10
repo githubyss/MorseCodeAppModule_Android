@@ -41,7 +41,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
     private lateinit var mscdCharsSelectingIPresenter: MscdCharsSelectingContract.IPresenter
     private var mscdCharSelectingIView = object : MscdCharsSelectingContract.IView {
         override fun setPresenter(iPresenter: MscdCharsSelectingContract.IPresenter) {
-            this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter = iPresenter
+            mscdCharsSelectingIPresenter = iPresenter
         }
 
         override fun showHint(hintStr: String) {
@@ -50,11 +50,11 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         }
 
         override fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String) {
-            changeBtnStatus(btnConfirm, true)
-            this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter.buildGotoTrainingPageBundle(randomTrainingMsgStr, etDitDuration.text.toString())
+            mscdCharsSelectingIPresenter.buildGotoTrainingPageBundle(randomTrainingMsgStr, etDitDuration.text.toString())
         }
 
         override fun gotoTrainingPage(bundle: Bundle) {
+            changeBtnStatus(btnConfirm, true)
             val fragment = ARouter.getInstance().build("/morsecode/app/learningpage/traininggpage/MscdTrainingFragment").navigation() as Fragment
             fragment.arguments = bundle
             replaceFragment(fragment, "MscdTrainingFragment", true)
@@ -65,7 +65,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         when (v.id) {
             R.id.btnConfirm -> {
                 changeBtnStatus(btnConfirm, false)
-                this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString(), tglBtnRandomStringGenerateStrategy.isChecked)
+                mscdCharsSelectingIPresenter.buildRandomTrainingMessage(chkBtnList, etMessageLength.text.toString(), etWordSize.text.toString(), tglBtnRandomStringGenerateStrategy.isChecked)
             }
 
             else -> {
@@ -77,13 +77,13 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         if (hasFocus) {
             when (v.id) {
                 R.id.etKeySpeed -> {
-                    etKeySpeed.addTextChangedListener(this@MscdCharsSelectingFragment.etKeySpeedWatcher)
-                    etDitDuration.removeTextChangedListener(this@MscdCharsSelectingFragment.etDitDurationWatcher)
+                    etKeySpeed.addTextChangedListener(etKeySpeedWatcher)
+                    etDitDuration.removeTextChangedListener(etDitDurationWatcher)
                 }
 
                 R.id.etDitDuration -> {
-                    etDitDuration.addTextChangedListener(this@MscdCharsSelectingFragment.etDitDurationWatcher)
-                    etKeySpeed.removeTextChangedListener(this@MscdCharsSelectingFragment.etKeySpeedWatcher)
+                    etDitDuration.addTextChangedListener(etDitDurationWatcher)
+                    etKeySpeed.removeTextChangedListener(etKeySpeedWatcher)
                 }
 
                 else -> {
@@ -107,7 +107,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
                         if (s.toString().toLong() == 0L) {
                             etDitDuration.setText("0")
                         } else {
-                            etDitDuration.setText(this@MscdCharsSelectingFragment.convertSpeedAndDuration(s.toString().toLong()).toString())
+                            etDitDuration.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
                         }
                     }
 
@@ -137,7 +137,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
                         if (s.toString().toLong() == 0L) {
                             etKeySpeed.setText("0")
                         } else {
-                            etKeySpeed.setText(this@MscdCharsSelectingFragment.convertSpeedAndDuration(s.toString().toLong()).toString())
+                            etKeySpeed.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
                         }
                     }
 
@@ -159,17 +159,17 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
 
 
     override fun bindPresenter() {
-        MscdCharsSelectingPresenter(this@MscdCharsSelectingFragment.mscdCharSelectingIView)
+        MscdCharsSelectingPresenter(mscdCharSelectingIView)
     }
 
     override fun initView() {
-        btnConfirm.setOnClickListener(this@MscdCharsSelectingFragment.onClickListener)
+        btnConfirm.setOnClickListener(onClickListener)
 
-        etKeySpeed.onFocusChangeListener = this@MscdCharsSelectingFragment.onFocusChangeListener
-        etDitDuration.onFocusChangeListener = this@MscdCharsSelectingFragment.onFocusChangeListener
+        etKeySpeed.onFocusChangeListener = onFocusChangeListener
+        etDitDuration.onFocusChangeListener = onFocusChangeListener
 
-        etKeySpeed.addTextChangedListener(this@MscdCharsSelectingFragment.etKeySpeedWatcher)
-        etDitDuration.addTextChangedListener(this@MscdCharsSelectingFragment.etDitDurationWatcher)
+        etKeySpeed.addTextChangedListener(etKeySpeedWatcher)
+        etDitDuration.addTextChangedListener(etDitDurationWatcher)
 
         tglBtnRandomStringGenerateStrategy.isChecked = false
 
@@ -178,12 +178,12 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
     }
 
     override fun initData() {
-        this@MscdCharsSelectingFragment.chkBtnList = ArrayList()
+        chkBtnList = ArrayList()
 
         for (idxOfOutsideLlContainer in 0 until llCharSelectingContainer.childCount) {
             val charSelectingBtnContainer = llCharSelectingContainer.getChildAt(idxOfOutsideLlContainer) as LinearLayout
             for (idxOfInsideBtnContainer in 0 until charSelectingBtnContainer.childCount) {
-                this@MscdCharsSelectingFragment.chkBtnList.add(charSelectingBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
+                chkBtnList.add(charSelectingBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
             }
         }
     }
@@ -193,12 +193,12 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         super.onCreate(savedInstanceState)
 
         bindPresenter()
-        this@MscdCharsSelectingFragment.mscdCharsSelectingIPresenter.onStandby()
+        mscdCharsSelectingIPresenter.onStandby()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        this@MscdCharsSelectingFragment.rootView = inflater?.inflate(R.layout.mscd_fragment_chars_selecting, container, false) ?: this@MscdCharsSelectingFragment.rootView
-        return this@MscdCharsSelectingFragment.rootView
+        rootView = inflater?.inflate(R.layout.mscd_fragment_chars_selecting, container, false) ?: rootView
+        return rootView
     }
 
     override fun onResume() {
@@ -217,6 +217,8 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
 
-        MscdRandomStringGenerator.instance.cancelRandomStringGeneratorAsyncTask()
+        if (activity.isFinishing) {
+            MscdRandomStringGenerator.instance.cancelRandomStringGeneratorAsyncTask()
+        }
     }
 }

@@ -13,9 +13,11 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  */
 interface MscdTrainingContract {
     interface IView : ComkitIBaseView<IPresenter> {
-
+        fun showHint(hintStr: String)
+        fun onAudioDataBuilt(audioDataArray: Array<Float>)
     }
 
     interface IPresenter : ComkitIBasePresenter {
+        fun buildPlayerData(trainingMsgStr:String)
     }
 }

@@ -54,9 +54,13 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
             }
 
             if (needRuleless) {
-                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRulelessRandomStringGenerateStrategy()).create()
+                MscdRandomStringGeneratorConfig.Builder
+                        .setStrategy(MscdRulelessRandomStringGenerateStrategy())
+                        .create()
             } else {
-                MscdRandomStringGeneratorConfig.Builder.setStrategy(MscdRegularRandomStringGenerateStrategy()).create()
+                MscdRandomStringGeneratorConfig.Builder
+                        .setStrategy(MscdRegularRandomStringGenerateStrategy())
+                        .create()
             }
 
             MscdRandomStringGenerator.instance.startRandomStringGeneratorAsyncTask(
@@ -64,15 +68,15 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                     object : MscdRandomStringGenerator.OnRandomStringGenerateListener {
                         override fun onSucceeded(randomString: String) {
                             mscdCharSelectingIView.onRandomTrainingMessageBuilt(randomString)
-                            mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingSucceeded))
+                            mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdRandomStringGenerateSucceeded))
                         }
 
                         override fun onFailed(failingInfo: String) {
-                            mscdCharSelectingIView.showHint("${ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingFailed)} $failingInfo")
+                            mscdCharSelectingIView.showHint("${ComkitResUtils.getString(resId = R.string.mscdRandomStringGenerateFailed)} $failingInfo")
                         }
 
                         override fun onCancelled() {
-                            mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdCharSelectingHintBuildingCancelled))
+                            mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdRandomStringGenerateCancelled))
                         }
                     }
             )
@@ -84,20 +88,20 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
                 return
             }
 
-            if (ditDuration.toLong() == 0L) {
+            if (ditDuration.toInt() == 0) {
                 mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdCharSelectingConfigDitDurationHintNotZero))
                 return
             }
 
             val bundle = Bundle()
             bundle.putString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE, trainingMsgStr)
-            bundle.putLong(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY, ditDuration.toLong())
+            bundle.putInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY, ditDuration.toInt())
             mscdCharSelectingIView.gotoTrainingPage(bundle)
         }
     }
 
     init {
-        this@MscdCharsSelectingPresenter.mscdCharSelectingIView.setPresenter(this@MscdCharsSelectingPresenter.mscdCharSelectingIPresenter)
+        mscdCharSelectingIView.setPresenter(mscdCharSelectingIPresenter)
     }
 
 

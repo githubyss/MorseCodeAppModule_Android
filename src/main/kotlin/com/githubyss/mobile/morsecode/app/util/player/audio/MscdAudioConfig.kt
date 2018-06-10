@@ -27,7 +27,7 @@ class MscdAudioConfig private constructor(){
     var audioFrequencyInHz = 1000
         private set
 
-    var audioSampleRateInHz = 44100
+    var audioSampleRateInHz = 4000
         private set
 
     var audioChannelFormat = AudioFormat.CHANNEL_OUT_MONO
@@ -54,7 +54,7 @@ class MscdAudioConfig private constructor(){
 
     object Builder {
         private var audioFrequencyInHz = 1000
-        private var audioSampleRateInHz = 44100
+        private var audioSampleRateInHz = 4000
         private var audioChannelFormat = AudioFormat.CHANNEL_OUT_MONO
         private var audioEncodingPcmFormat = AudioFormat.ENCODING_PCM_16BIT
 
