@@ -49,11 +49,11 @@ class MscdRandomStringGenerator private constructor() {
     private inner class RandomStringGeneratorAsyncTask(private val onRandomStringGenerateListener: OnRandomStringGenerateListener) : AsyncTask<Bundle, Int, String>() {
         override fun doInBackground(vararg params: Bundle): String {
             if (isCancelled) {
-                ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> isCancelled")
                 return ""
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
 
             return try {
                 val bundle = params[0]
@@ -62,7 +62,7 @@ class MscdRandomStringGenerator private constructor() {
                 val wordSize = bundle.getInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE)
                 buildRandomString(charList, stringLength, wordSize)
             } catch (exception: InterruptedException) {
-                ComkitLogcatUtils.e(exception)
+                ComkitLogcatUtils.e(t = exception)
                 ""
             }
         }
@@ -77,12 +77,12 @@ class MscdRandomStringGenerator private constructor() {
                 return
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
             onRandomStringGenerateListener.onSucceeded(result)
         }
 
         override fun onCancelled() {
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
             onRandomStringGenerateListener.onCancelled()
         }
     }
@@ -94,20 +94,20 @@ class MscdRandomStringGenerator private constructor() {
         bundle.putLong(MscdKeyConstants.CharSelectingKey.STRING_LENGTH, stringLength)
         bundle.putInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE, wordSize)
 
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled false.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled false.")
         MscdRandomStringGenerateStrategy.hasCancelled = false
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
 
         randomStringGeneratorAsyncTask = RandomStringGeneratorAsyncTask(onRandomStringGenerateListener)
         randomStringGeneratorAsyncTask?.execute(bundle)
     }
 
     fun cancelRandomStringGeneratorAsyncTask() {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Current time is ${System.currentTimeMillis()}.")
         if (randomStringGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
             randomStringGeneratorAsyncTask?.cancel(true)
             MscdRandomStringGenerateStrategy.hasCancelled = true
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled true.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> cancelRandomStringGeneratorAsyncTask() >>> Set strategy hasCancelled true.")
         }
     }
 

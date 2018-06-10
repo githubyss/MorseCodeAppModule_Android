@@ -49,7 +49,7 @@ class MscdAudioPlayer private constructor() {
     private inner class AudioPlayerAsyncTask : AsyncTask<Array<Float>, Int, Boolean>() {
         override fun doInBackground(vararg params: Array<Float>?): Boolean? {
             if (isCancelled) {
-                ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> AudioPlayerAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioPlayerAsyncTask.doInBackground() >>> isCancelled")
                 return true
             }
 
@@ -59,7 +59,7 @@ class MscdAudioPlayer private constructor() {
                 startPlayAudio(params[0] ?: emptyArray())
                 true
             } catch (exception: InterruptedException) {
-                ComkitLogcatUtils.e(exception)
+                ComkitLogcatUtils.e(t = exception)
                 false
             }
         }
@@ -165,23 +165,23 @@ class MscdAudioPlayer private constructor() {
             /** No matter what play state is, the audioTrack can do play() if the state is STATE_INITIALIZED. by Ace Yan */
             when (audioTrack.state) {
                 AudioTrack.STATE_UNINITIALIZED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_UNINITIALIZED, try to play failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_UNINITIALIZED, try to play failed!")
                     return false
                 }
 
                 AudioTrack.STATE_INITIALIZED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_INITIALIZED, try to play!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_INITIALIZED, try to play!")
                     audioTrack.play()
                     writeAudioDataToTrack(audioDataArray, audioTrack)
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startPlayAudio() >>> else in when, try to play failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> else in when, try to play failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -208,33 +208,33 @@ class MscdAudioPlayer private constructor() {
         try {
             when (audioEncodingPcmFormat) {
                 AudioFormat.ENCODING_PCM_FLOAT -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_FLOAT, try to write in FLOAT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_FLOAT, try to write in FLOAT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         audioTrack.write(audioDataArray.toFloatArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 AudioFormat.ENCODING_PCM_16BIT -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_16BIT, try to write in 16BIT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_16BIT, try to write in 16BIT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         audioTrack.write(audioDataArray.map { it.toShort() }.toShortArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 AudioFormat.ENCODING_PCM_8BIT -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_8BIT, try to write in 8BIT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_8BIT, try to write in 8BIT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         audioTrack.write(audioDataArray.map { it.toByte() }.toByteArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> else in when, try to write failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> else in when, try to write failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -275,30 +275,30 @@ class MscdAudioPlayer private constructor() {
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop and release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop and release!")
                     audioTrack.stop()
                     audioTrack.release()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to flush, stop and release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to flush, stop and release!")
                     audioTrack.flush()
                     audioTrack.stop()
                     audioTrack.release()
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to release!")
                     audioTrack.release()
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> else in when, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> else in when, try to stop failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -324,26 +324,26 @@ class MscdAudioPlayer private constructor() {
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop!")
                     audioTrack.stop()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to stop!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to stop!")
                     audioTrack.stop()
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to stop failed!")
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> else in when, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> else in when, try to stop failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -372,27 +372,27 @@ class MscdAudioPlayer private constructor() {
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to pause!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to pause!")
                     audioTrack.pause()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to pause failed!")
                     return false
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to pause failed!")
                     return false
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> pausePlayAudio() >>> else in when, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> else in when, try to pause failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -422,43 +422,43 @@ class MscdAudioPlayer private constructor() {
         try {
             when (audioTrack.state) {
                 AudioTrack.STATE_UNINITIALIZED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_UNINITIALIZED, try to resume failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_UNINITIALIZED, try to resume failed!")
                     return false
                 }
 
                 AudioTrack.STATE_INITIALIZED -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_INITIALIZED, judge play state!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_INITIALIZED, judge play state!")
 
                     when (audioTrack.playState) {
                         AudioTrack.PLAYSTATE_PLAYING -> {
-                            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to resume failed!")
                             return false
                         }
 
                         AudioTrack.PLAYSTATE_PAUSED -> {
-                            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to resume!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to resume!")
                             audioTrack.play()
                         }
 
                         AudioTrack.PLAYSTATE_STOPPED -> {
-                            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to resume failed!")
                             return false
                         }
 
                         else -> {
-                            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
                             return false
                         }
                     }
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -484,7 +484,7 @@ class MscdAudioPlayer private constructor() {
         try {
             audioTrack.release()
         } catch (exception: IllegalStateException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             return false
         }
 
@@ -505,7 +505,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     fun logcatAudioTrackState(methodName: String, audioTrack: AudioTrack, message: String) {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> " +
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> " +
                 "$methodName() >>> " +
                 "$audioTrack >>> " +
                 "state = ${if (audioTrack.state == AudioTrack.STATE_INITIALIZED) "STATE_INITIALIZED" else if (audioTrack.state == AudioTrack.STATE_UNINITIALIZED) "STATE_UNINITIALIZED" else "NONE"}, " +

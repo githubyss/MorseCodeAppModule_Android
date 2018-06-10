@@ -59,15 +59,15 @@ class MscdRegularRandomStringGenerateStrategy : MscdRandomStringGenerateStrategy
 //            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> charIdx = $charIdx")
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> Succeeded actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> buildRandomString() >>> Succeeded actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
             ComkitLogcatUtils.`object`(randomStringBuilder)
 
             randomStringBuilder.toString()
         } catch (exception: EOFException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         } catch (exception: OutOfMemoryError) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
         }
     }

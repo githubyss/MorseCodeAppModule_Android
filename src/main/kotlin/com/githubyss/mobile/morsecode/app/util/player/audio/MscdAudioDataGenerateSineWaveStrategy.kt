@@ -23,17 +23,17 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     private inner class AudioDataGeneratorAsyncTask(private val onAudioDataGenerateListener: OnAudioDataGenerateListener) : AsyncTask<List<Int>, Int, Array<Float>>() {
         override fun doInBackground(vararg params: List<Int>?): Array<Float>? {
             if (isCancelled) {
-                ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> isCancelled")
                 return emptyArray()
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
 
             return try {
                 val delayPatternList = params[0]
                 buildAudioDataList(audioConfig, delayPatternList ?: emptyList()).toTypedArray()
             } catch (exception: InterruptedException) {
-                ComkitLogcatUtils.e(exception)
+                ComkitLogcatUtils.e(t = exception)
                 emptyArray()
             }
         }
@@ -48,26 +48,26 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 return
             }
 
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
             onAudioDataGenerateListener.onSucceeded(result)
         }
 
         override fun onCancelled() {
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
             onAudioDataGenerateListener.onCancelled()
         }
     }
 
 
     override fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
 
         audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
         audioDataGeneratorAsyncTask?.execute(delayPatternList)
     }
 
     override fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
 
         val delayPatternList = ArrayList<Int>()
         delayPatternList[0] = 0
@@ -78,7 +78,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     }
 
     override fun startGenerateAudioData(message: String, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
 
         val delayPatternList = MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
 
@@ -87,11 +87,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     }
 
     override fun stopGenerateAudioData() {
-        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
         if (audioDataGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
             audioDataGeneratorAsyncTask?.cancel(true)
             audioDataGeneratorAsyncTask = null
-            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Set strategy hasCancelled true.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Set strategy hasCancelled true.")
         }
     }
 
@@ -181,10 +181,10 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
             audioDataArray
         } catch (exception: EOFException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             emptyArray()
         } catch (exception: OutOfMemoryError) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             emptyArray()
         }
     }
@@ -252,10 +252,10 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
             audioDataList
         } catch (exception: EOFException) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             emptyList()
         } catch (exception: OutOfMemoryError) {
-            ComkitLogcatUtils.e(exception)
+            ComkitLogcatUtils.e(t = exception)
             emptyList()
         }
     }

@@ -36,7 +36,7 @@ class MscdHomepageActivity : MscdBaseActivity() {
                         val fragment = ARouter.getInstance().build("/morsecode/app/homepage/demo/MscdHomepageDemoFragment").navigation() as Fragment
                         replaceFragment(fragment, "MscdHomepageDemoFragment", true)
 
-                        ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> onLongClick() >>> ")
+                        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> onLongClick() >>> ")
                         return true
                     }
                 }
