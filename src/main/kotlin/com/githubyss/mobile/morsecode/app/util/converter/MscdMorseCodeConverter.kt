@@ -1,6 +1,8 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import java.util.*
 
 /**
  * MscdMorseCodeConverter.kt
@@ -29,6 +31,9 @@ class MscdMorseCodeConverter private constructor() {
                         .create()
             else
                 MscdMorseCodeConverterConfig.instance
+
+    private var beginTime = 0L
+    private var endTime = 0L
 
 
     /**
@@ -165,6 +170,8 @@ class MscdMorseCodeConverter private constructor() {
 
         val char2DelayPatternListMap = morseCodeConverterConfig.char2DelayPatternListMap
 
+        beginTime = ComkitTimeUtils.currentTimeMillis()
+
         if (message.isEmpty()) {
             return arrayListOf(startDelay)
         }
@@ -173,7 +180,7 @@ class MscdMorseCodeConverter private constructor() {
 
         val messageLength = message.length
 
-        val messageDelayPatternList = ArrayList<Int>()
+        val messageDelayPatternList = LinkedList<Int>()
         messageDelayPatternList.add(startDelay)
 
         (0 until messageLength)
@@ -196,6 +203,10 @@ class MscdMorseCodeConverter private constructor() {
                         messageDelayPatternList.addAll(charDelayPatternList)
                     }
                 }
+
+        endTime = ComkitTimeUtils.currentTimeMillis()
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> buildMessageStringDelayPatternList() >>> Elapsed time = ${endTime - beginTime} ms.")
+        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> buildMessageStringDelayPatternList() >>> messageDelayPatternSize = ${messageDelayPatternList.size}")
 
         ComkitLogcatUtils.`object`(messageDelayPatternList)
 

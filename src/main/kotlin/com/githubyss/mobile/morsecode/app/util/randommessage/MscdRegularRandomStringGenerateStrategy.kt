@@ -59,7 +59,6 @@ class MscdRegularRandomStringGenerateStrategy : MscdRandomStringGenerateStrategy
 //            ComkitLogcatUtils.d("~~~Ace Yan~~~ >>> buildRandomString() >>> charIdx = $charIdx")
             }
 
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> buildRandomString() >>> Succeeded actual randomString length = ${randomStringBuilder.toString().replace(" ", "").length}")
             ComkitLogcatUtils.`object`(randomStringBuilder)
 
             randomStringBuilder.toString()

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.os.AsyncTask
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import java.io.EOFException
 
@@ -18,6 +19,9 @@ import java.io.EOFException
 class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     private var audioDataGeneratorAsyncTask: AudioDataGeneratorAsyncTask? = null
 
+    private var beginTime = 0L
+    private var endTime = 0L
+
 
     @SuppressLint("StaticFieldLeak")
     private inner class AudioDataGeneratorAsyncTask(private val onAudioDataGenerateListener: OnAudioDataGenerateListener) : AsyncTask<List<Int>, Int, Array<Float>>() {
@@ -27,11 +31,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 return emptyArray()
             }
 
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> Current time is ${System.currentTimeMillis()}.")
+            beginTime = ComkitTimeUtils.currentTimeMillis()
 
             return try {
                 val delayPatternList = params[0]
-                buildAudioDataList(audioConfig, delayPatternList ?: emptyList()).toTypedArray()
+                buildAudioDataArray(audioConfig, delayPatternList ?: emptyList())
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(t = exception)
                 emptyArray()
@@ -43,43 +47,42 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 return
             }
 
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
+
             if (result?.isEmpty() != false) {
                 onAudioDataGenerateListener.onFailed()
                 return
             }
 
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> Current time is ${System.currentTimeMillis()}.")
             onAudioDataGenerateListener.onSucceeded(result)
         }
 
         override fun onCancelled() {
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onCancelled() >>> Current time is ${System.currentTimeMillis()}.")
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
+
             onAudioDataGenerateListener.onCancelled()
         }
     }
 
 
     override fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
-
         audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
         audioDataGeneratorAsyncTask?.execute(delayPatternList)
     }
 
     override fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
-
         val delayPatternList = ArrayList<Int>()
-        delayPatternList[0] = 0
-        delayPatternList[1] = audioDurationInMs
+        delayPatternList.add(0)
+        delayPatternList.add(audioDurationInMs)
 
         audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
         audioDataGeneratorAsyncTask?.execute(delayPatternList)
     }
 
     override fun startGenerateAudioData(message: String, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
-
         val delayPatternList = MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
 
         audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
@@ -87,11 +90,9 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     }
 
     override fun stopGenerateAudioData() {
-        ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Current time is ${System.currentTimeMillis()}.")
         if (audioDataGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
             audioDataGeneratorAsyncTask?.cancel(true)
             audioDataGeneratorAsyncTask = null
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopGenerateAudioData() >>> Set strategy hasCancelled true.")
         }
     }
 
@@ -169,6 +170,89 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
                             AudioFormat.ENCODING_PCM_8BIT -> {
                                 audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyInHz, timeSampleArrayEachDelay[idxSample])
+                            }
+
+                            else -> {
+                            }
+                        }
+                        positionInAudioDataArray++
+                    }
+                }
+            }
+
+            audioDataArray
+        } catch (exception: EOFException) {
+            ComkitLogcatUtils.e(t = exception)
+            emptyArray()
+        } catch (exception: OutOfMemoryError) {
+            ComkitLogcatUtils.e(t = exception)
+            emptyArray()
+        }
+    }
+
+    private fun buildAudioDataArray(audioConfig: MscdAudioConfig, delayPatternList: List<Int>): Array<Float> {
+        if (delayPatternList.isEmpty()) {
+            return emptyArray()
+        }
+
+        val audioFrequencyInHz = audioConfig.audioFrequencyInHz
+        val audioSampleRateInHz = audioConfig.audioSampleRateInHz
+        val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
+
+        val delayPatternListSize = delayPatternList.size
+
+        var audioDurationTotalInMs = 0
+
+        return try {
+            for (idx in 0 until delayPatternListSize) {
+                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                    return emptyArray()
+                }
+
+                audioDurationTotalInMs += delayPatternList[idx]
+            }
+
+            val timeSampleArraySize = super.calculateTimeSampleCollectionSize(audioSampleRateInHz, audioDurationTotalInMs)
+
+            val audioDataArray = Array(timeSampleArraySize, { 0.toFloat() })
+
+            var positionInAudioDataArray = 0
+
+            for (idxPattern in 0 until delayPatternListSize) {
+                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                    return emptyArray()
+                }
+
+                val timeSampleListSizeEachDelay = super.calculateTimeSampleCollectionSize(audioSampleRateInHz, delayPatternList[idxPattern])
+
+                if (idxPattern % 2 == 0) {
+                    for (idxSample in 0 until timeSampleListSizeEachDelay) {
+                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                            return emptyArray()
+                        }
+
+                        audioDataArray[positionInAudioDataArray] = 0.toFloat()
+                        positionInAudioDataArray++
+                    }
+                } else {
+                    for (idxSample in 0 until timeSampleListSizeEachDelay) {
+                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                            return emptyArray()
+                        }
+
+                        val timeSampleListEachDelay = super.buildTimeSampleList(audioConfig, delayPatternList[idxPattern])
+
+                        when (audioEncodingPcmFormat) {
+                            AudioFormat.ENCODING_PCM_FLOAT -> {
+                                audioDataArray[positionInAudioDataArray] = 1 * calculateSineWaveData(audioFrequencyInHz, timeSampleListEachDelay[idxSample])
+                            }
+
+                            AudioFormat.ENCODING_PCM_16BIT -> {
+                                audioDataArray[positionInAudioDataArray] = Short.MAX_VALUE * calculateSineWaveData(audioFrequencyInHz, timeSampleListEachDelay[idxSample])
+                            }
+
+                            AudioFormat.ENCODING_PCM_8BIT -> {
+                                audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyInHz, timeSampleListEachDelay[idxSample])
                             }
 
                             else -> {
