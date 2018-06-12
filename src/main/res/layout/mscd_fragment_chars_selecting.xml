@@ -362,7 +362,7 @@
                     <EditText
                             android:id="@+id/etMessageLength"
                             style="@style/mscdCharSelectingConfigInputStyle"
-                            android:maxLength="5"
+                            android:maxLength="3"
                             android:text="@string/mscdCharSelectingConfigMsgLengthDefault"
                             />
 
