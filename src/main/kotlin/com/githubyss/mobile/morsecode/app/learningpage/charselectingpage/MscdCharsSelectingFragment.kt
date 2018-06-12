@@ -218,7 +218,7 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
         super.onDestroy()
 
         if (activity.isFinishing) {
-            MscdRandomStringGenerator.instance.cancelRandomStringGeneratorAsyncTask()
+            MscdRandomStringGenerator.instance.stopGenerateRandomString()
         }
     }
 }

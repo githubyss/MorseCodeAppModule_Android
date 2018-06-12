@@ -20,7 +20,7 @@ class MscdRandomStringGeneratorConfig private constructor() {
     }
 
 
-    var randomStringGenerateStrategy = MscdRegularRandomStringGenerateStrategy() as MscdRandomStringGenerateStrategy
+    var randomStringGenerateStrategy = MscdRandomStringGenerateRegularStrategy() as MscdRandomStringGenerateStrategy
         private set
 
     var hasBuilt = false
@@ -28,7 +28,7 @@ class MscdRandomStringGeneratorConfig private constructor() {
 
 
     object Builder {
-        private var randomStringGenerateStrategy = MscdRegularRandomStringGenerateStrategy() as MscdRandomStringGenerateStrategy
+        private var randomStringGenerateStrategy = MscdRandomStringGenerateRegularStrategy() as MscdRandomStringGenerateStrategy
 
         fun setStrategy(strategy: MscdRandomStringGenerateStrategy): Builder {
             this@Builder.randomStringGenerateStrategy = strategy

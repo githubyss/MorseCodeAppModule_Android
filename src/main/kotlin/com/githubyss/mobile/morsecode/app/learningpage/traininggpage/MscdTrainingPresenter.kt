@@ -28,8 +28,8 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
                             mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdAudioDataGenerateSucceeded))
                         }
 
-                        override fun onFailed() {
-                            mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdAudioDataGenerateFailed))
+                        override fun onFailed(failingInfo: String) {
+                            mscdTrainingIView.showHint("${ComkitResUtils.getString(resId = R.string.mscdAudioDataGenerateFailed)} $failingInfo")
                         }
 
                         override fun onCancelled() {

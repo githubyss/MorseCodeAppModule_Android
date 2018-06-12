@@ -11,7 +11,7 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
 abstract class MscdAudioDataGenerateStrategy {
     interface OnAudioDataGenerateListener {
         fun onSucceeded(audioDataArray: Array<Float>)
-        fun onFailed()
+        fun onFailed(failingInfo: String)
         fun onCancelled()
     }
 

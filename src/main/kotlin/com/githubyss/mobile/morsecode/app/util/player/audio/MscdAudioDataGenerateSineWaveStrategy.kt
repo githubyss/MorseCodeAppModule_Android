@@ -1,10 +1,11 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
-import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.os.AsyncTask
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import java.io.EOFException
 
@@ -17,17 +18,18 @@ import java.io.EOFException
  * @github githubyss
  */
 class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
-    private var audioDataGeneratorAsyncTask: AudioDataGeneratorAsyncTask? = null
+    private var audioDataGenerateAsyncTask: AudioDataGenerateAsyncTask? = null
 
     private var beginTime = 0L
     private var endTime = 0L
 
+    private var exceptionInfo = ""
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class AudioDataGeneratorAsyncTask(private val onAudioDataGenerateListener: OnAudioDataGenerateListener) : AsyncTask<List<Int>, Int, Array<Float>>() {
+
+    private inner class AudioDataGenerateAsyncTask(private val onAudioDataGenerateListener: OnAudioDataGenerateListener) : AsyncTask<List<Int>, Int, Array<Float>>() {
         override fun doInBackground(vararg params: List<Int>?): Array<Float>? {
             if (isCancelled) {
-                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.doInBackground() >>> isCancelled")
                 return emptyArray()
             }
 
@@ -48,11 +50,12 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             }
 
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
 
-            if (result?.isEmpty() != false) {
-                onAudioDataGenerateListener.onFailed()
+            if (result?.isEmpty() != false
+                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
+                onAudioDataGenerateListener.onFailed(exceptionInfo)
                 return
             }
 
@@ -61,7 +64,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
         override fun onCancelled() {
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGeneratorAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onAudioDataGenerateListener.onCancelled()
         }
@@ -69,8 +72,8 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
 
     override fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
-        audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
-        audioDataGeneratorAsyncTask?.execute(delayPatternList)
+        audioDataGenerateAsyncTask = AudioDataGenerateAsyncTask(onAudioDataGenerateListener)
+        audioDataGenerateAsyncTask?.execute(delayPatternList)
     }
 
     override fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
@@ -78,21 +81,21 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         delayPatternList.add(0)
         delayPatternList.add(audioDurationInMs)
 
-        audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
-        audioDataGeneratorAsyncTask?.execute(delayPatternList)
+        audioDataGenerateAsyncTask = AudioDataGenerateAsyncTask(onAudioDataGenerateListener)
+        audioDataGenerateAsyncTask?.execute(delayPatternList)
     }
 
     override fun startGenerateAudioData(message: String, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
         val delayPatternList = MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
 
-        audioDataGeneratorAsyncTask = AudioDataGeneratorAsyncTask(onAudioDataGenerateListener)
-        audioDataGeneratorAsyncTask?.execute(delayPatternList)
+        audioDataGenerateAsyncTask = AudioDataGenerateAsyncTask(onAudioDataGenerateListener)
+        audioDataGenerateAsyncTask?.execute(delayPatternList)
     }
 
     override fun stopGenerateAudioData() {
-        if (audioDataGeneratorAsyncTask?.status == AsyncTask.Status.RUNNING) {
-            audioDataGeneratorAsyncTask?.cancel(true)
-            audioDataGeneratorAsyncTask = null
+        if (audioDataGenerateAsyncTask?.status == AsyncTask.Status.RUNNING) {
+            audioDataGenerateAsyncTask?.cancel(true)
+            audioDataGenerateAsyncTask = null
         }
     }
 
@@ -113,7 +116,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         return try {
             /** Traverse delayPatternArray to calculate out total duration of the audio. by Ace Yan */
             for (idx in 0 until delayPatternArraySize) {
-                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                if (audioDataGenerateAsyncTask?.isCancelled != false) {
                     return emptyArray()
                 }
 
@@ -134,7 +137,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
              * by Ace Yan
              */
             for (idxPattern in 0 until delayPatternArraySize) {
-                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                if (audioDataGenerateAsyncTask?.isCancelled != false) {
                     return emptyArray()
                 }
 
@@ -143,7 +146,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 /** Judge the index of delayPatternArray is even or odd. by Ace Yan */
                 if (idxPattern % 2 == 0) {
                     for (idxSample in 0 until timeSampleArraySizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
 
@@ -152,7 +155,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     }
                 } else {
                     for (idxSample in 0 until timeSampleArraySizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
 
@@ -183,9 +186,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             audioDataArray
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyArray()
         } catch (exception: OutOfMemoryError) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyArray()
         }
     }
@@ -205,7 +210,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
         return try {
             for (idx in 0 until delayPatternListSize) {
-                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                if (audioDataGenerateAsyncTask?.isCancelled != false) {
                     return emptyArray()
                 }
 
@@ -219,7 +224,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             var positionInAudioDataArray = 0
 
             for (idxPattern in 0 until delayPatternListSize) {
-                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                if (audioDataGenerateAsyncTask?.isCancelled != false) {
                     return emptyArray()
                 }
 
@@ -227,7 +232,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
                 if (idxPattern % 2 == 0) {
                     for (idxSample in 0 until timeSampleListSizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
 
@@ -236,7 +241,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     }
                 } else {
                     for (idxSample in 0 until timeSampleListSizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
 
@@ -266,9 +271,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             audioDataArray
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyArray()
         } catch (exception: OutOfMemoryError) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyArray()
         }
     }
@@ -290,7 +297,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             var positionInAudioDataList = 0
 
             for (idxPattern in 0 until delayPatternListSize) {
-                if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                if (audioDataGenerateAsyncTask?.isCancelled != false) {
                     return emptyList()
                 }
 
@@ -298,7 +305,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
                 if (idxPattern % 2 == 0) {
                     for (idxSample in 0 until timeSampleListSizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyList()
                         }
 
@@ -307,7 +314,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     }
                 } else {
                     for (idxSample in 0 until timeSampleListSizeEachDelay) {
-                        if (audioDataGeneratorAsyncTask?.isCancelled != false) {
+                        if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyList()
                         }
 
@@ -337,9 +344,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             audioDataList
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyList()
         } catch (exception: OutOfMemoryError) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             emptyList()
         }
     }

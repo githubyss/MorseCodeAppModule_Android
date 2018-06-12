@@ -6,10 +6,7 @@ import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGeneratorConfig
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRegularRandomStringGenerateStrategy
-import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRulelessRandomStringGenerateStrategy
+import com.githubyss.mobile.morsecode.app.util.randommessage.*
 
 /**
  * MscdCharsSelectingPresenter.kt
@@ -55,17 +52,17 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
 
             if (needRuleless) {
                 MscdRandomStringGeneratorConfig.Builder
-                        .setStrategy(MscdRulelessRandomStringGenerateStrategy())
+                        .setStrategy(MscdRandomStringGenerateRulelessStrategy())
                         .create()
             } else {
                 MscdRandomStringGeneratorConfig.Builder
-                        .setStrategy(MscdRegularRandomStringGenerateStrategy())
+                        .setStrategy(MscdRandomStringGenerateRegularStrategy())
                         .create()
             }
 
-            MscdRandomStringGenerator.instance.startRandomStringGeneratorAsyncTask(
+            MscdRandomStringGenerator.instance.startGenerateRandomString(
                     selectedCharList, messageLength.toLong(), wordSize.toInt(),
-                    object : MscdRandomStringGenerator.OnRandomStringGenerateListener {
+                    object : MscdRandomStringGenerateStrategy.OnRandomStringGenerateListener {
                         override fun onSucceeded(randomString: String) {
                             mscdCharSelectingIView.onRandomTrainingMessageBuilt(randomString)
                             mscdCharSelectingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdRandomStringGenerateSucceeded))
