@@ -38,7 +38,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
             return try {
                 val durationPattern = params[0] ?: emptyList()
-                buildAudioDataList(audioConfig, morseCodeConverterConfig, durationPattern).toTypedArray()
+                buildSignalAudioDataList(audioConfig, morseCodeConverterConfig, durationPattern).toTypedArray()
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(t = exception)
                 emptyArray()
@@ -211,7 +211,19 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         }
     }
 
-    private fun buildAudioDataList(audioConfig: MscdAudioConfig, morseCodeConverterConfig: MscdMorseCodeConverterConfig, durationPatternList: List<Int>): List<Float> {
+    /**
+     * MscdAudioDataGenerateSineWaveStrategy.buildSignalAudioDataList(audioConfig, morseCodeConverterConfig, durationPatternList)
+     * <Description> Build audioDataList by durationPatternList.
+     * <Details>
+     *
+     * @param audioConfig
+     * @param morseCodeConverterConfig
+     * @param durationPatternList
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
+    private fun buildSignalAudioDataList(audioConfig: MscdAudioConfig, morseCodeConverterConfig: MscdMorseCodeConverterConfig, durationPatternList: List<Int>): List<Float> {
         if (durationPatternList.isEmpty()) {
             return emptyList()
         }
@@ -221,10 +233,12 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         val durationPatternListSize = durationPatternList.size
 
         return try {
+            /** Init the audioDataList. by Ace Yan */
             val audioDataList = ArrayList<Float>()
 
-            val ditAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.ditDuration)
-            val dahAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.dahDuration)
+            /** DitAudioDataList and dahAudioDataList will be built firstly as signalAudioDataList cache to build the audioDataList. by Ace Yan */
+            val ditAudioDataList = buildSignalAudioDataList(audioConfig, morseCodeConverterConfig.ditDuration)
+            val dahAudioDataList = buildSignalAudioDataList(audioConfig, morseCodeConverterConfig.dahDuration)
 
             for (idxPattern in 0 until durationPatternListSize) {
                 if (audioDataGenerateAsyncTask?.isCancelled != false) {
@@ -232,10 +246,10 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 }
 
                 if (idxPattern % 2 == 0) {
-                    val muteDataListSize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, durationPatternList[idxPattern])
-                    val muteDataList = List(muteDataListSize) { 0F }
-                    audioDataList.addAll(muteDataList)
+                    /** Add muteAudioDataList to audioDataList while index of pattern in durationPatternList is even. by Ace Yan */
+                    audioDataList.addAll(super.buildMuteAudioDataList(audioSampleRateHz, durationPatternList[idxPattern]))
                 } else {
+                    /** Add signalAudioDataList to audioDataList while index of pattern in durationPatternList is odd, according to the dit-dah type of each durationPattern. by Ace Yan */
                     when {
                         durationPatternList[idxPattern] == morseCodeConverterConfig.ditDuration -> audioDataList.addAll(ditAudioDataList)
                         durationPatternList[idxPattern] == morseCodeConverterConfig.dahDuration -> audioDataList.addAll(dahAudioDataList)
@@ -257,7 +271,18 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         }
     }
 
-    private fun buildAudioDataList(audioConfig: MscdAudioConfig, durationMillis: Int): List<Float> {
+    /**
+     * MscdAudioDataGenerateSineWaveStrategy.buildSignalAudioDataList(audioConfig, durationMillis)
+     * <Description> Build signalAudioDataList by durationMillis.
+     * <Details>
+     *
+     * @param audioConfig
+     * @param durationMillis Duration of signal.
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
+    private fun buildSignalAudioDataList(audioConfig: MscdAudioConfig, durationMillis: Int): List<Float> {
         if (durationMillis == 0) {
             return emptyList()
         }
@@ -267,7 +292,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
 
         return try {
-            val audioDataList = ArrayList<Float>()
+            val signalAudioDataList = ArrayList<Float>()
 
             val timeSampleListSize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, durationMillis)
             val timeSampleList = super.buildTimeSampleList(audioSampleRateHz, durationMillis)
@@ -279,15 +304,15 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
                 when (audioEncodingPcmFormat) {
                     AudioFormat.ENCODING_PCM_FLOAT -> {
-                        audioDataList.add(1 * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
+                        signalAudioDataList.add(1 * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
                     }
 
                     AudioFormat.ENCODING_PCM_16BIT -> {
-                        audioDataList.add(Short.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
+                        signalAudioDataList.add(Short.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
                     }
 
                     AudioFormat.ENCODING_PCM_8BIT -> {
-                        audioDataList.add(Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
+                        signalAudioDataList.add(Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, timeSampleList[idxSample]))
                     }
 
                     else -> {
@@ -295,7 +320,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 }
             }
 
-            audioDataList
+            signalAudioDataList
         } catch (exception: EOFException) {
             ComkitLogcatUtils.e(t = exception)
             exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
@@ -307,6 +332,17 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         }
     }
 
+    /**
+     * MscdAudioDataGenerateSineWaveStrategy.calculateSineWaveData(audioFrequencyHz, timeSample)
+     * <Description> Calculate sine wave data according to time sample.
+     * <Details>
+     *
+     * @param audioFrequencyHz
+     * @param timeSample
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
     private fun calculateSineWaveData(audioFrequencyHz: Int, timeSample: Float): Float {
         return (Math.sin(2 * Math.PI * audioFrequencyHz * timeSample)).toFloat()
     }

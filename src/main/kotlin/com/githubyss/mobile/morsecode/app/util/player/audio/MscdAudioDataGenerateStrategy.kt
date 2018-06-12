@@ -1,6 +1,8 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
+import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
+import java.io.EOFException
 
 /**
  * MscdAudioDataGenerateStrategy.kt
@@ -68,6 +70,29 @@ abstract class MscdAudioDataGenerateStrategy {
                 .mapTo(timeSampleList) { calculateTimeSample(audioSampleRateHz, it) }
 
         return timeSampleList
+    }
+
+    /**
+     * MscdAudioDataGenerateStrategy.buildMuteAudioDataList(audioSampleRateHz, audioDurationMillis)
+     * <Description> Build muteAudioDataList by the size of timeSample of durationPattern.
+     * <Details>
+     *
+     * @param audioSampleRateHz
+     * @param audioDurationMillis
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
+    protected fun buildMuteAudioDataList(audioSampleRateHz: Int, audioDurationMillis: Int): List<Float> {
+        return try {
+            List(calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationMillis)) { 0F }
+        } catch (exception: EOFException) {
+            ComkitLogcatUtils.e(t = exception)
+            emptyList()
+        } catch (exception: OutOfMemoryError) {
+            ComkitLogcatUtils.e(t = exception)
+            emptyList()
+        }
     }
 
     /**
