@@ -9,15 +9,15 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
  * @github githubyss
  */
 class MscdAudioDataGenerateSquareWaveStrategy : MscdAudioDataGenerateStrategy() {
-    override fun startGenerateAudioData(delayPatternArray: Array<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
+    override fun startGenerateAudioData(durationPatternArray: Array<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
+    override fun startGenerateAudioData(durationPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
+    override fun startGenerateAudioData(audioDurationMillis: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

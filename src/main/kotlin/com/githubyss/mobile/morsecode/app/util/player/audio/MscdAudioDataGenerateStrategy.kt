@@ -1,5 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
+import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
+
 /**
  * MscdAudioDataGenerateStrategy.kt
  * <Description>
@@ -16,9 +18,9 @@ abstract class MscdAudioDataGenerateStrategy {
     }
 
 
-    abstract fun startGenerateAudioData(delayPatternArray: Array<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener)
-    abstract fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener)
-    abstract fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener)
+    abstract fun startGenerateAudioData(durationPatternArray: Array<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener)
+    abstract fun startGenerateAudioData(durationPatternList: List<Int>, onAudioDataGenerateListener: OnAudioDataGenerateListener)
+    abstract fun startGenerateAudioData(audioDurationMillis: Int, onAudioDataGenerateListener: OnAudioDataGenerateListener)
     abstract fun startGenerateAudioData(message: String, onAudioDataGenerateListener: OnAudioDataGenerateListener)
     abstract fun stopGenerateAudioData()
 
@@ -31,67 +33,70 @@ abstract class MscdAudioDataGenerateStrategy {
             else
                 MscdAudioConfig.instance
 
+    protected val morseCodeConverterConfig =
+            if (!MscdMorseCodeConverterConfig.instance.hasBuilt)
+                MscdMorseCodeConverterConfig.Builder
+                        .create()
+            else
+                MscdMorseCodeConverterConfig.instance
 
-    protected fun buildTimeSampleArray(audioConfig: MscdAudioConfig, audioDurationInMs: Int): Array<Float> {
-        val audioSampleRateInHz = audioConfig.audioSampleRateInHz
 
+    protected fun buildTimeSampleArray(audioSampleRateHz: Int, audioDurationMillis: Int): Array<Float> {
         /** Calculate out the size of timeSampleArray . by Ace Yan */
-        val timeSampleArraySize = calculateTimeSampleCollectionSize(audioSampleRateInHz, audioDurationInMs)
+        val timeSampleArraySize = calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationMillis)
 
         /** Init timeSampleArray. by Ace Yan */
         val timeSampleArray = Array(timeSampleArraySize, { 0.toFloat() })
 
         /** Traverse timeSampleArray to calculate out each element in it. by Ace Yan */
         for (idx in 0 until timeSampleArraySize) {
-            timeSampleArray[idx] = calculateTimeSample(audioSampleRateInHz, idx)
+            timeSampleArray[idx] = calculateTimeSample(audioSampleRateHz, idx)
         }
 
         return timeSampleArray
     }
 
-    protected fun buildTimeSampleList(audioConfig: MscdAudioConfig, audioDurationInMs: Int): List<Float> {
-        val audioSampleRateInHz = audioConfig.audioSampleRateInHz
-
+    protected fun buildTimeSampleList(audioSampleRateHz: Int, audioDurationMillis: Int): List<Float> {
         /** Calculate out the size of timeSampleList . by Ace Yan */
-        val timeSampleListSize = calculateTimeSampleCollectionSize(audioSampleRateInHz, audioDurationInMs)
+        val timeSampleListSize = calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationMillis)
 
         /** Init timeSampleList. by Ace Yan */
         val timeSampleList = ArrayList<Float>()
 
         /** Traverse timeSampleList to calculate out each element in it. by Ace Yan */
         (0 until timeSampleListSize)
-                .mapTo(timeSampleList) { calculateTimeSample(audioSampleRateInHz, it) }
+                .mapTo(timeSampleList) { calculateTimeSample(audioSampleRateHz, it) }
 
         return timeSampleList
     }
 
     /**
-     * MscdAudioDataGenerateStrategy.calculateTimeSampleCollectionSize(audioSampleRateInHz, audioDurationInMs)
+     * MscdAudioDataGenerateStrategy.calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationMillis)
      * <Description> Calculate out the size of time sample collection.
      * <Details>
      *
-     * @param audioSampleRateInHz
-     * @param audioDurationInMs
+     * @param audioSampleRateHz
+     * @param audioDurationMillis
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    protected fun calculateTimeSampleCollectionSize(audioSampleRateInHz: Int, audioDurationInMs: Int): Int {
-        return (Math.floor(audioDurationInMs / 1000.00 * audioSampleRateInHz)).toInt()
+    protected fun calculateTimeSampleCollectionSize(audioSampleRateHz: Int, audioDurationMillis: Int): Int {
+        return (Math.floor(audioDurationMillis / 1000.00 * audioSampleRateHz)).toInt()
     }
 
     /**
-     * MscdAudioDataGenerateStrategy.calculateTimeSample(audioSampleRateInHz, idx)
+     * MscdAudioDataGenerateStrategy.calculateTimeSample(audioSampleRateHz, idx)
      * <Description> Calculate out each time sample element of time sample collection.
      * <Details> Time sample will act as x-coordinate in coordinate system of time-signal.
      *
-     * @param audioSampleRateInHz
+     * @param audioSampleRateHz
      * @param idx
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    private fun calculateTimeSample(audioSampleRateInHz: Int, idx: Int): Float {
-        return (0 + (1 / audioSampleRateInHz.toFloat()) * idx)
+    private fun calculateTimeSample(audioSampleRateHz: Int, idx: Int): Float {
+        return (0 + (1 / audioSampleRateHz.toFloat()) * idx)
     }
 }
