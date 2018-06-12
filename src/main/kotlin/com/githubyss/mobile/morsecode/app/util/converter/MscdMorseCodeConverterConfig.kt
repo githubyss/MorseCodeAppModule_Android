@@ -25,37 +25,37 @@ class MscdMorseCodeConverterConfig private constructor() {
     }
 
 
-    /** Basic delay to be used to init ditdah delay, gap delay and other delays to build char delay patterns, units is (ms). by Ace Yan */
-    private var baseDelay = 50
+    /** Basic duration to be used to init ditdah duration, gap duration and other durations to build char duration patterns, units is (ms). by Ace Yan */
+    private var baseDuration = 50
 
-    var ditDelay = baseDelay
+    var ditDuration = baseDuration
         private set
 
-    var dahDelay = baseDelay * 3
+    var dahDuration = baseDuration * 3
         private set
 
-    var ditDahGapDelay = baseDelay
+    var ditDahGapDuration = baseDuration
         private set
 
-    var charGapDelay = baseDelay * 3
+    var charGapDuration = baseDuration * 3
         private set
 
-    var wordGapDelay = baseDelay * 7
+    var wordGapDuration = baseDuration * 7
         private set
 
-    var startDelay = baseDelay * 10
+    var startDuration = baseDuration * 10
         private set
 
-    /** Char-ditdahString map. by Ace Yan */
+    /** Char-DitdahString map. by Ace Yan */
     var char2DitdahStringMap = HashMap<Char, String>()
         private set
 
-    /** Char-delayPatternArray map. by Ace Yan */
-    var char2DelayPatternArrayMap = HashMap<Char, Array<Int>>()
+    /** Char-DurationPatternArray map. by Ace Yan */
+    var char2DurationPatternArrayMap = HashMap<Char, Array<Int>>()
         private set
 
-    /** Char-delayPatternList map. by Ace Yan */
-    var char2DelayPatternListMap = HashMap<Char, List<Int>>()
+    /** Char-DurationPatternList map. by Ace Yan */
+    var char2DurationPatternListMap = HashMap<Char, List<Int>>()
         private set
 
     var hasBuilt = false
@@ -66,15 +66,15 @@ class MscdMorseCodeConverterConfig private constructor() {
         private var beginTime = 0L
         private var endTime = 0L
 
-        private var baseDelay = 50
+        private var baseDuration = 50
 
-        fun setBaseDelay(delay: Int): Builder {
-            var baseDelay = delay
-            if (baseDelay <= 0) {
-                baseDelay = 50
+        fun setBaseDuration(duration: Int): Builder {
+            var baseDuration = duration
+            if (baseDuration <= 0) {
+                baseDuration = 50
             }
 
-            this@Builder.baseDelay = baseDelay
+            this@Builder.baseDuration = baseDuration
             return this@Builder
         }
 
@@ -84,19 +84,19 @@ class MscdMorseCodeConverterConfig private constructor() {
         }
 
         private fun applyConfig(config: MscdMorseCodeConverterConfig) {
-            config.baseDelay = this@Builder.baseDelay
-            config.ditDelay = this@Builder.baseDelay
-            config.dahDelay = this@Builder.baseDelay * 3
-            config.ditDahGapDelay = this@Builder.baseDelay
-            config.charGapDelay = this@Builder.baseDelay * 3
-            config.wordGapDelay = this@Builder.baseDelay * 7
-            config.startDelay = this@Builder.baseDelay * 10
+            config.baseDuration = this@Builder.baseDuration
+            config.ditDuration = this@Builder.baseDuration
+            config.dahDuration = this@Builder.baseDuration * 3
+            config.ditDahGapDuration = this@Builder.baseDuration
+            config.charGapDuration = this@Builder.baseDuration * 3
+            config.wordGapDuration = this@Builder.baseDuration * 7
+            config.startDuration = this@Builder.baseDuration * 10
 
             if (config.char2DitdahStringMap.isEmpty()) {
                 config.char2DitdahStringMap = this@Builder.buildChar2DitdahStringMap()
             }
-            config.char2DelayPatternArrayMap = this@Builder.buildChar2DelayPatternArrayMap(config)
-            config.char2DelayPatternListMap = this@Builder.buildChar2DelayPatternListMap(config)
+            config.char2DurationPatternArrayMap = this@Builder.buildChar2DurationPatternArrayMap(config)
+            config.char2DurationPatternListMap = this@Builder.buildChar2DurationPatternListMap(config)
 
             config.hasBuilt = true
         }
@@ -174,7 +174,7 @@ class MscdMorseCodeConverterConfig private constructor() {
         }
 
         /**
-         * Builder.buildChar2DelayPatternArrayMap(config)
+         * Builder.buildChar2DurationPatternArrayMap(config)
          * <Description>
          * <Details>
          *
@@ -183,18 +183,18 @@ class MscdMorseCodeConverterConfig private constructor() {
          * @author Ace Yan
          * @github githubyss
          */
-        private fun buildChar2DelayPatternArrayMap(config: MscdMorseCodeConverterConfig): HashMap<Char, Array<Int>> {
-            val ditDelay = config.ditDelay
-            val dahDelay = config.dahDelay
-            val ditDahGapDelay = config.ditDahGapDelay
+        private fun buildChar2DurationPatternArrayMap(config: MscdMorseCodeConverterConfig): HashMap<Char, Array<Int>> {
+            val ditDuration = config.ditDuration
+            val dahDuration = config.dahDuration
+            val ditDahGapDuration = config.ditDahGapDuration
 
             val char2DitdahStringMap = config.char2DitdahStringMap
 
-            val char2DelayPatternArrayMap = LinkedHashMap<Char, Array<Int>>()
+            val char2DurationPatternArrayMap = LinkedHashMap<Char, Array<Int>>()
 
             beginTime = ComkitTimeUtils.currentTimeMillis()
 
-            /** Traverse char-ditdahString map to build char-delayPatternArray map. by Ace Yan */
+            /** Traverse char-ditdahString map to build char-durationPatternArray map. by Ace Yan */
             for (entry in char2DitdahStringMap.entries) {
                 val charKey = entry.key
                 val charDitdahString = entry.value
@@ -202,46 +202,46 @@ class MscdMorseCodeConverterConfig private constructor() {
                 val charDitdahStringLength = charDitdahString.length
 
                 /**
-                 * Init delayPatternArray for each char in char-ditdahString map.
-                 * This is because there is a ditdah gap delay between every dit delay or dah delay in a char ditdahString value.
-                 * But the gap delay after the last dit or dah delay is the char delay,
-                 * and the one after the last char of one word is the word delay,
-                 * so there is no need to add a ditdah gap delay in these positions.
-                 * This is the computational formula: [charDelayPatternArraySize = charDitdahStringLength * 2 - 1].
+                 * Init durationPatternArray for each char in char-ditdahString map.
+                 * This is because there is a ditdah gap duration between every dit duration or dah duration in a char ditdahString value.
+                 * But the gap duration after the last dit or dah duration is the char duration,
+                 * and the one after the last char of one word is the word duration,
+                 * so there is no need to add a ditdah gap duration in these positions.
+                 * This is the computational formula: [charDurationPatternArraySize = charDitdahStringLength * 2 - 1].
                  * by Ace Yan
                  */
-                val charDelayPatternArraySize = charDitdahStringLength * 2 - 1
-                val charDelayPatternArray = Array(charDelayPatternArraySize, { it -> it })
+                val charDurationPatternArraySize = charDitdahStringLength * 2 - 1
+                val charDurationPatternArray = Array(charDurationPatternArraySize, { it -> it })
 
-                /** Traverse ditdahString value to get delayPatternArray. by Ace Yan */
+                /** Traverse ditdahString value to get durationPatternArray. by Ace Yan */
                 for (idx in 0 until charDitdahStringLength) {
-                    /** Insert dit or dah delay in position of [idx * 2] in delayPatternArray. by Ace Yan */
+                    /** Insert dit or dah duration in position of [idx * 2] in durationPatternArray. by Ace Yan */
                     if (charDitdahString[idx] == MscdEncodeConstants.Codes.DIT) {
-                        charDelayPatternArray[idx * 2] = ditDelay
+                        charDurationPatternArray[idx * 2] = ditDuration
                     } else if (charDitdahString[idx] == MscdEncodeConstants.Codes.DAH) {
-                        charDelayPatternArray[idx * 2] = dahDelay
+                        charDurationPatternArray[idx * 2] = dahDuration
                     }
 
-                    /** Insert ditdah gap delay in position of [idx * 2 + 1] in delayPatternArray unless idx is the last index of ditdahString. by Ace Yan */
+                    /** Insert ditdah gap duration in position of [idx * 2 + 1] in durationPatternArray unless idx is the last index of ditdahString. by Ace Yan */
                     if (idx != (charDitdahStringLength - 1)) {
-                        charDelayPatternArray[idx * 2 + 1] = ditDahGapDelay
+                        charDurationPatternArray[idx * 2 + 1] = ditDahGapDuration
                     }
                 }
 
-                char2DelayPatternArrayMap.put(charKey, charDelayPatternArray)
+                char2DurationPatternArrayMap.put(charKey, charDurationPatternArray)
             }
 
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternArrayMap() >>> Elapsed time = ${endTime - beginTime} ms.")
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternArrayMap() >>> char2DelayPatternArrayMapSize = ${char2DelayPatternArrayMap.size}")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternArrayMap() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternArrayMap() >>> char2DurationPatternArrayMapSize = ${char2DurationPatternArrayMap.size}")
 
-            ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
+            ComkitLogcatUtils.`object`(char2DurationPatternArrayMap)
 
-            return char2DelayPatternArrayMap
+            return char2DurationPatternArrayMap
         }
 
         /**
-         * Builder.buildChar2DelayPatternListMap(config)
+         * Builder.buildChar2DurationPatternListMap(config)
          * <Description>
          * <Details>
          *
@@ -250,14 +250,14 @@ class MscdMorseCodeConverterConfig private constructor() {
          * @author Ace Yan
          * @github githubyss
          */
-        private fun buildChar2DelayPatternListMap(config: MscdMorseCodeConverterConfig): HashMap<Char, List<Int>> {
-            val ditDelay = config.ditDelay
-            val dahDelay = config.dahDelay
-            val ditDahGapDelay = config.ditDahGapDelay
+        private fun buildChar2DurationPatternListMap(config: MscdMorseCodeConverterConfig): HashMap<Char, List<Int>> {
+            val ditDuration = config.ditDuration
+            val dahDuration = config.dahDuration
+            val ditDahGapDuration = config.ditDahGapDuration
 
             val char2DitdahStringMap = config.char2DitdahStringMap
 
-            val char2DelayPatternListMap = LinkedHashMap<Char, List<Int>>()
+            val char2DurationPatternListMap = LinkedHashMap<Char, List<Int>>()
 
             beginTime = ComkitTimeUtils.currentTimeMillis()
 
@@ -267,30 +267,30 @@ class MscdMorseCodeConverterConfig private constructor() {
 
                 val charDitdahStringLength = charDitdahString.length
 
-                val charDelayPatternList = ArrayList<Int>()
+                val charDurationPatternList = ArrayList<Int>()
 
                 for (idx in 0 until charDitdahStringLength) {
                     if (charDitdahString[idx] == MscdEncodeConstants.Codes.DIT) {
-                        charDelayPatternList.add(ditDelay)
+                        charDurationPatternList.add(ditDuration)
                     } else if (charDitdahString[idx] == MscdEncodeConstants.Codes.DAH) {
-                        charDelayPatternList.add(dahDelay)
+                        charDurationPatternList.add(dahDuration)
                     }
 
                     if (idx != (charDitdahStringLength - 1)) {
-                        charDelayPatternList.add(ditDahGapDelay)
+                        charDurationPatternList.add(ditDahGapDuration)
                     }
                 }
 
-                char2DelayPatternListMap.put(charKey, charDelayPatternList)
+                char2DurationPatternListMap.put(charKey, charDurationPatternList)
             }
 
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternListMap() >>> Elapsed time = ${endTime - beginTime} ms.")
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternListMap() >>> char2DelayPatternListMapSize = ${char2DelayPatternListMap.size}")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternListMap() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternListMap() >>> char2DurationPatternListMapSize = ${char2DurationPatternListMap.size}")
 
-            ComkitLogcatUtils.`object`(char2DelayPatternListMap)
+            ComkitLogcatUtils.`object`(char2DurationPatternListMap)
 
-            return char2DelayPatternListMap
+            return char2DurationPatternListMap
         }
     }
 }

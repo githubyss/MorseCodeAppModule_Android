@@ -29,16 +29,16 @@ class MscdAudioDataGenerator private constructor() {
                 MscdAudioDataGeneratorConfig.instance
 
 
-    fun startGenerateAudioData(delayPatternList: List<Int>, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
-        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(delayPatternList, onAudioDataGenerateListener)
+    fun startGenerateAudioData(durationPatternList: List<Int>, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
+        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(durationPatternList, onAudioDataGenerateListener)
     }
 
-    fun startGenerateAudioData(delayPatternArray: Array<Int>, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
-        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(delayPatternArray, onAudioDataGenerateListener)
+    fun startGenerateAudioData(durationPatternArray: Array<Int>, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
+        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(durationPatternArray, onAudioDataGenerateListener)
     }
 
-    fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
-        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(audioDurationInMs, onAudioDataGenerateListener)
+    fun startGenerateAudioData(audioDurationMillis: Int, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
+        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(audioDurationMillis, onAudioDataGenerateListener)
     }
 
     fun startGenerateAudioData(message: String, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {

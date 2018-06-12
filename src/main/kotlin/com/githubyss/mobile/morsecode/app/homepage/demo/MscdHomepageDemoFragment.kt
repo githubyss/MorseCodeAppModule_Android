@@ -56,8 +56,8 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
                 MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Before create().")
 
                 MscdAudioConfig.Builder
-                        .setAudioFrequencyInHz(880)
-                        .setAudioSampleRateInHz(4000)
+                        .setAudioFrequencyHz(880)
+                        .setAudioSampleRateHz(4000)
                         .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
                         .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
                         .setAudioStreamType(AudioManager.STREAM_MUSIC)
@@ -99,13 +99,13 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
 
             R.id.btnInitMorseCodeConverterConfig -> {
                 MscdMorseCodeConverterConfig.Builder
-                        .setBaseDelay(100)
+                        .setBaseDuration(100)
                         .create()
             }
 
-            R.id.btnLogcatMessageDelayPatternArray -> {
-//                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray("MORSE  CODE")
-                MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList("MORSE  CODE")
+            R.id.btnLogcatMessageDurationPatternArray -> {
+//                MscdMorseCodeConverter.instance.buildMessageStringDurationPatternArray("MORSE  CODE")
+                MscdMorseCodeConverter.instance.buildMessageStringDurationPatternList("MORSE  CODE")
             }
 
             else -> {
@@ -130,7 +130,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
         btnResumePlayAudio.setOnClickListener(onClickListener)
         btnLogcatAudioTrackState.setOnClickListener(onClickListener)
         btnInitMorseCodeConverterConfig.setOnClickListener(onClickListener)
-        btnLogcatMessageDelayPatternArray.setOnClickListener(onClickListener)
+        btnLogcatMessageDurationPatternArray.setOnClickListener(onClickListener)
     }
 
 

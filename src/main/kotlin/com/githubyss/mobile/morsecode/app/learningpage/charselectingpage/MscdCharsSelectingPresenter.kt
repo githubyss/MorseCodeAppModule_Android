@@ -92,7 +92,7 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
 
             val bundle = Bundle()
             bundle.putString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE, trainingMsgStr)
-            bundle.putInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY, ditDuration.toInt())
+            bundle.putInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DURATION, ditDuration.toInt())
             mscdCharSelectingIView.gotoTrainingPage(bundle)
         }
     }

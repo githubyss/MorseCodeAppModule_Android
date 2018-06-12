@@ -11,7 +11,7 @@ package com.githubyss.mobile.morsecode.app.constant
 object MscdKeyConstants {
     object MorseCodeConverterConfigKey {
         val TRAINING_MESSAGE = "trainingMessage"
-        val BASE_DELAY = "baseDelay"
+        val BASE_DURATION = "baseDuration"
     }
 
     object AudioConfigKey {

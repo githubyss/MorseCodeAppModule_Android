@@ -101,10 +101,10 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
     override fun startGenerateAudioData(message: String, onAudioDataGenerateListener: OnAudioDataGenerateListener) {
         audioDataGenerateAsyncTask = AudioDataGenerateAsyncTask(onAudioDataGenerateListener)
 
-        val durationPatternList = MscdMorseCodeConverter.instance.buildMessageStringDelayPatternList(message)
+        val durationPatternList = MscdMorseCodeConverter.instance.buildMessageStringDurationPatternList(message)
         audioDataGenerateAsyncTask?.execute(durationPatternList)
 
-//        val durationPatternArray = MscdMorseCodeConverter.instance.buildMessageStringDelayPatternArray(message)
+//        val durationPatternArray = MscdMorseCodeConverter.instance.buildMessageStringDurationPatternArray(message)
 //        audioDataGenerateAsyncTask?.execute(durationPatternArray)
     }
 
@@ -121,13 +121,13 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             return emptyArray()
         }
 
-        val audioFrequencyHz = audioConfig.audioFrequencyInHz
-        val audioSampleRateHz = audioConfig.audioSampleRateInHz
+        val audioFrequencyHz = audioConfig.audioFrequencyHz
+        val audioSampleRateHz = audioConfig.audioSampleRateHz
         val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
 
         val durationPatternArraySize = durationPatternArray.size
 
-        var audioDurationTotalInMs = 0
+        var audioDurationTotalMillis = 0
 
         return try {
             /** Traverse durationPatternArray to calculate out total duration of the audio. by Ace Yan */
@@ -136,11 +136,11 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     return emptyArray()
                 }
 
-                audioDurationTotalInMs += durationPatternArray[idx]
+                audioDurationTotalMillis += durationPatternArray[idx]
             }
 
             /** Build total timeSampleArray according to total audio duration. by Ace Yan */
-            val timeSampleArraySize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationTotalInMs)
+            val timeSampleArraySize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, audioDurationTotalMillis)
 
             /** Init total audioDataArray according to the size of total timeSampleArray. by Ace Yan */
             val audioDataArray = Array(timeSampleArraySize, { 0.toFloat() })
@@ -149,7 +149,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
 
             /**
              * Traverse durationPatternArray to calculate out each audio data element in audioDataArray.
-             * Every duration item in even position of durationPatternArray corresponding to mute audio data and every duration item in odd position corresponding to vocal audio data because the the duration item at 0 in durationPatternArray is a startDelay.
+             * Every duration item in even position of durationPatternArray corresponding to mute audio data and every duration item in odd position corresponding to vocal audio data because the the duration item at 0 in durationPatternArray is a startDuration.
              * by Ace Yan
              */
             for (idxPattern in 0 until durationPatternArraySize) {
@@ -157,14 +157,14 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     return emptyArray()
                 }
 
-                val eachDelayTimeSampleArraySize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, durationPatternArray[idxPattern])
+                val eachDurationTimeSampleArraySize = super.calculateTimeSampleCollectionSize(audioSampleRateHz, durationPatternArray[idxPattern])
 
                 /** Build timeSampleArray of each duration in the durationPatternArray. by Ace Yan */
-                val eachDelayTimeSampleArray = super.buildTimeSampleArray(audioSampleRateHz, durationPatternArray[idxPattern])
+                val eachDurationTimeSampleArray = super.buildTimeSampleArray(audioSampleRateHz, durationPatternArray[idxPattern])
 
                 /** Judge the index of durationPatternArray is even or odd. by Ace Yan */
                 if (idxPattern % 2 == 0) {
-                    for (idxSample in 0 until eachDelayTimeSampleArraySize) {
+                    for (idxSample in 0 until eachDurationTimeSampleArraySize) {
                         if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
@@ -173,22 +173,22 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                         positionInAudioDataArray++
                     }
                 } else {
-                    for (idxSample in 0 until eachDelayTimeSampleArraySize) {
+                    for (idxSample in 0 until eachDurationTimeSampleArraySize) {
                         if (audioDataGenerateAsyncTask?.isCancelled != false) {
                             return emptyArray()
                         }
 
                         when (audioEncodingPcmFormat) {
                             AudioFormat.ENCODING_PCM_FLOAT -> {
-                                audioDataArray[positionInAudioDataArray] = 1 * calculateSineWaveData(audioFrequencyHz, eachDelayTimeSampleArray[idxSample])
+                                audioDataArray[positionInAudioDataArray] = 1 * calculateSineWaveData(audioFrequencyHz, eachDurationTimeSampleArray[idxSample])
                             }
 
                             AudioFormat.ENCODING_PCM_16BIT -> {
-                                audioDataArray[positionInAudioDataArray] = Short.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, eachDelayTimeSampleArray[idxSample])
+                                audioDataArray[positionInAudioDataArray] = Short.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, eachDurationTimeSampleArray[idxSample])
                             }
 
                             AudioFormat.ENCODING_PCM_8BIT -> {
-                                audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, eachDelayTimeSampleArray[idxSample])
+                                audioDataArray[positionInAudioDataArray] = Byte.MAX_VALUE * calculateSineWaveData(audioFrequencyHz, eachDurationTimeSampleArray[idxSample])
                             }
 
                             else -> {
@@ -216,15 +216,15 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             return emptyList()
         }
 
-        val audioSampleRateHz = audioConfig.audioSampleRateInHz
+        val audioSampleRateHz = audioConfig.audioSampleRateHz
 
         val durationPatternListSize = durationPatternList.size
 
         return try {
             val audioDataList = ArrayList<Float>()
 
-            val ditAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.ditDelay)
-            val dahAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.dahDelay)
+            val ditAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.ditDuration)
+            val dahAudioDataList = buildAudioDataList(audioConfig, morseCodeConverterConfig.dahDuration)
 
             for (idxPattern in 0 until durationPatternListSize) {
                 if (audioDataGenerateAsyncTask?.isCancelled != false) {
@@ -237,8 +237,8 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                     audioDataList.addAll(muteDataList)
                 } else {
                     when {
-                        durationPatternList[idxPattern] == morseCodeConverterConfig.ditDelay -> audioDataList.addAll(ditAudioDataList)
-                        durationPatternList[idxPattern] == morseCodeConverterConfig.dahDelay -> audioDataList.addAll(dahAudioDataList)
+                        durationPatternList[idxPattern] == morseCodeConverterConfig.ditDuration -> audioDataList.addAll(ditAudioDataList)
+                        durationPatternList[idxPattern] == morseCodeConverterConfig.dahDuration -> audioDataList.addAll(dahAudioDataList)
                         else -> {
                         }
                     }
@@ -262,8 +262,8 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             return emptyList()
         }
 
-        val audioFrequencyHz = audioConfig.audioFrequencyInHz
-        val audioSampleRateHz = audioConfig.audioSampleRateInHz
+        val audioFrequencyHz = audioConfig.audioFrequencyHz
+        val audioSampleRateHz = audioConfig.audioSampleRateHz
         val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
 
         return try {

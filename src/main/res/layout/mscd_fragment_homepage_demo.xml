@@ -115,11 +115,11 @@
                         />
 
                 <Button
-                        android:id="@+id/btnLogcatMessageDelayPatternArray"
+                        android:id="@+id/btnLogcatMessageDurationPatternArray"
                         style="@style/comkitCommonBtnDefaultStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Logcat Message Delay Pattern Array"
+                        android:text="Logcat Message Duration Pattern Array"
                         />
             </LinearLayout>
         </LinearLayout>

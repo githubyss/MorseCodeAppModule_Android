@@ -85,9 +85,9 @@ class MscdAudioPlayer private constructor() {
         audioPlayerAsyncTask?.execute(audioDataArray)
     }
 
-    fun startAudioPlayerAsyncTask(delayPatternArray: Array<Int>) {
+    fun startAudioPlayerAsyncTask(durationPatternArray: Array<Int>) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
-                delayPatternArray,
+                durationPatternArray,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayerAsyncTask = AudioPlayerAsyncTask()
@@ -103,9 +103,9 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun startAudioPlayerAsyncTask(delayPatternList: List<Int>) {
+    fun startAudioPlayerAsyncTask(durationPatternList: List<Int>) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
-                delayPatternList,
+                durationPatternList,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayerAsyncTask = AudioPlayerAsyncTask()
@@ -121,9 +121,9 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun startAudioPlayerAsyncTask(audioDurationInMs: Int) {
+    fun startAudioPlayerAsyncTask(audioDurationMillis: Int) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
-                audioDurationInMs,
+                audioDurationMillis,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayerAsyncTask = AudioPlayerAsyncTask()

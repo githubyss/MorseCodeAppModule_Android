@@ -42,7 +42,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private lateinit var rootView: View
 
     private var trainingMsgStr = ""
-    private var baseDelay = 0
+    private var baseDuration = 0
 
     private var audioData = emptyArray<Float>()
     private var flashlightData = emptyArray<Any>()
@@ -130,7 +130,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
     override fun initData() {
         trainingMsgStr = arguments.getString(MscdKeyConstants.MorseCodeConverterConfigKey.TRAINING_MESSAGE)
-        baseDelay = arguments.getInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DELAY)
+        baseDuration = arguments.getInt(MscdKeyConstants.MorseCodeConverterConfigKey.BASE_DURATION)
     }
 
     override fun refreshView() {
@@ -146,14 +146,14 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
     private fun initMorseCodeConverterConfig() {
         MscdMorseCodeConverterConfig.Builder
-                .setBaseDelay(baseDelay)
+                .setBaseDuration(baseDuration)
                 .create()
     }
 
     private fun initAudioConfig() {
         MscdAudioConfig.Builder
-                .setAudioFrequencyInHz(880)
-                .setAudioSampleRateInHz(4000)
+                .setAudioFrequencyHz(880)
+                .setAudioSampleRateHz(4000)
                 .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
                 .setAudioEncodingPcmFormat(AudioFormat.ENCODING_PCM_16BIT)
                 .setAudioStreamType(AudioManager.STREAM_MUSIC)

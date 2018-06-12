@@ -24,10 +24,10 @@ class MscdAudioConfig private constructor(){
     }
 
 
-    var audioFrequencyInHz = 1000
+    var audioFrequencyHz = 1000
         private set
 
-    var audioSampleRateInHz = 4000
+    var audioSampleRateHz = 4000
         private set
 
     var audioChannelFormat = AudioFormat.CHANNEL_OUT_MONO
@@ -36,7 +36,7 @@ class MscdAudioConfig private constructor(){
     var audioEncodingPcmFormat = AudioFormat.ENCODING_PCM_16BIT
         private set
 
-    var audioMinBufferSize = AudioTrack.getMinBufferSize(audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat)
+    var audioMinBufferSize = AudioTrack.getMinBufferSize(audioSampleRateHz, audioChannelFormat, audioEncodingPcmFormat)
         private set
 
     var audioStreamType = AudioManager.STREAM_MUSIC
@@ -45,7 +45,7 @@ class MscdAudioConfig private constructor(){
     var audioTrackMode = AudioTrack.MODE_STREAM
         private set
 
-    var audioTrack = AudioTrack(audioStreamType, audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioTrackMode)
+    var audioTrack = AudioTrack(audioStreamType, audioSampleRateHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioTrackMode)
         private set
 
     var hasBuilt = false
@@ -53,31 +53,31 @@ class MscdAudioConfig private constructor(){
 
 
     object Builder {
-        private var audioFrequencyInHz = 1000
-        private var audioSampleRateInHz = 4000
+        private var audioFrequencyHz = 1000
+        private var audioSampleRateHz = 4000
         private var audioChannelFormat = AudioFormat.CHANNEL_OUT_MONO
         private var audioEncodingPcmFormat = AudioFormat.ENCODING_PCM_16BIT
 
         private var audioStreamType = AudioManager.STREAM_MUSIC
         private var audioTrackMode = AudioTrack.MODE_STREAM
 
-        fun setAudioFrequencyInHz(audioFrequencyInHz: Int): Builder {
-            var frequency = audioFrequencyInHz
+        fun setAudioFrequencyHz(audioFrequencyHz: Int): Builder {
+            var frequency = audioFrequencyHz
             if (frequency <= 0) {
                 frequency = 1000
             }
 
-            this@Builder.audioFrequencyInHz = frequency
+            this@Builder.audioFrequencyHz = frequency
             return this@Builder
         }
 
-        fun setAudioSampleRateInHz(audioSampleRateInHz: Int): Builder {
-            var sampleRate = audioSampleRateInHz
+        fun setAudioSampleRateHz(audioSampleRateHz: Int): Builder {
+            var sampleRate = audioSampleRateHz
             if (sampleRate <= 0) {
                 sampleRate = 44100
             }
 
-            this@Builder.audioSampleRateInHz = sampleRate
+            this@Builder.audioSampleRateHz = sampleRate
             return this@Builder
         }
 
@@ -107,8 +107,8 @@ class MscdAudioConfig private constructor(){
         }
 
         private fun applyConfig(config: MscdAudioConfig) {
-            config.audioFrequencyInHz = this@Builder.audioFrequencyInHz
-            config.audioSampleRateInHz = this@Builder.audioSampleRateInHz
+            config.audioFrequencyHz = this@Builder.audioFrequencyHz
+            config.audioSampleRateHz = this@Builder.audioSampleRateHz
             config.audioChannelFormat = this@Builder.audioChannelFormat
             config.audioEncodingPcmFormat = this@Builder.audioEncodingPcmFormat
 
@@ -139,15 +139,15 @@ class MscdAudioConfig private constructor(){
         }
 
         private fun buildMinBufferSize(config: MscdAudioConfig): Int {
-            val audioSampleRateInHz = config.audioSampleRateInHz
+            val audioSampleRateHz = config.audioSampleRateHz
             val audioChannelFormat = config.audioChannelFormat
             val audioEncodingPcmFormat = config.audioEncodingPcmFormat
 
-            return AudioTrack.getMinBufferSize(audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat)
+            return AudioTrack.getMinBufferSize(audioSampleRateHz, audioChannelFormat, audioEncodingPcmFormat)
         }
 
         private fun buildAudioTrack(config: MscdAudioConfig): AudioTrack {
-            val audioSampleRateInHz = config.audioSampleRateInHz
+            val audioSampleRateHz = config.audioSampleRateHz
             val audioChannelFormat = config.audioChannelFormat
             val audioEncodingPcmFormat = config.audioEncodingPcmFormat
 
@@ -156,7 +156,7 @@ class MscdAudioConfig private constructor(){
 
             val audioMinBufferSize = config.audioMinBufferSize
 
-            return AudioTrack(audioStreamType, audioSampleRateInHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioPlayMode)
+            return AudioTrack(audioStreamType, audioSampleRateHz, audioChannelFormat, audioEncodingPcmFormat, audioMinBufferSize, audioPlayMode)
         }
     }
 }
