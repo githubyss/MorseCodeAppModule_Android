@@ -1,6 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
 
 /**
@@ -62,6 +63,9 @@ class MscdMorseCodeConverterConfig private constructor() {
 
 
     object Builder {
+        private var beginTime = 0L
+        private var endTime = 0L
+
         private var baseDelay = 50
 
         fun setBaseDelay(delay: Int): Builder {
@@ -188,6 +192,8 @@ class MscdMorseCodeConverterConfig private constructor() {
 
             val char2DelayPatternArrayMap = LinkedHashMap<Char, Array<Int>>()
 
+            beginTime = ComkitTimeUtils.currentTimeMillis()
+
             /** Traverse char-ditdahString map to build char-delayPatternArray map. by Ace Yan */
             for (entry in char2DitdahStringMap.entries) {
                 val charKey = entry.key
@@ -225,6 +231,10 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DelayPatternArrayMap.put(charKey, charDelayPatternArray)
             }
 
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternArrayMap() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternArrayMap() >>> char2DelayPatternArrayMapSize = ${char2DelayPatternArrayMap.size}")
+
             ComkitLogcatUtils.`object`(char2DelayPatternArrayMap)
 
             return char2DelayPatternArrayMap
@@ -249,6 +259,8 @@ class MscdMorseCodeConverterConfig private constructor() {
 
             val char2DelayPatternListMap = LinkedHashMap<Char, List<Int>>()
 
+            beginTime = ComkitTimeUtils.currentTimeMillis()
+
             for (entry in char2DitdahStringMap.entries) {
                 val charKey = entry.key
                 val charDitdahString = entry.value
@@ -271,6 +283,10 @@ class MscdMorseCodeConverterConfig private constructor() {
 
                 char2DelayPatternListMap.put(charKey, charDelayPatternList)
             }
+
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternListMap() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DelayPatternListMap() >>> char2DelayPatternListMapSize = ${char2DelayPatternListMap.size}")
 
             ComkitLogcatUtils.`object`(char2DelayPatternListMap)
 

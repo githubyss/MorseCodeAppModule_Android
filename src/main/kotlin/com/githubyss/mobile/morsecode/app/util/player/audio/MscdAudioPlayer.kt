@@ -85,6 +85,24 @@ class MscdAudioPlayer private constructor() {
         audioPlayerAsyncTask?.execute(audioDataArray)
     }
 
+    fun startAudioPlayerAsyncTask(delayPatternArray: Array<Int>) {
+        MscdAudioDataGenerator.instance.startGenerateAudioData(
+                delayPatternArray,
+                object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
+                    override fun onSucceeded(audioDataArray: Array<Float>) {
+                        audioPlayerAsyncTask = AudioPlayerAsyncTask()
+                        audioPlayerAsyncTask?.execute(audioDataArray)
+                    }
+
+                    override fun onFailed(failingInfo: String) {
+                    }
+
+                    override fun onCancelled() {
+                    }
+                }
+        )
+    }
+
     fun startAudioPlayerAsyncTask(delayPatternList: List<Int>) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
                 delayPatternList,
@@ -94,7 +112,7 @@ class MscdAudioPlayer private constructor() {
                         audioPlayerAsyncTask?.execute(audioDataArray)
                     }
 
-                    override fun onFailed() {
+                    override fun onFailed(failingInfo: String) {
                     }
 
                     override fun onCancelled() {
@@ -112,7 +130,7 @@ class MscdAudioPlayer private constructor() {
                         audioPlayerAsyncTask?.execute(audioDataArray)
                     }
 
-                    override fun onFailed() {
+                    override fun onFailed(failingInfo: String) {
                     }
 
                     override fun onCancelled() {
@@ -130,7 +148,7 @@ class MscdAudioPlayer private constructor() {
                         audioPlayerAsyncTask?.execute(audioDataArray)
                     }
 
-                    override fun onFailed() {
+                    override fun onFailed(failingInfo: String) {
                     }
 
                     override fun onCancelled() {

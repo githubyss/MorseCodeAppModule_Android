@@ -33,6 +33,10 @@ class MscdAudioDataGenerator private constructor() {
         audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(delayPatternList, onAudioDataGenerateListener)
     }
 
+    fun startGenerateAudioData(delayPatternArray: Array<Int>, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
+        audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(delayPatternArray, onAudioDataGenerateListener)
+    }
+
     fun startGenerateAudioData(audioDurationInMs: Int, onAudioDataGenerateListener: MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener) {
         audioDataGeneratorConfig.audioDataGenerateStrategy.startGenerateAudioData(audioDurationInMs, onAudioDataGenerateListener)
     }
