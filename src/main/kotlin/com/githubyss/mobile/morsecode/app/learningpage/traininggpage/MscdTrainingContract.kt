@@ -15,9 +15,11 @@ interface MscdTrainingContract {
     interface IView : ComkitIBaseView<IPresenter> {
         fun showHint(hintStr: String)
         fun onAudioDataBuilt(audioDataArray: Array<Float>)
+        fun onPlayFinished()
     }
 
     interface IPresenter : ComkitIBasePresenter {
-        fun buildPlayerData(trainingMsgStr:String)
+        fun buildPlayData(trainingMsgStr: String)
+        fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>)
     }
 }

@@ -2,6 +2,7 @@ package com.githubyss.mobile.morsecode.app.util.player.controller
 
 import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
 import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
 import com.githubyss.mobile.morsecode.app.util.player.controller.action.*
 
 /**
@@ -35,8 +36,8 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
         vibratorAction = if (MscdPlayModeGlobalInfo.vibratorStatus == MscdStatusConstants.PlayModeStatus.VIBRATION_ON) MscdVibratorOnAction() else MscdVibratorOffAction()
     }
 
-    fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>) {
-        audioAction.startPlay(audioData)
+    fun startPlay(audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener, flashlightData: Array<Any>, vibratorData: Array<Any>) {
+        audioAction.startPlay(audioData, onAudioPlayListener)
         flashlightAction.startPlay(flashlightData)
         vibratorAction.startPlay(vibratorData)
     }

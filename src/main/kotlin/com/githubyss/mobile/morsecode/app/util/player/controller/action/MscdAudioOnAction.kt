@@ -13,13 +13,13 @@ import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
  * @github githubyss
  */
 class MscdAudioOnAction : MscdAudioAction {
-    override fun startPlay(audioDataArray: Array<Float>) {
-        MscdAudioPlayer.instance.startAudioPlayerAsyncTask(audioDataArray)
+    override fun startPlay(audioDataArray: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener) {
+        MscdAudioPlayer.instance.startPlayAudio(audioDataArray, onAudioPlayListener)
     }
 
     override fun stopPlay() {
-        MscdAudioPlayer.instance.cancelAudioPlayerAsyncTask()
-        MscdAudioPlayer.instance.stopAllPlayAudio()
+        MscdAudioPlayer.instance.stopPlayAudio()
+        MscdAudioPlayer.instance.stopAllAudioTrack()
     }
 
     override fun releaseResource() {

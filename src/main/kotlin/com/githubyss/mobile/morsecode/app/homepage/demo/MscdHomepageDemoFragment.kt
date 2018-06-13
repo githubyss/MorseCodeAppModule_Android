@@ -68,25 +68,37 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnStartPlayAudio -> {
-                MscdAudioPlayer.instance.startAudioPlayerAsyncTask("O")
+                MscdAudioPlayer.instance.startPlayAudio(
+                        "O",
+                        object : MscdAudioPlayer.OnAudioPlayListener {
+                            override fun onSucceeded() {
+                            }
+
+                            override fun onFailed(failingInfo: String) {
+                            }
+
+                            override fun onCancelled() {
+                            }
+                        }
+                )
             }
 
             R.id.btnStopAllPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayerAsyncTask()
-                MscdAudioPlayer.instance.stopAllPlayAudio()
+//                MscdAudioPlayer.instance.stopPlayAudio()
+                MscdAudioPlayer.instance.stopAllAudioTrack()
             }
 
             R.id.btnStopCurrentPlayAudio -> {
-//                MscdAudioPlayer.instance.cancelAudioPlayerAsyncTask()
-                MscdAudioPlayer.instance.stopCurrentPlayAudio()
+//                MscdAudioPlayer.instance.stopPlayAudio()
+                MscdAudioPlayer.instance.stopCurrentAudioTrack()
             }
 
             R.id.btnPausePlayAudio -> {
-                MscdAudioPlayer.instance.pausePlayAudio()
+                MscdAudioPlayer.instance.pauseAudioTrack()
             }
 
             R.id.btnResumePlayAudio -> {
-                MscdAudioPlayer.instance.resumePlayAudio()
+                MscdAudioPlayer.instance.resumeAudioTrack()
             }
 
             R.id.btnReleaseAudioTrack -> {

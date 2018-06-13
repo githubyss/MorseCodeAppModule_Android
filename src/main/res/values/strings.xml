@@ -44,13 +44,17 @@
     <string name="mscdTrainingRecoded">Recoded messages.</string>
 
 
+    <string name="mscdRandomStringGenerateSucceeded">Random string generate succeeded.</string>
+    <string name="mscdRandomStringGenerateFailed">Random string generate failed.</string>
+    <string name="mscdRandomStringGenerateCancelled">Random string generate cancelled.</string>
+
     <string name="mscdAudioDataGenerateSucceeded">Audio data generate succeeded.</string>
     <string name="mscdAudioDataGenerateFailed">Audio data generate failed.</string>
     <string name="mscdAudioDataGenerateCancelled">Audio data generate cancelled.</string>
 
-    <string name="mscdRandomStringGenerateSucceeded">Random string generate succeeded.</string>
-    <string name="mscdRandomStringGenerateFailed">Random string generate failed.</string>
-    <string name="mscdRandomStringGenerateCancelled">Random string generate cancelled.</string>
+    <string name="mscdAudioPlaySucceeded">Audio play succeeded.</string>
+    <string name="mscdAudioPlayFailed">Audio play failed.</string>
+    <string name="mscdAudioPlayCancelled">Audio play cancelled.</string>
 
     <string name="mscdFailingInfo">Failing Info:</string>
 

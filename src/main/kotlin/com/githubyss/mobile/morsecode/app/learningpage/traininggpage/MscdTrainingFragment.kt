@@ -51,7 +51,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private lateinit var mscdTrainingIPresenter: MscdTrainingContract.IPresenter
     private var mscdTrainingIView = object : MscdTrainingContract.IView {
         override fun setPresenter(iPresenter: MscdTrainingContract.IPresenter) {
-            mscdTrainingIPresenter = iPresenter
+            mscdTrainingIPresenter  = iPresenter
         }
 
         override fun showHint(hintStr: String) {
@@ -60,7 +60,14 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
             changeBtnStatus(btnStartPlay, true)
-           audioData = audioDataArray
+            audioData = audioDataArray
+        }
+
+        override fun onPlayFinished() {
+            changeBtnStatus(btnStartPlay, true)
+            changeBtnStatus(btnStopPlay, false)
+
+            clearPlayerData()
         }
     }
 
@@ -73,7 +80,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
                 initAudioConfig()
 
-                MscdPlayerController.instance.startPlay(audioData, flashlightData, vibratorData)
+                mscdTrainingIPresenter.startPlay(audioData, flashlightData, vibratorData)
             }
 
             R.id.btnStopPlay -> {
@@ -168,7 +175,13 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     private fun generatePlayerData() {
-        mscdTrainingIPresenter.buildPlayerData(trainingMsgStr)
+        mscdTrainingIPresenter.buildPlayData(trainingMsgStr)
+    }
+
+    private fun clearPlayerData() {
+        audioData = emptyArray()
+        flashlightData = emptyArray()
+        vibratorData = emptyArray()
     }
 
 
@@ -207,5 +220,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         MscdPlayerController.instance.stopPlay()
         MscdPlayerController.instance.releaseResource()
+
+        clearPlayerData()
     }
 }

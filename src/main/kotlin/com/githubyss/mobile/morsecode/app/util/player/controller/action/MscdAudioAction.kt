@@ -1,5 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.controller.action
 
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
+
 /**
  * MscdAudioAction.kt
  * <Description>
@@ -11,7 +13,7 @@ package com.githubyss.mobile.morsecode.app.util.player.controller.action
  * @github githubyss
  */
 interface MscdAudioAction {
-    fun startPlay(audioDataArray: Array<Float>)
+    fun startPlay(audioDataArray: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener)
     fun stopPlay()
     fun releaseResource()
 }

@@ -1,11 +1,13 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
-import android.annotation.SuppressLint
 import android.media.AudioFormat
 import android.media.AudioTrack
 import android.os.AsyncTask
 import android.os.Build
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.util.ComkitResUtils
+import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.morsecode.app.R
 
 /**
  * MscdAudioPlayer.kt
@@ -27,6 +29,13 @@ class MscdAudioPlayer private constructor() {
     }
 
 
+    interface OnAudioPlayListener {
+        fun onSucceeded()
+        fun onFailed(failingInfo: String)
+        fun onCancelled()
+    }
+
+
     /** Building the audioConfig by default variate value in itself when it was not built by user. by Ace Yan */
     private val audioConfig =
             if (!MscdAudioConfig.instance.hasBuilt)
@@ -35,31 +44,31 @@ class MscdAudioPlayer private constructor() {
             else
                 MscdAudioConfig.instance
 
-    private var audioPlayerAsyncTask: AudioPlayerAsyncTask? = null
+    private var audioPlayAsyncTask: AudioPlayAsyncTask? = null
+
+    private var beginTime = 0L
+    private var endTime = 0L
+
+    private var exceptionInfo = ""
 
 
-    interface OnAudioPlayListener {
-        fun onFinished()
-        fun onStopped()
-        fun onPaused()
-        fun onCancelled()
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private inner class AudioPlayerAsyncTask : AsyncTask<Array<Float>, Int, Boolean>() {
+    private inner class AudioPlayAsyncTask(private val onAudioPlayListener: OnAudioPlayListener) : AsyncTask<Array<Float>, Int, Boolean>() {
         override fun doInBackground(vararg params: Array<Float>?): Boolean? {
             if (isCancelled) {
-                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioPlayerAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioPlayAsyncTask.doInBackground() >>> isCancelled")
                 return true
             }
 
-            logcatAudioTrackState("AudioPlayerAsyncTask.doInBackground", audioConfig.audioTrack, "Execution started! Before startPlayAudio().")
+            beginTime = ComkitTimeUtils.currentTimeMillis()
+
+            logcatAudioTrackState("AudioPlayAsyncTask.doInBackground", audioConfig.audioTrack, "Execution started! Before startAudioTrack().")
 
             return try {
-                startPlayAudio(params[0] ?: emptyArray())
+                startAudioTrack(params[0] ?: emptyArray())
                 true
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(t = exception)
+                exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
                 false
             }
         }
@@ -69,29 +78,43 @@ class MscdAudioPlayer private constructor() {
                 return
             }
 
-            logcatAudioTrackState("AudioPlayerAsyncTask.onPostExecute", audioConfig.audioTrack, "Execution finished!")
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
+
+            if (result != false) {
+                onAudioPlayListener.onSucceeded()
+            } else {
+                onAudioPlayListener.onFailed(exceptionInfo)
+            }
+
+            logcatAudioTrackState("AudioPlayAsyncTask.onPostExecute", audioConfig.audioTrack, "Execution finished!")
         }
 
         override fun onCancelled() {
-            logcatAudioTrackState("AudioPlayerAsyncTask.onCancelled", audioConfig.audioTrack, "Execution cancelled!")
+            logcatAudioTrackState("AudioPlayAsyncTask.onCancelled", audioConfig.audioTrack, "Execution cancelled!")
 
-            stopAllPlayAudio()
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
+
+            onAudioPlayListener.onCancelled()
+
+            stopAllAudioTrack()
         }
     }
 
 
-    fun startAudioPlayerAsyncTask(audioDataArray: Array<Float>) {
-        audioPlayerAsyncTask = AudioPlayerAsyncTask()
-        audioPlayerAsyncTask?.execute(audioDataArray)
+    fun startPlayAudio(audioDataArray: Array<Float>, onAudioPlayListener: OnAudioPlayListener) {
+        audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
+        audioPlayAsyncTask?.execute(audioDataArray)
     }
 
-    fun startAudioPlayerAsyncTask(durationPatternArray: Array<Int>) {
+    fun startPlayAudio(durationPatternArray: Array<Int>, onAudioPlayListener: OnAudioPlayListener) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
                 durationPatternArray,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
-                        audioPlayerAsyncTask = AudioPlayerAsyncTask()
-                        audioPlayerAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
+                        audioPlayAsyncTask?.execute(audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -103,13 +126,13 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun startAudioPlayerAsyncTask(durationPatternList: List<Int>) {
+    fun startPlayAudio(durationPatternList: List<Int>, onAudioPlayListener: OnAudioPlayListener) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
                 durationPatternList,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
-                        audioPlayerAsyncTask = AudioPlayerAsyncTask()
-                        audioPlayerAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
+                        audioPlayAsyncTask?.execute(audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -121,13 +144,13 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun startAudioPlayerAsyncTask(audioDurationMillis: Int) {
+    fun startPlayAudio(audioDurationMillis: Int, onAudioPlayListener: OnAudioPlayListener) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
                 audioDurationMillis,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
-                        audioPlayerAsyncTask = AudioPlayerAsyncTask()
-                        audioPlayerAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
+                        audioPlayAsyncTask?.execute(audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -139,13 +162,13 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun startAudioPlayerAsyncTask(message: String) {
+    fun startPlayAudio(message: String, onAudioPlayListener: OnAudioPlayListener) {
         MscdAudioDataGenerator.instance.startGenerateAudioData(
                 message,
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
-                        audioPlayerAsyncTask = AudioPlayerAsyncTask()
-                        audioPlayerAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
+                        audioPlayAsyncTask?.execute(audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -157,15 +180,15 @@ class MscdAudioPlayer private constructor() {
         )
     }
 
-    fun cancelAudioPlayerAsyncTask() {
-        if (audioPlayerAsyncTask?.status == AsyncTask.Status.RUNNING) {
-            audioPlayerAsyncTask?.cancel(true)
-            audioPlayerAsyncTask = null
+    fun stopPlayAudio() {
+        if (audioPlayAsyncTask?.status == AsyncTask.Status.RUNNING) {
+            audioPlayAsyncTask?.cancel(true)
+            audioPlayAsyncTask = null
         }
     }
 
     /**
-     * MscdAudioPlayer.startPlayAudio(audioDataArray)
+     * MscdAudioPlayer.startAudioTrack(audioDataArray)
      * <Description> Try to start audio play of AudioTrack.
      * <Details>
      *
@@ -174,41 +197,42 @@ class MscdAudioPlayer private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
-    private fun startPlayAudio(audioDataArray: Array<Float>): Boolean {
+    private fun startAudioTrack(audioDataArray: Array<Float>): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("startPlayAudio", audioTrack, "Before try play().")
+        logcatAudioTrackState("startAudioTrack", audioTrack, "Before try play().")
 
         try {
             /** No matter what play state is, the audioTrack can do play() if the state is STATE_INITIALIZED. by Ace Yan */
             when (audioTrack.state) {
                 AudioTrack.STATE_UNINITIALIZED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_UNINITIALIZED, try to play failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startAudioTrack() >>> state = STATE_UNINITIALIZED, try to play failed!")
                     return false
                 }
 
                 AudioTrack.STATE_INITIALIZED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> state = STATE_INITIALIZED, try to play!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startAudioTrack() >>> state = STATE_INITIALIZED, try to play!")
                     audioTrack.play()
-                    writeAudioDataToTrack(audioDataArray, audioTrack)
+                    writeToAudioTrack(audioDataArray, audioTrack)
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startPlayAudio() >>> else in when, try to play failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> startAudioTrack() >>> else in when, try to play failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             return false
         }
 
-//        logcatAudioTrackState("startPlayAudio", audioTrack, "After write().")
+//        logcatAudioTrackState("startAudioTrack", audioTrack, "After write().")
         return true
     }
 
     /**
-     * MscdAudioPlayer.writeAudioDataToTrack(audioDataArray, audioTrack)
+     * MscdAudioPlayer.writeToAudioTrack(audioDataArray, audioTrack)
      * <Description> Try to write audioDataArray to AudioTrack.
      * <Details>
      *
@@ -218,41 +242,42 @@ class MscdAudioPlayer private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
-    private fun writeAudioDataToTrack(audioDataArray: Array<Float>, audioTrack: AudioTrack): Boolean {
+    private fun writeToAudioTrack(audioDataArray: Array<Float>, audioTrack: AudioTrack): Boolean {
         val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
 
-        logcatAudioTrackState("writeAudioDataToTrack", audioTrack, "Before try write().")
+        logcatAudioTrackState("writeToAudioTrack", audioTrack, "Before try write().")
 
         try {
             when (audioEncodingPcmFormat) {
                 AudioFormat.ENCODING_PCM_FLOAT -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_FLOAT, try to write in FLOAT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeToAudioTrack() >>> pcmFormat = ENCODING_PCM_FLOAT, try to write in FLOAT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         audioTrack.write(audioDataArray.toFloatArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 AudioFormat.ENCODING_PCM_16BIT -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_16BIT, try to write in 16BIT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeToAudioTrack() >>> pcmFormat = ENCODING_PCM_16BIT, try to write in 16BIT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         audioTrack.write(audioDataArray.map { it.toShort() }.toShortArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 AudioFormat.ENCODING_PCM_8BIT -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> pcmFormat = ENCODING_PCM_8BIT, try to write in 8BIT!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeToAudioTrack() >>> pcmFormat = ENCODING_PCM_8BIT, try to write in 8BIT!")
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         audioTrack.write(audioDataArray.map { it.toByte() }.toByteArray(), 0, audioDataArray.size, AudioTrack.WRITE_BLOCKING)
                     }
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeAudioDataToTrack() >>> else in when, try to write failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> writeToAudioTrack() >>> else in when, try to write failed!")
                     return false
                 }
             }
         } catch (exception: IllegalStateException) {
             ComkitLogcatUtils.e(t = exception)
+            exceptionInfo = "${ComkitResUtils.getString(resId = R.string.mscdFailingInfo)} ${exception.javaClass.simpleName}!"
             return false
         }
 
@@ -260,7 +285,7 @@ class MscdAudioPlayer private constructor() {
     }
 
     /**
-     * MscdAudioPlayer.stopAllPlayAudio()
+     * MscdAudioPlayer.stopAllAudioTrack()
      * <Description> Try to stop all audio play of AudioTrack.
      * <Details> You can stop all audio play in the thread queue of AsyncTask when you are trying to play several audio one by one by the same AudioTrack instance.
      *
@@ -285,33 +310,33 @@ class MscdAudioPlayer private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
-    fun stopAllPlayAudio(): Boolean {
+    fun stopAllAudioTrack(): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("stopAllPlayAudio", audioTrack, "Before try stop() or flush() or release().")
+        logcatAudioTrackState("stopAllAudioTrack", audioTrack, "Before try stop() or flush() or release().")
 
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop and release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllAudioTrack() >>> playState = PLAYSTATE_PLAYING, try to stop and release!")
                     audioTrack.stop()
                     audioTrack.release()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to flush, stop and release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllAudioTrack() >>> playState = PLAYSTATE_PAUSED, try to flush, stop and release!")
                     audioTrack.flush()
                     audioTrack.stop()
                     audioTrack.release()
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to release!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllAudioTrack() >>> playState = PLAYSTATE_STOPPED, try to release!")
                     audioTrack.release()
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllPlayAudio() >>> else in when, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopAllAudioTrack() >>> else in when, try to stop failed!")
                     return false
                 }
             }
@@ -320,12 +345,12 @@ class MscdAudioPlayer private constructor() {
             return false
         }
 
-        logcatAudioTrackState("stopAllPlayAudio", audioTrack, "After try stop() or flush() or release().")
+        logcatAudioTrackState("stopAllAudioTrack", audioTrack, "After try stop() or flush() or release().")
         return true
     }
 
     /**
-     * MscdAudioPlayer.stopCurrentPlayAudio()
+     * MscdAudioPlayer.stopCurrentAudioTrack()
      * <Description> Try to stop the current audio play of AudioTrack.
      * <Details> You can stop the audio play of the instance of AudioTrack in current thread and continue the next audio play in the thread queue of AsyncTask when you are trying to play several audio one by one by the same AudioTrack instance.
      *
@@ -334,29 +359,29 @@ class MscdAudioPlayer private constructor() {
      * @author Ace Yan
      * @github githubyss
      */
-    fun stopCurrentPlayAudio(): Boolean {
+    fun stopCurrentAudioTrack(): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("stopCurrentPlayAudio", audioTrack, "Before try stop() or flush() or release().")
+        logcatAudioTrackState("stopCurrentAudioTrack", audioTrack, "Before try stop() or flush() or release().")
 
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PLAYING, try to stop!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentAudioTrack() >>> playState = PLAYSTATE_PLAYING, try to stop!")
                     audioTrack.stop()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_PAUSED, try to stop!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentAudioTrack() >>> playState = PLAYSTATE_PAUSED, try to stop!")
                     audioTrack.stop()
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> playState = PLAYSTATE_STOPPED, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentAudioTrack() >>> playState = PLAYSTATE_STOPPED, try to stop failed!")
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentPlayAudio() >>> else in when, try to stop failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> stopCurrentAudioTrack() >>> else in when, try to stop failed!")
                     return false
                 }
             }
@@ -365,47 +390,47 @@ class MscdAudioPlayer private constructor() {
             return false
         }
 
-        logcatAudioTrackState("stopCurrentPlayAudio", audioTrack, "After try stop().")
+        logcatAudioTrackState("stopCurrentAudioTrack", audioTrack, "After try stop().")
         return true
     }
 
     /**
-     * MscdAudioPlayer.pausePlayAudio()
+     * MscdAudioPlayer.pauseAudioTrack()
      * <Description> Try to pause audio play of AudioTrack.
      * <Details>
      *
      * @attention There is a extraordinary usage: You can stop the audio play of the instance of AudioTrack in current thread and continue the next audio play in the thread queue of AsyncTask when you are trying to play several audio one by one by the same AudioTrack instance.
-     * There is a method you can use to get the same result {@link #stopCurrentPlayAudio()}.
+     * There is a method you can use to get the same result {@link #stopCurrentAudioTrack()}.
      *
      * @param
      * @return
      * @author Ace Yan
      * @github githubyss
      */
-    fun pausePlayAudio(): Boolean {
+    fun pauseAudioTrack(): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("pausePlayAudio", audioTrack, "Before try pause().")
+        logcatAudioTrackState("pauseAudioTrack", audioTrack, "Before try pause().")
 
         try {
             when (audioTrack.playState) {
                 AudioTrack.PLAYSTATE_PLAYING -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to pause!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pauseAudioTrack() >>> playState = PLAYSTATE_PLAYING, try to pause!")
                     audioTrack.pause()
                 }
 
                 AudioTrack.PLAYSTATE_PAUSED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pauseAudioTrack() >>> playState = PLAYSTATE_PAUSED, try to pause failed!")
                     return false
                 }
 
                 AudioTrack.PLAYSTATE_STOPPED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pauseAudioTrack() >>> playState = PLAYSTATE_STOPPED, try to pause failed!")
                     return false
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pausePlayAudio() >>> else in when, try to pause failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> pauseAudioTrack() >>> else in when, try to pause failed!")
                     return false
                 }
             }
@@ -414,12 +439,12 @@ class MscdAudioPlayer private constructor() {
             return false
         }
 
-        logcatAudioTrackState("pausePlayAudio", audioTrack, "After try pause().")
+        logcatAudioTrackState("pauseAudioTrack", audioTrack, "After try pause().")
         return true
     }
 
     /**
-     * MscdAudioPlayer.resumePlayAudio()
+     * MscdAudioPlayer.resumeAudioTrack()
      * <Description> Try to resume audio play of AudioTrack.
      * <Details>
      *
@@ -432,46 +457,46 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     @Deprecated("Unuseful")
-    fun resumePlayAudio(): Boolean {
+    fun resumeAudioTrack(): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("resumePlayAudio", audioTrack, "Before try to resume.")
+        logcatAudioTrackState("resumeAudioTrack", audioTrack, "Before try to resume.")
 
         try {
             when (audioTrack.state) {
                 AudioTrack.STATE_UNINITIALIZED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_UNINITIALIZED, try to resume failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> state = STATE_UNINITIALIZED, try to resume failed!")
                     return false
                 }
 
                 AudioTrack.STATE_INITIALIZED -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> state = STATE_INITIALIZED, judge play state!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> state = STATE_INITIALIZED, judge play state!")
 
                     when (audioTrack.playState) {
                         AudioTrack.PLAYSTATE_PLAYING -> {
-                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PLAYING, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> playState = PLAYSTATE_PLAYING, try to resume failed!")
                             return false
                         }
 
                         AudioTrack.PLAYSTATE_PAUSED -> {
-                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_PAUSED, try to resume!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> playState = PLAYSTATE_PAUSED, try to resume!")
                             audioTrack.play()
                         }
 
                         AudioTrack.PLAYSTATE_STOPPED -> {
-                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> playState = PLAYSTATE_STOPPED, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> playState = PLAYSTATE_STOPPED, try to resume failed!")
                             return false
                         }
 
                         else -> {
-                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
+                            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> else in when, try to resume failed!")
                             return false
                         }
                     }
                 }
 
                 else -> {
-                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumePlayAudio() >>> else in when, try to resume failed!")
+                    ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> resumeAudioTrack() >>> else in when, try to resume failed!")
                     return false
                 }
             }
@@ -480,7 +505,7 @@ class MscdAudioPlayer private constructor() {
             return false
         }
 
-        logcatAudioTrackState("resumePlayAudio", audioTrack, "After try to resume.")
+        logcatAudioTrackState("resumeAudioTrack", audioTrack, "After try to resume.")
         return true
     }
 
@@ -497,7 +522,7 @@ class MscdAudioPlayer private constructor() {
     fun releaseAudioTrack(): Boolean {
         val audioTrack = audioConfig.audioTrack
 
-        logcatAudioTrackState("startPlayAudio", audioTrack, "Before try release().")
+        logcatAudioTrackState("startAudioTrack", audioTrack, "Before try release().")
 
         try {
             audioTrack.release()
@@ -506,7 +531,7 @@ class MscdAudioPlayer private constructor() {
             return false
         }
 
-        logcatAudioTrackState("startPlayAudio", audioTrack, "After try release().")
+        logcatAudioTrackState("startAudioTrack", audioTrack, "After try release().")
         return true
     }
 
