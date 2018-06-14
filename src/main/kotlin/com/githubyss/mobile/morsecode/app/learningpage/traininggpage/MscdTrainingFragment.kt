@@ -5,10 +5,7 @@ import android.media.AudioManager
 import android.media.AudioTrack
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -20,13 +17,14 @@ import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.common.kit.util.uioperate.ComkitTypewriteUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
+import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
+import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateSineWaveStrategy
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGeneratorConfig
 import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
-import kotlinx.android.synthetic.main.comkit_toolbar_base.*
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
 
 
@@ -87,8 +85,6 @@ class MscdTrainingFragment : ComkitBaseFragment() {
                 changeBtnStatus(btnStartPlay, false)
                 changeBtnStatus(btnStopPlay, true)
 
-                toolbarBase.menu.getItem()
-
                 tvMorseCodeCopy.text = ""
 
                 initAudioConfig()
@@ -143,6 +139,27 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         MscdAudioDataGeneratorConfig.Builder
                 .setStrategy(MscdAudioDataGenerateSineWaveStrategy())
                 .create()
+    }
+
+    private fun refreshViewOnTypewriterStatusChanged() {
+        when (MscdPlayModeGlobalInfo.typewriterStatus) {
+            MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON -> {
+                tvMorseCodeCopy.text = ComkitResUtils.getString(resId = R.string.mscdTrainingTransmitted)
+
+                inputBtnList
+                        .forEach { changeBtnStatus(it, false) }
+            }
+
+            MscdStatusConstants.PlayModeStatus.TYPEWRITER_OFF -> {
+                tvMorseCodeCopy.text = ComkitResUtils.getString(resId = R.string.mscdTrainingRecoded)
+
+                inputBtnList
+                        .forEach { changeBtnStatus(it, true) }
+            }
+
+            else -> {
+            }
+        }
     }
 
     private fun generatePlayerData() {
@@ -225,13 +242,14 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     override fun refreshView() {
-//        inputBtnList
-//                .forEach { changeBtnStatus(it, false) }
+        refreshViewOnTypewriterStatusChanged()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
 
         bindPresenter()
         mscdTrainingIPresenter.onStandby()
@@ -267,5 +285,19 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         MscdPlayerController.instance.releaseResource()
 
         clearPlayerData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.itemTypewriter -> {
+                refreshViewOnTypewriterStatusChanged()
+            }
+
+            else -> {
+                return false
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

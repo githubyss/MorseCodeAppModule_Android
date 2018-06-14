@@ -18,6 +18,37 @@ import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerContr
  * @github githubyss
  */
 abstract class MscdBaseActivity : ComkitBaseActivity() {
+    /**
+     * MscdBaseActivity.refreshMenuItem(menu)
+     * <Description> Refresh menu item to show the latest status of action of play mode.
+     * <Details> Must be called in both onResume() and onCreateOptionsMenu() to guarantee the correct status.
+     *
+     * @param menu
+     * @return
+     * @author Ace Yan
+     * @github githubyss
+     */
+    private fun refreshMenuItem(menu: Menu?) {
+        val itemAudio = menu?.findItem(R.id.itemAudio)
+        val itemFlashlight = menu?.findItem(R.id.itemFlashlight)
+        val itemVibrator = menu?.findItem(R.id.itemVibrator)
+        val itemTypewriter = menu?.findItem(R.id.itemTypewriter)
+
+        itemAudio?.setIcon(
+                if (MscdPlayModeGlobalInfo.audioStatus == MscdStatusConstants.PlayModeStatus.AUDIO_ON) R.drawable.mscd_ic_action_audio_on_white
+                else R.drawable.mscd_ic_action_audio_off_white)
+        itemFlashlight?.setIcon(
+                if (MscdPlayModeGlobalInfo.flashlightStatus == MscdStatusConstants.PlayModeStatus.FLASHLIGHT_ON) R.drawable.mscd_ic_action_flashlight_on_white
+                else R.drawable.mscd_ic_action_flashlight_off_white)
+        itemVibrator?.setIcon(
+                if (MscdPlayModeGlobalInfo.vibratorStatus == MscdStatusConstants.PlayModeStatus.VIBRATION_ON) R.drawable.mscd_ic_action_vibrator_on_white
+                else R.drawable.mscd_ic_action_vibrator_off_white)
+        itemTypewriter?.setIcon(
+                if (MscdPlayModeGlobalInfo.typewriterStatus == MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON) R.drawable.mscd_ic_typewriter_on_white
+                else R.drawable.mscd_ic_typewriter_off_white)
+    }
+
+
     override fun onResume() {
         super.onResume()
 
@@ -128,36 +159,5 @@ abstract class MscdBaseActivity : ComkitBaseActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-
-    /**
-     * MscdBaseActivity.refreshMenuItem(menu)
-     * <Description> Refresh menu item to show the latest status of action of play mode.
-     * <Details> Must be called in both onResume() and onCreateOptionsMenu() to guarantee the correct status.
-     *
-     * @param menu
-     * @return
-     * @author Ace Yan
-     * @github githubyss
-     */
-    private fun refreshMenuItem(menu: Menu?) {
-        val itemAudio = menu?.findItem(R.id.itemAudio)
-        val itemFlashlight = menu?.findItem(R.id.itemFlashlight)
-        val itemVibrator = menu?.findItem(R.id.itemVibrator)
-        val itemTypewriter = menu?.findItem(R.id.itemTypewriter)
-
-        itemAudio?.setIcon(
-                if (MscdPlayModeGlobalInfo.audioStatus == MscdStatusConstants.PlayModeStatus.AUDIO_ON) R.drawable.mscd_ic_action_audio_on_white
-                else R.drawable.mscd_ic_action_audio_off_white)
-        itemFlashlight?.setIcon(
-                if (MscdPlayModeGlobalInfo.flashlightStatus == MscdStatusConstants.PlayModeStatus.FLASHLIGHT_ON) R.drawable.mscd_ic_action_flashlight_on_white
-                else R.drawable.mscd_ic_action_flashlight_off_white)
-        itemVibrator?.setIcon(
-                if (MscdPlayModeGlobalInfo.vibratorStatus == MscdStatusConstants.PlayModeStatus.VIBRATION_ON) R.drawable.mscd_ic_action_vibrator_on_white
-                else R.drawable.mscd_ic_action_vibrator_off_white)
-        itemTypewriter?.setIcon(
-                if (MscdPlayModeGlobalInfo.typewriterStatus == MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON) R.drawable.mscd_ic_typewriter_on_white
-                else R.drawable.mscd_ic_typewriter_off_white)
     }
 }
