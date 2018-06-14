@@ -1,5 +1,6 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
+import android.view.View
 import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
 import com.githubyss.mobile.common.kit.base.ComkitIBaseView
 
@@ -20,6 +21,6 @@ interface MscdTrainingContract {
 
     interface IPresenter : ComkitIBasePresenter {
         fun buildPlayData(trainingMsgStr: String)
-        fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>)
+        fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View)
     }
 }

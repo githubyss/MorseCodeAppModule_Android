@@ -1,5 +1,6 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
+import android.view.View
 import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateStrategy
@@ -41,7 +42,7 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
             )
         }
 
-        override fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>) {
+        override fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View) {
             MscdPlayerController.instance.startPlay(
                     audioData,
                     object : MscdAudioPlayer.OnAudioPlayListener {
@@ -58,7 +59,9 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
                         }
                     },
                     flashlightData,
-                    vibratorData
+                    vibratorData,
+                    typewriterData,
+                    typewriterView
             )
         }
     }

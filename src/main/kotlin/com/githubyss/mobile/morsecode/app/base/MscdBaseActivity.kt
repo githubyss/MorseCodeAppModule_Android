@@ -102,6 +102,26 @@ abstract class MscdBaseActivity : ComkitBaseActivity() {
                 }
             }
 
+            R.id.itemTypewriter -> {
+                when (MscdPlayModeGlobalInfo.typewriterStatus) {
+                    MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON -> {
+                        item.setIcon(R.drawable.mscd_ic_typewriter_off_white)
+                        MscdPlayerController.instance.typewriterOff()
+                        MscdPlayModeGlobalInfo.typewriterStatus = MscdStatusConstants.PlayModeStatus.TYPEWRITER_OFF
+                    }
+
+                    MscdStatusConstants.PlayModeStatus.TYPEWRITER_OFF -> {
+                        item.setIcon(R.drawable.mscd_ic_typewriter_on_white)
+                        MscdPlayerController.instance.typewriterOn()
+                        MscdPlayModeGlobalInfo.typewriterStatus = MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON
+                    }
+
+                    else -> {
+                        return false
+                    }
+                }
+            }
+
             else -> {
                 return false
             }
@@ -125,6 +145,7 @@ abstract class MscdBaseActivity : ComkitBaseActivity() {
         val itemAudio = menu?.findItem(R.id.itemAudio)
         val itemFlashlight = menu?.findItem(R.id.itemFlashlight)
         val itemVibrator = menu?.findItem(R.id.itemVibrator)
+        val itemTypewriter = menu?.findItem(R.id.itemTypewriter)
 
         itemAudio?.setIcon(
                 if (MscdPlayModeGlobalInfo.audioStatus == MscdStatusConstants.PlayModeStatus.AUDIO_ON) R.drawable.mscd_ic_action_audio_on_white
@@ -135,5 +156,8 @@ abstract class MscdBaseActivity : ComkitBaseActivity() {
         itemVibrator?.setIcon(
                 if (MscdPlayModeGlobalInfo.vibratorStatus == MscdStatusConstants.PlayModeStatus.VIBRATION_ON) R.drawable.mscd_ic_action_vibrator_on_white
                 else R.drawable.mscd_ic_action_vibrator_off_white)
+        itemTypewriter?.setIcon(
+                if (MscdPlayModeGlobalInfo.typewriterStatus == MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON) R.drawable.mscd_ic_typewriter_on_white
+                else R.drawable.mscd_ic_typewriter_off_white)
     }
 }

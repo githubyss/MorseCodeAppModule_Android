@@ -37,303 +37,303 @@
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/llCharSelectingContainer"
+                    android:id="@+id/llCharSelectContainer"
                     style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow1"
+                        android:id="@+id/llCharSelectRow1"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetK"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetK"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetM"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetM"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetR"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetR"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetS"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetS"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetU"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetU"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetA"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetA"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow2"
+                        android:id="@+id/llCharSelectRow2"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetP"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetP"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetT"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetT"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetL"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetL"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetO"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetO"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetW"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetW"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetI"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetI"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow3"
+                        android:id="@+id/llCharSelectRow3"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnSignDot"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharSignDot"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetN"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetN"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetJ"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetJ"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetE"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetE"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetF"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetF"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber0"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber0"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow4"
+                        android:id="@+id/llCharSelectRow4"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetY"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetY"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnSignComma"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharSignComma"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetV"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetV"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetG"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetG"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber5"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber5"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnSignSlash"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharSignSlash"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow5"
+                        android:id="@+id/llCharSelectRow5"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetQ"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetQ"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber9"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber9"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetZ"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetZ"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetH"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetH"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber3"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber3"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber8"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber8"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow6"
+                        android:id="@+id/llCharSelectRow6"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetB"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetB"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnSignQuestion"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharSignQuestion"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber4"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber4"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber2"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber2"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber7"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber7"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetC"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetC"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharSelectingRow7"
+                        android:id="@+id/llCharSelectRow7"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber1"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber1"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetD"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetD"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnNumber6"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharNumber6"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnAlphabetX"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text="@string/mscdCharAlphabetX"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnReserve1"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text=""
                             android:visibility="invisible"
                             />
 
                     <CheckBox
                             android:id="@+id/chkBtnReserve2"
-                            style="@style/mscdCharSelectingChkBtnStyle"
+                            style="@style/mscdCharSelectChkBtnStyle"
                             android:text=""
                             android:visibility="invisible"
                             />
@@ -354,20 +354,20 @@
                         >
 
                     <TextView
-                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            style="@style/mscdCharSelectConfigLabelStyle"
                             android:paddingRight="0dp"
                             android:text="@string/mscdCharSelectingConfigMsgLength"
                             />
 
                     <EditText
                             android:id="@+id/etMessageLength"
-                            style="@style/mscdCharSelectingConfigInputStyle"
+                            style="@style/mscdCharSelectConfigInputStyle"
                             android:maxLength="3"
                             android:text="@string/mscdCharSelectingConfigMsgLengthDefault"
                             />
 
                     <TextView
-                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            style="@style/mscdCharSelectConfigLabelStyle"
                             android:paddingLeft="0dp"
                             android:paddingRight="0dp"
                             android:text="@string/mscdCharSelectingConfigMsgLengthUnits"
@@ -380,20 +380,20 @@
                         >
 
                     <TextView
-                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            style="@style/mscdCharSelectConfigLabelStyle"
                             android:paddingRight="0dp"
                             android:text="@string/mscdCharSelectingConfigWordSize"
                             />
 
                     <EditText
                             android:id="@+id/etWordSize"
-                            style="@style/mscdCharSelectingConfigInputStyle"
+                            style="@style/mscdCharSelectConfigInputStyle"
                             android:maxLength="2"
                             android:text="@string/mscdCharSelectingConfigWordSizeDefault"
                             />
 
                     <TextView
-                            style="@style/mscdCharSelectingConfigLabelStyle"
+                            style="@style/mscdCharSelectConfigLabelStyle"
                             android:paddingLeft="0dp"
                             android:paddingRight="0dp"
                             android:text="@string/mscdCharSelectingConfigWordSizeUnits"
@@ -417,20 +417,20 @@
                                 >
 
                             <TextView
-                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    style="@style/mscdCharSelectConfigLabelStyle"
                                     android:paddingRight="0dp"
                                     android:text="@string/mscdCharSelectingConfigKeySpeed"
                                     />
 
                             <EditText
                                     android:id="@+id/etKeySpeed"
-                                    style="@style/mscdCharSelectingConfigInputStyle"
+                                    style="@style/mscdCharSelectConfigInputStyle"
                                     android:maxLength="4"
                                     android:text="@string/mscdCharSelectingConfigKeySpeedDefault"
                                     />
 
                             <TextView
-                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    style="@style/mscdCharSelectConfigLabelStyle"
                                     android:paddingLeft="0dp"
                                     android:paddingRight="0dp"
                                     android:text="@string/mscdCharSelectingConfigKeySpeedUnits"
@@ -443,20 +443,20 @@
                                 >
 
                             <TextView
-                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    style="@style/mscdCharSelectConfigLabelStyle"
                                     android:paddingRight="0dp"
                                     android:text="@string/mscdCharSelectingConfigDitDuration"
                                     />
 
                             <EditText
                                     android:id="@+id/etDitDuration"
-                                    style="@style/mscdCharSelectingConfigInputStyle"
+                                    style="@style/mscdCharSelectConfigInputStyle"
                                     android:maxLength="4"
                                     android:text="@string/mscdCharSelectingConfigDitDurationDefault"
                                     />
 
                             <TextView
-                                    style="@style/mscdCharSelectingConfigLabelStyle"
+                                    style="@style/mscdCharSelectConfigLabelStyle"
                                     android:paddingLeft="0dp"
                                     android:paddingRight="0dp"
                                     android:text="@string/mscdCharSelectingConfigDitDurationUnits"

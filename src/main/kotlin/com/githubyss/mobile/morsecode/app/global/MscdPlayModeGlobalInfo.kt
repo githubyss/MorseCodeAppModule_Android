@@ -14,4 +14,5 @@ object MscdPlayModeGlobalInfo {
     var flashlightStatus = MscdStatusConstants.PlayModeStatus.FLASHLIGHT_OFF
     var audioStatus = MscdStatusConstants.PlayModeStatus.AUDIO_OFF
     var vibratorStatus = MscdStatusConstants.PlayModeStatus.VIBRATION_OFF
+    var typewriterStatus = MscdStatusConstants.PlayModeStatus.TYPEWRITER_OFF
 }

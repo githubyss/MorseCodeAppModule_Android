@@ -24,10 +24,19 @@
 
     <item
             android:id="@+id/itemVibrator"
-            android:icon="@drawable/mscd_ic_action_vibrator_on_white"
+            android:icon="@drawable/mscd_ic_action_vibrator_off_white"
             android:orderInCategory="3"
             android:title="@string/mscdMenuActionVibrator"
             android:visible="false"
+            app:showAsAction="ifRoom"
+            />
+
+    <item
+            android:id="@+id/itemTypewriter"
+            android:icon="@drawable/mscd_ic_typewriter_off_white"
+            android:orderInCategory="4"
+            android:title="@string/mscdMenuActionTypewriter"
+            android:visible="true"
             app:showAsAction="ifRoom"
             />
 </menu>

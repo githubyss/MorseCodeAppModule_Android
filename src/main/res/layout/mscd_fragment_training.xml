@@ -31,6 +31,7 @@
                 <TextView
                         android:id="@+id/tvMorseCodeCopy"
                         style="@style/mscdMorseCodeCopyDisplayStyle"
+                        android:bufferType="spannable"
                         android:maxLines="10"
                         android:text="@string/mscdTrainingRecoded"
                         />
@@ -39,316 +40,312 @@
             <!--<include layout="@layout/comkit_view_separator_horizontal_common_default" />-->
 
             <LinearLayout
-                    android:id="@+id/llCharClickContainer"
+                    android:id="@+id/llCharInputContainer"
                     style="@style/comkitOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow1"
+                        android:id="@+id/llCharInputRow1"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnAlphabetK"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetK"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetM"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetM"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetR"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetR"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetS"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetS"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetU"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetU"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetA"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetA"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow2"
+                        android:id="@+id/llCharInputRow2"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnAlphabetP"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetP"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetT"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetT"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetL"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetL"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetO"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetO"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetW"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetW"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetI"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetI"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow3"
+                        android:id="@+id/llCharInputRow3"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnSignDot"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharSignDot"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetN"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetN"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetJ"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetJ"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetE"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetE"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetF"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetF"
                             />
 
                     <Button
                             android:id="@+id/btnNumber0"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber0"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow4"
+                        android:id="@+id/llCharInputRow4"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnAlphabetY"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetY"
                             />
 
                     <Button
                             android:id="@+id/btnSignComma"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharSignComma"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetV"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetV"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetG"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetG"
                             />
 
                     <Button
                             android:id="@+id/btnNumber5"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber5"
                             />
 
                     <Button
                             android:id="@+id/btnSignSlash"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharSignSlash"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow5"
+                        android:id="@+id/llCharInputRow5"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnAlphabetQ"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetQ"
                             />
 
                     <Button
                             android:id="@+id/btnNumber9"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber9"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetZ"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetZ"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetH"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetH"
                             />
 
                     <Button
                             android:id="@+id/btnNumber3"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber3"
                             />
 
                     <Button
                             android:id="@+id/btnNumber8"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber8"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow6"
+                        android:id="@+id/llCharInputRow6"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnAlphabetB"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetB"
                             />
 
                     <Button
                             android:id="@+id/btnSignQuestion"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharSignQuestion"
                             />
 
                     <Button
                             android:id="@+id/btnNumber4"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber4"
                             />
 
                     <Button
                             android:id="@+id/btnNumber2"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber2"
                             />
 
                     <Button
                             android:id="@+id/btnNumber7"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber7"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetC"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetC"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow7"
+                        android:id="@+id/llCharInputRow7"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnNumber1"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber1"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetD"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetD"
                             />
 
                     <Button
                             android:id="@+id/btnNumber6"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharNumber6"
                             />
 
                     <Button
                             android:id="@+id/btnAlphabetX"
-                            style="@style/mscdCharClickBtnStyle"
+                            style="@style/mscdCharInputBtnStyle"
                             android:text="@string/mscdCharAlphabetX"
                             />
 
                     <Button
                             android:id="@+id/btnReserve1"
-                            style="@style/mscdCharClickBtnStyle"
-                            android:text=""
-                            android:visibility="invisible"
-                            />
-
-                    <Button
-                            android:id="@+id/btnReserve2"
-                            style="@style/mscdCharClickBtnStyle"
-                            android:text=""
-                            android:visibility="invisible"
+                            style="@style/mscdCharInputBtnStyle"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="2"
+                            android:text="@string/mscdCharSkip"
                             />
                 </LinearLayout>
 
                 <LinearLayout
-                        android:id="@+id/llCharClickRow8"
+                        android:id="@+id/llCharInputRow8"
                         style="@style/comkitArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
                             android:id="@+id/btnSkip"
-                            style="@style/mscdCharClickBtnStyle"
-                            android:text="@string/mscdCharSkip"
+                            style="@style/mscdCharInputBtnStyle"
+                            android:layout_height="40dp"
+                            android:text="@string/mscdCharSignSpace"
                             />
                 </LinearLayout>
             </LinearLayout>

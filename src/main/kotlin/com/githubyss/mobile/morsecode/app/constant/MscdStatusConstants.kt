@@ -19,5 +19,8 @@ object MscdStatusConstants {
 
         val VIBRATION_ON = "on"
         val VIBRATION_OFF = "off"
+
+        val TYPEWRITER_ON = "on"
+        val TYPEWRITER_OFF = "off"
     }
 }

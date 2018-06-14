@@ -19,4 +19,7 @@ interface MscdPlayerPowerController {
 
     fun vibratorOn()
     fun vibratorOff()
+
+    fun typewriterOn()
+    fun typewriterOff()
 }

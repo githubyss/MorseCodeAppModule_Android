@@ -173,17 +173,17 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
 
         tglBtnRandomStringGenerateStrategy.isChecked = false
 
-        ComkitFontUtils.replaceFontFromAsset(llCharSelectingContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llCharSelectContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
         ComkitFontUtils.replaceFontFromAsset(llConfigContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {
         chkBtnList = ArrayList()
 
-        for (idxOfOutsideLlContainer in 0 until llCharSelectingContainer.childCount) {
-            val charSelectingBtnContainer = llCharSelectingContainer.getChildAt(idxOfOutsideLlContainer) as LinearLayout
-            for (idxOfInsideBtnContainer in 0 until charSelectingBtnContainer.childCount) {
-                chkBtnList.add(charSelectingBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
+        for (idxOfOutsideLlContainer in 0 until llCharSelectContainer.childCount) {
+            val charSelectBtnContainer = llCharSelectContainer.getChildAt(idxOfOutsideLlContainer) as LinearLayout
+            for (idxOfInsideBtnContainer in 0 until charSelectBtnContainer.childCount) {
+                chkBtnList.add(charSelectBtnContainer.getChildAt(idxOfInsideBtnContainer) as CheckBox)
             }
         }
     }
