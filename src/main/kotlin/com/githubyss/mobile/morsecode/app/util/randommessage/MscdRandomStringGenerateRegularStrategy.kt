@@ -21,7 +21,7 @@ import java.util.*
  * @github githubyss
  */
 class MscdRandomStringGenerateRegularStrategy : MscdRandomStringGenerateStrategy() {
-    private var randomStringGenerateAsyncTask: MscdRandomStringGenerateRegularStrategy.RandomStringGenerateAsyncTask? = null
+    private var randomStringGenerateAsyncTask: RandomStringGenerateAsyncTask? = null
 
     private var beginTime = 0L
     private var endTime = 0L

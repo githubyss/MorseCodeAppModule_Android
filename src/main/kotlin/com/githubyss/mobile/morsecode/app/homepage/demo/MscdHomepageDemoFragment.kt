@@ -14,8 +14,8 @@ import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayerConfig
 import kotlinx.android.synthetic.main.mscd_fragment_homepage_demo.*
 
 /**
@@ -53,9 +53,9 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnBuildAudioConfig -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Before create().")
+                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "Before create().")
 
-                MscdAudioConfig.Builder
+                MscdAudioPlayerConfig.Builder
                         .setAudioFrequencyHz(880)
                         .setAudioSampleRateHz(4000)
                         .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
@@ -64,7 +64,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
                         .setAudioTrackMode(AudioTrack.MODE_STREAM)
                         .create()
 
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "After create().")
+                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "After create().")
             }
 
             R.id.btnStartPlayAudio -> {
@@ -106,7 +106,7 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnLogcatAudioTrackState -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioConfig.instance.audioTrack, "Manual logcat.")
+                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "Manual logcat.")
             }
 
             R.id.btnInitMorseCodeConverterConfig -> {

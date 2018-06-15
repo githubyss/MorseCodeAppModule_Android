@@ -36,13 +36,13 @@ class MscdAudioPlayer private constructor() {
     }
 
 
-    /** Building the audioConfig by default variate value in itself when it was not built by user. by Ace Yan */
-    private val audioConfig =
-            if (!MscdAudioConfig.instance.hasBuilt)
-                MscdAudioConfig.Builder
+    /** Building the audioPlayerConfig by default variate value in itself when it was not built by user. by Ace Yan */
+    private val audioPlayerConfig =
+            if (!MscdAudioPlayerConfig.instance.hasBuilt)
+                MscdAudioPlayerConfig.Builder
                         .create()
             else
-                MscdAudioConfig.instance
+                MscdAudioPlayerConfig.instance
 
     private var audioPlayAsyncTask: AudioPlayAsyncTask? = null
 
@@ -61,7 +61,7 @@ class MscdAudioPlayer private constructor() {
 
             beginTime = ComkitTimeUtils.currentTimeMillis()
 
-            logcatAudioTrackState("AudioPlayAsyncTask.doInBackground", audioConfig.audioTrack, "Execution started! Before startAudioTrack().")
+            logcatAudioTrackState("AudioPlayAsyncTask.doInBackground", audioPlayerConfig.audioTrack, "Execution started! Before startAudioTrack().")
 
             return try {
                 startAudioTrack(params[0] ?: emptyArray())
@@ -87,11 +87,11 @@ class MscdAudioPlayer private constructor() {
                 onAudioPlayListener.onFailed(exceptionInfo)
             }
 
-            logcatAudioTrackState("AudioPlayAsyncTask.onPostExecute", audioConfig.audioTrack, "Execution finished!")
+            logcatAudioTrackState("AudioPlayAsyncTask.onPostExecute", audioPlayerConfig.audioTrack, "Execution finished!")
         }
 
         override fun onCancelled() {
-            logcatAudioTrackState("AudioPlayAsyncTask.onCancelled", audioConfig.audioTrack, "Execution cancelled!")
+            logcatAudioTrackState("AudioPlayAsyncTask.onCancelled", audioPlayerConfig.audioTrack, "Execution cancelled!")
 
             endTime = ComkitTimeUtils.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
@@ -198,7 +198,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     private fun startAudioTrack(audioDataArray: Array<Float>): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("startAudioTrack", audioTrack, "Before try play().")
 
@@ -243,7 +243,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     private fun writeToAudioTrack(audioDataArray: Array<Float>, audioTrack: AudioTrack): Boolean {
-        val audioEncodingPcmFormat = audioConfig.audioEncodingPcmFormat
+        val audioEncodingPcmFormat = audioPlayerConfig.audioEncodingPcmFormat
 
         logcatAudioTrackState("writeToAudioTrack", audioTrack, "Before try write().")
 
@@ -311,7 +311,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     fun stopAllAudioTrack(): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("stopAllAudioTrack", audioTrack, "Before try stop() or flush() or release().")
 
@@ -360,7 +360,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     fun stopCurrentAudioTrack(): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("stopCurrentAudioTrack", audioTrack, "Before try stop() or flush() or release().")
 
@@ -408,7 +408,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     fun pauseAudioTrack(): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("pauseAudioTrack", audioTrack, "Before try pause().")
 
@@ -458,7 +458,7 @@ class MscdAudioPlayer private constructor() {
      */
     @Deprecated("Unuseful")
     fun resumeAudioTrack(): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("resumeAudioTrack", audioTrack, "Before try to resume.")
 
@@ -520,7 +520,7 @@ class MscdAudioPlayer private constructor() {
      * @github githubyss
      */
     fun releaseAudioTrack(): Boolean {
-        val audioTrack = audioConfig.audioTrack
+        val audioTrack = audioPlayerConfig.audioTrack
 
         logcatAudioTrackState("startAudioTrack", audioTrack, "Before try release().")
 

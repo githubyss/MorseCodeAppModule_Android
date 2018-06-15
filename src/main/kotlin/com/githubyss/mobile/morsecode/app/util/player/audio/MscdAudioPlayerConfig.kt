@@ -5,7 +5,7 @@ import android.media.AudioManager
 import android.media.AudioTrack
 
 /**
- * MscdAudioConfig.kt
+ * MscdAudioPlayerConfig.kt
  * <Description>
  * <Details>
  *
@@ -14,13 +14,13 @@ import android.media.AudioTrack
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioConfig private constructor(){
+class MscdAudioPlayerConfig private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
 
     private object Holder {
-        val INSTANCE = MscdAudioConfig()
+        val INSTANCE = MscdAudioPlayerConfig()
     }
 
 
@@ -101,12 +101,12 @@ class MscdAudioConfig private constructor(){
             return this@Builder
         }
 
-        fun create(): MscdAudioConfig {
+        fun create(): MscdAudioPlayerConfig {
             this@Builder.applyConfig(instance)
             return instance
         }
 
-        private fun applyConfig(config: MscdAudioConfig) {
+        private fun applyConfig(config: MscdAudioPlayerConfig) {
             config.audioFrequencyHz = this@Builder.audioFrequencyHz
             config.audioSampleRateHz = this@Builder.audioSampleRateHz
             config.audioChannelFormat = this@Builder.audioChannelFormat
@@ -132,13 +132,13 @@ class MscdAudioConfig private constructor(){
              */
             config.audioTrack.release()
 
-            /** It will build a brand new instance of AudioTrack when you are building a new MscdAudioConfig. by Ace Yan */
+            /** It will build a brand new instance of AudioTrack when you are building a new MscdAudioPlayerConfig. by Ace Yan */
             config.audioTrack = this@Builder.buildAudioTrack(config)
 
             config.hasBuilt = true
         }
 
-        private fun buildMinBufferSize(config: MscdAudioConfig): Int {
+        private fun buildMinBufferSize(config: MscdAudioPlayerConfig): Int {
             val audioSampleRateHz = config.audioSampleRateHz
             val audioChannelFormat = config.audioChannelFormat
             val audioEncodingPcmFormat = config.audioEncodingPcmFormat
@@ -146,7 +146,7 @@ class MscdAudioConfig private constructor(){
             return AudioTrack.getMinBufferSize(audioSampleRateHz, audioChannelFormat, audioEncodingPcmFormat)
         }
 
-        private fun buildAudioTrack(config: MscdAudioConfig): AudioTrack {
+        private fun buildAudioTrack(config: MscdAudioPlayerConfig): AudioTrack {
             val audioSampleRateHz = config.audioSampleRateHz
             val audioChannelFormat = config.audioChannelFormat
             val audioEncodingPcmFormat = config.audioEncodingPcmFormat

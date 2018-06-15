@@ -27,13 +27,13 @@ abstract class MscdAudioDataGenerateStrategy {
     abstract fun stopGenerateAudioData()
 
 
-    /** Building the audioConfig by default variate value in itself when it was not built by user. by Ace Yan */
-    protected val audioConfig =
-            if (!MscdAudioConfig.instance.hasBuilt)
-                MscdAudioConfig.Builder
+    /** Building the audioPlayerConfig by default variate value in itself when it was not built by user. by Ace Yan */
+    protected val audioPlayerConfig =
+            if (!MscdAudioPlayerConfig.instance.hasBuilt)
+                MscdAudioPlayerConfig.Builder
                         .create()
             else
-                MscdAudioConfig.instance
+                MscdAudioPlayerConfig.instance
 
     protected val morseCodeConverterConfig =
             if (!MscdMorseCodeConverterConfig.instance.hasBuilt)
