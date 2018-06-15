@@ -5,6 +5,8 @@ package com.githubyss.mobile.morsecode.app.util.player.typewriter
  * <Description>
  * <Details>
  *
+ * @designPatterns Singleton, Builder
+ *
  * @author Ace Yan
  * @github githubyss
  */

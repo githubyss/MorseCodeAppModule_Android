@@ -13,6 +13,8 @@ import com.githubyss.mobile.morsecode.app.R
  * <Description>
  * <Details>
  *
+ * @designPatterns Strategy
+ *
  * @author Ace Yan
  * @github githubyss
  */

@@ -5,6 +5,8 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
  * <Description>
  * <Details>
  *
+ * @designPatterns Strategy
+ *
  * @author Ace Yan
  * @github githubyss
  */

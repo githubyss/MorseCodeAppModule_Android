@@ -8,7 +8,7 @@ import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
  * <Description>
  * <Details>
  *
- * @designPatterns Singleton, Builder
+ * @designPatterns Singleton
  *
  * @author Ace Yan
  * @github githubyss

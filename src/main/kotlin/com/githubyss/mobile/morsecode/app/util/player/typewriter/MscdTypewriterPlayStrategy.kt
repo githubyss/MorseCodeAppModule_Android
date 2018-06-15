@@ -7,6 +7,8 @@ import android.view.View
  * <Description>
  * <Details>
  *
+ * @designPatterns Strategy
+ *
  * @author Ace Yan
  * @github githubyss
  */

@@ -5,7 +5,7 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
  * <Description>
  * <Details>
  *
- * @designPatterns Singleton, Builder
+ * @designPatterns Singleton, Builder, Strategy
  *
  * @author Ace Yan
  * @github githubyss

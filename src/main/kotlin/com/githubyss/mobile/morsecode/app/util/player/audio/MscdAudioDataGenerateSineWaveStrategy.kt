@@ -15,6 +15,8 @@ import java.io.EOFException
  * <Description>
  * <Details>
  *
+ * @designPatterns Strategy
+ *
  * @author Ace Yan
  * @github githubyss
  */
