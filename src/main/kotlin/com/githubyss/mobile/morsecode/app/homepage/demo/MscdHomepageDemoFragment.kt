@@ -68,19 +68,19 @@ class MscdHomepageDemoFragment : ComkitBaseFragment() {
             }
 
             R.id.btnStartPlayAudio -> {
-                MscdAudioPlayer.instance.startPlayAudio(
-                        "O",
-                        object : MscdAudioPlayer.OnAudioPlayListener {
-                            override fun onSucceeded() {
-                            }
-
-                            override fun onFailed(failingInfo: String) {
-                            }
-
-                            override fun onCancelled() {
-                            }
-                        }
-                )
+//                MscdAudioPlayer.instance.startPlayAudio(
+//                        "O",
+//                        object : MscdAudioPlayer.OnAudioPlayListener {
+//                            override fun onSucceeded() {
+//                            }
+//
+//                            override fun onFailed(failingInfo: String) {
+//                            }
+//
+//                            override fun onCancelled() {
+//                            }
+//                        }
+//                )
             }
 
             R.id.btnStopAllPlayAudio -> {

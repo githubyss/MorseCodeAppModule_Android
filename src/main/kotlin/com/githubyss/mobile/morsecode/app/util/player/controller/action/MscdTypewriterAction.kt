@@ -1,6 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.controller.action
 
 import android.view.View
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
 
 /**
  * MscdTypewriterActionAction.kt
@@ -13,7 +14,7 @@ import android.view.View
  * @github githubyss
  */
 interface MscdTypewriterAction {
-    fun startPlay(typewriterData: String, typewriterView: View)
+    fun startPlay(typewriterData: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener)
     fun stopPlay()
     fun releaseResource()
 }

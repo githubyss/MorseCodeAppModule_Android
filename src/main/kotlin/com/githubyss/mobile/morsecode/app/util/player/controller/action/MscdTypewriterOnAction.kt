@@ -1,8 +1,8 @@
 package com.githubyss.mobile.morsecode.app.util.player.controller.action
 
 import android.view.View
-import android.widget.TextView
-import com.githubyss.mobile.common.kit.util.uioperate.ComkitTypewriteUtils
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayer
 
 /**
  * MscdTypewriterOnAction.kt
@@ -15,11 +15,12 @@ import com.githubyss.mobile.common.kit.util.uioperate.ComkitTypewriteUtils
  * @github githubyss
  */
 class MscdTypewriterOnAction : MscdTypewriterAction {
-    override fun startPlay(typewriterData: String, typewriterView: View) {
-        ComkitTypewriteUtils.textViewTypewriteByAppending(typewriterView as TextView, typewriterData, 50, 0, true)
+    override fun startPlay(typewriterData: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+        MscdTypewriterPlayer.instance.startPlayTypewriter(typewriterData, typewriterView, onTypewriterPlayListener)
     }
 
     override fun stopPlay() {
+        MscdTypewriterPlayer.instance.stopPlayTypewriter()
     }
 
     override fun releaseResource() {

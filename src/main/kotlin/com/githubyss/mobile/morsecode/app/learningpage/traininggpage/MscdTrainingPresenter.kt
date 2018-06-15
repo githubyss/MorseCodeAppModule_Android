@@ -7,6 +7,7 @@ import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerat
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
 import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
 
 /**
  * MscdTrainingPresenter.kt
@@ -61,7 +62,17 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
                     flashlightData,
                     vibratorData,
                     typewriterData,
-                    typewriterView
+                    typewriterView,
+                    object : MscdTypewriterPlayStrategy.OnTypewriterPlayListener {
+                        override fun onSucceeded() {
+                        }
+
+                        override fun onFailed(failingInfo: String) {
+                        }
+
+                        override fun onCancelled() {
+                        }
+                    }
             )
         }
     }

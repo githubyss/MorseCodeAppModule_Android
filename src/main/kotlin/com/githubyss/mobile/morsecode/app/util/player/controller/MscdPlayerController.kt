@@ -5,6 +5,7 @@ import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
 import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
 import com.githubyss.mobile.morsecode.app.util.player.controller.action.*
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
 
 /**
  * MscdPlayerController.kt
@@ -39,11 +40,11 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
         typewriterAction = if (MscdPlayModeGlobalInfo.typewriterStatus == MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON) MscdTypewriterOnAction() else MscdTypewriterOffAction()
     }
 
-    fun startPlay(audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View) {
+    fun startPlay(audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
         audioAction.startPlay(audioData, onAudioPlayListener)
         flashlightAction.startPlay(flashlightData)
         vibratorAction.startPlay(vibratorData)
-        typewriterAction.startPlay(typewriterData, typewriterView)
+        typewriterAction.startPlay(typewriterData, typewriterView, onTypewriterPlayListener)
     }
 
     fun stopPlay() {

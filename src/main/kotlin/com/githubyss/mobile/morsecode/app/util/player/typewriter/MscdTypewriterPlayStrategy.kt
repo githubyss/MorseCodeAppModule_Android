@@ -1,5 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
+import android.view.View
+
 /**
  * MscdTypewriterPlayStrategy.kt
  * <Description>
@@ -9,13 +11,21 @@ package com.githubyss.mobile.morsecode.app.util.player.typewriter
  * @github githubyss
  */
 abstract class MscdTypewriterPlayStrategy {
-    interface OnTypewriterListener {
+    interface OnTypewriterPlayListener {
         fun onSucceeded()
         fun onFailed(failingInfo: String)
         fun onCancelled()
     }
 
 
-    abstract fun startPlayTypewriter(typewriterDataStr: String, onTypewriterListener: OnTypewriterListener)
+    abstract fun startPlayTypewriter(typewriterDataStr: String, typewriterView: View, onTypewriterPlayListener: OnTypewriterPlayListener)
     abstract fun stopPlayTypewriter()
+
+
+    protected val typewriterPlayerConfig =
+            if (!MscdTypewriterPlayerConfig.instance.hasBuilt)
+                MscdTypewriterPlayerConfig.Builder
+                        .create()
+            else
+                MscdTypewriterPlayerConfig.instance
 }

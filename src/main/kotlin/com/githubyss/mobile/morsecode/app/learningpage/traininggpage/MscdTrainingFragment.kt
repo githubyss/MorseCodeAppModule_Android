@@ -87,7 +87,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
                 tvMorseCodeCopy.text = ""
 
-                initAudioConfig()
+                initAudioPlayerConfig()
 
                 mscdTrainingIPresenter.startPlay(audioData, flashlightData, vibratorData, trainingMessageStr, tvMorseCodeCopy)
             }
@@ -114,8 +114,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
     private fun initConfig() {
         initMorseCodeConverterConfig()
-        initAudioConfig()
+        initAudioPlayerConfig()
         initAudioDataGeneratorConfig()
+        initTypewriterPlayerConfig()
     }
 
     private fun initMorseCodeConverterConfig() {
@@ -124,7 +125,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
                 .create()
     }
 
-    private fun initAudioConfig() {
+    private fun initAudioPlayerConfig() {
         MscdAudioPlayerConfig.Builder
                 .setAudioFrequencyHz(880)
                 .setAudioSampleRateHz(4000)
@@ -139,6 +140,13 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         MscdAudioDataGeneratorConfig.Builder
                 .setStrategy(MscdAudioDataGenerateSineWaveStrategy())
                 .create()
+    }
+
+    private fun initTypewriterPlayerConfig() {
+//        MscdTypewriterPlayerConfig.Builder
+//                .setStartIdx(0)
+//                .setCanAutoScrollBottom(true)
+//                .create()
     }
 
     private fun refreshViewOnTypewriterStatusChanged() {

@@ -1,5 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
+import android.view.View
+
 /**
  * MscdTypewriterPlayer.kt
  * <Description>
@@ -18,19 +20,19 @@ class MscdTypewriterPlayer private constructor() {
     }
 
 
-    private val typewriterConfig =
-            if (!MscdTypewriterPlayerConfig.instance.hasBuilt)
-                MscdTypewriterPlayerConfig.Builder
+    private val typewriterPlayStrategyConfig =
+            if (!MscdTypewriterPlayStrategyConfig.instance.hasBuilt)
+                MscdTypewriterPlayStrategyConfig.Builder
                         .create()
             else
-                MscdTypewriterPlayerConfig.instance
+                MscdTypewriterPlayStrategyConfig.instance
 
 
-    fun startPlayTypewriter(typewriterDataStr: String, onTypewriterListener: MscdTypewriterPlayStrategy.OnTypewriterListener) {
-        typewriterConfig.typewriterPlayStrategy.startPlayTypewriter(typewriterDataStr, onTypewriterListener)
+    fun startPlayTypewriter(typewriterDataStr: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+        typewriterPlayStrategyConfig.typewriterPlayStrategy.startPlayTypewriter(typewriterDataStr, typewriterView, onTypewriterPlayListener)
     }
 
     fun stopPlayTypewriter() {
-        typewriterConfig.typewriterPlayStrategy.stopPlayTypewriter()
+        typewriterPlayStrategyConfig.typewriterPlayStrategy.stopPlayTypewriter()
     }
 }

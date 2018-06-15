@@ -105,7 +105,7 @@ class MscdAudioPlayer private constructor() {
 
     fun startPlayAudio(audioDataArray: Array<Float>, onAudioPlayListener: OnAudioPlayListener) {
         audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
-        audioPlayAsyncTask?.execute(audioDataArray)
+        audioPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, audioDataArray)
     }
 
     fun startPlayAudio(durationPatternArray: Array<Int>, onAudioPlayListener: OnAudioPlayListener) {
@@ -114,7 +114,7 @@ class MscdAudioPlayer private constructor() {
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
-                        audioPlayAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -132,7 +132,7 @@ class MscdAudioPlayer private constructor() {
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
-                        audioPlayAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -150,7 +150,7 @@ class MscdAudioPlayer private constructor() {
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
-                        audioPlayAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {
@@ -168,7 +168,7 @@ class MscdAudioPlayer private constructor() {
                 object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         audioPlayAsyncTask = AudioPlayAsyncTask(onAudioPlayListener)
-                        audioPlayAsyncTask?.execute(audioDataArray)
+                        audioPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, audioDataArray)
                     }
 
                     override fun onFailed(failingInfo: String) {

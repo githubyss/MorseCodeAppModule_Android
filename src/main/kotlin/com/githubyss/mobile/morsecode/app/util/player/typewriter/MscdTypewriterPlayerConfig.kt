@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
 /**
- * MscdTypewriterPlayerConfigConfig.kt
+ * MscdTypewriterPlayerConfig.kt
  * <Description>
  * <Details>
  *
@@ -24,9 +24,6 @@ class MscdTypewriterPlayerConfig private constructor() {
     var canAutoScrollBottom = true
         private set
 
-    var typewriterPlayStrategy = MscdTypewriterPlayTextViewStrategy() as MscdTypewriterPlayStrategy
-        private set
-
     var hasBuilt = false
         private set
 
@@ -34,7 +31,6 @@ class MscdTypewriterPlayerConfig private constructor() {
     object Builder {
         private var startIdx = 0
         private var canAutoScrollBottom = true
-        private var typewriterPlayStrategy = MscdTypewriterPlayTextViewStrategy() as MscdTypewriterPlayStrategy
 
         fun setStartIdx(startIdx: Int): Builder {
             var idx = startIdx
@@ -51,11 +47,6 @@ class MscdTypewriterPlayerConfig private constructor() {
             return this@Builder
         }
 
-        fun setStragety(strategy: MscdTypewriterPlayStrategy): Builder {
-            this@Builder.typewriterPlayStrategy = strategy
-            return this@Builder
-        }
-
         fun create(): MscdTypewriterPlayerConfig {
             this@Builder.applyConfig(instance)
             return instance
@@ -64,7 +55,6 @@ class MscdTypewriterPlayerConfig private constructor() {
         private fun applyConfig(config: MscdTypewriterPlayerConfig) {
             config.startIdx = this@Builder.startIdx
             config.canAutoScrollBottom = this@Builder.canAutoScrollBottom
-            config.typewriterPlayStrategy = this@Builder.typewriterPlayStrategy
 
             config.hasBuilt = true
         }

@@ -1,11 +1,21 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
 import android.os.AsyncTask
+import android.view.View
+import android.widget.TextView
 import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.R
 
+/**
+ * MscdTypewriterPlayTextViewStrategy.kt
+ * <Description>
+ * <Details>
+ *
+ * @author Ace Yan
+ * @github githubyss
+ */
 class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
     private var typewriterPlayAsyncTask: TypewriterPlayAsyncTask? = null
 
@@ -15,7 +25,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
     private var exceptionInfo = String()
 
 
-    private inner class TypewriterPlayAsyncTask(private val onTypewriterListener: OnTypewriterListener) : AsyncTask<String, Int, Boolean>() {
+    private inner class TypewriterPlayAsyncTask(private val typewriterView: TextView, private val onTypewriterPlayListener: OnTypewriterPlayListener) : AsyncTask<String, Int, Boolean>() {
         override fun doInBackground(vararg params: String?): Boolean {
             if (isCancelled) {
                 ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.doInBackground() >>> isCancelled.")
@@ -24,7 +34,8 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
             beginTime = ComkitTimeUtils.currentTimeMillis()
 
             return try {
-                startTypewrite()
+                val typewriterDataStr = params[0] ?: String()
+                startTypewrite(typewriterDataStr, typewriterView, typewriterPlayerConfig)
                 true
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(t = exception)
@@ -42,9 +53,9 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             if (result != false) {
-                onTypewriterListener.onSucceeded()
+                onTypewriterPlayListener.onSucceeded()
             } else {
-                onTypewriterListener.onFailed(exceptionInfo)
+                onTypewriterPlayListener.onFailed(exceptionInfo)
             }
         }
 
@@ -52,14 +63,14 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
             endTime = ComkitTimeUtils.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
-            onTypewriterListener.onCancelled()
+            onTypewriterPlayListener.onCancelled()
         }
     }
 
 
-    override fun startPlayTypewriter(typewriterDataStr: String, onTypewriterListener: OnTypewriterListener) {
-        typewriterPlayAsyncTask = TypewriterPlayAsyncTask(onTypewriterListener)
-        typewriterPlayAsyncTask?.execute(typewriterDataStr)
+    override fun startPlayTypewriter(typewriterDataStr: String, typewriterView: View, onTypewriterPlayListener: OnTypewriterPlayListener) {
+        typewriterPlayAsyncTask = TypewriterPlayAsyncTask(typewriterView as TextView, onTypewriterPlayListener)
+        typewriterPlayAsyncTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, typewriterDataStr)
     }
 
     override fun stopPlayTypewriter() {
@@ -70,7 +81,39 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
     }
 
 
-    private fun startTypewrite() {
+    private fun startTypewrite(typewriterDataStr: String, typewriterView: TextView, typewriterPlayerConfig: MscdTypewriterPlayerConfig) {
+        val startIdx = typewriterPlayerConfig.startIdx
+        val canAutoScrollBottom = typewriterPlayerConfig.canAutoScrollBottom
 
+        val typewriterDataStrBuilder = StringBuilder(typewriterDataStr)
+
+        try {
+            for (idx in startIdx until typewriterDataStr.length) {
+                if (typewriterPlayAsyncTask?.isCancelled != false) {
+                    return
+                }
+
+                val char = typewriterDataStrBuilder[idx]
+
+                typewriterView.post {
+                    typewriterView.append(char.toString())
+                    if (canAutoScrollBottom) {
+                        textViewAutoScrollBottom(typewriterView)
+                    }
+                }
+
+                Thread.sleep(50)
+            }
+        } catch (exception: Exception) {
+            ComkitLogcatUtils.e(t = exception)
+        }
+    }
+
+    private fun textViewAutoScrollBottom(textView: TextView) {
+        val offsetHeight = textView.lineCount * textView.lineHeight
+        val actualHeight = textView.height - (textView.paddingTop + textView.paddingBottom)
+        if (offsetHeight > actualHeight) {
+            textView.scrollTo(0, offsetHeight - actualHeight)
+        }
     }
 }
