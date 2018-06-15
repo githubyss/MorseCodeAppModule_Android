@@ -21,8 +21,8 @@ import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
 import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateSineWaveStrategy
+import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateStrategyConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGeneratorConfig
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayerConfig
 import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
@@ -137,7 +137,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     private fun initAudioDataGeneratorConfig() {
-        MscdAudioDataGeneratorConfig.Builder
+        MscdAudioDataGenerateStrategyConfig.Builder
                 .setStrategy(MscdAudioDataGenerateSineWaveStrategy())
                 .create()
     }

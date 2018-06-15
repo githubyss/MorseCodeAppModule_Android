@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
 /**
- * MscdAudioDataGeneratorConfig.kt
+ * MscdAudioDataGenerateStrategyConfig.kt
  * <Description>
  * <Details>
  *
@@ -10,13 +10,13 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
  * @author Ace Yan
  * @github githubyss
  */
-class MscdAudioDataGeneratorConfig private constructor() {
+class MscdAudioDataGenerateStrategyConfig private constructor() {
     companion object {
         var instance = Holder.INSTANCE
     }
 
     private object Holder {
-        val INSTANCE = MscdAudioDataGeneratorConfig()
+        val INSTANCE = MscdAudioDataGenerateStrategyConfig()
     }
 
 
@@ -35,12 +35,12 @@ class MscdAudioDataGeneratorConfig private constructor() {
             return this@Builder
         }
 
-        fun create(): MscdAudioDataGeneratorConfig {
+        fun create(): MscdAudioDataGenerateStrategyConfig {
             this@Builder.applyConfig(instance)
             return instance
         }
 
-        private fun applyConfig(config: MscdAudioDataGeneratorConfig) {
+        private fun applyConfig(config: MscdAudioDataGenerateStrategyConfig) {
             config.audioDataGenerateStrategy = this@Builder.audioDataGenerateStrategy
 
             config.hasBuilt = true
