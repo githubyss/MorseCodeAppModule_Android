@@ -25,12 +25,12 @@ class MscdRandomStringGenerator private constructor() {
 
 
     /** Building the config by default variate value in itself when it was not built by user. by Ace Yan */
-    private val randomStringGeneratorConfig =
-            if (!MscdRandomStringGeneratorConfig.instance.hasBuilt)
-                MscdRandomStringGeneratorConfig.Builder
+    private val randomStringGenerateStrategyConfig =
+            if (!MscdRandomStringGenerateStrategyConfig.instance.hasBuilt)
+                MscdRandomStringGenerateStrategyConfig.Builder
                         .create()
             else
-                MscdRandomStringGeneratorConfig.instance
+                MscdRandomStringGenerateStrategyConfig.instance
 
 
     fun startGenerateRandomString(charList: List<String>, stringLength: Long, wordSize: Int, onRandomStringGenerateListener: MscdRandomStringGenerateStrategy.OnRandomStringGenerateListener) {
@@ -39,10 +39,10 @@ class MscdRandomStringGenerator private constructor() {
         bundle.putLong(MscdKeyConstants.CharSelectingKey.STRING_LENGTH, stringLength)
         bundle.putInt(MscdKeyConstants.CharSelectingKey.WORD_SIZE, wordSize)
 
-        randomStringGeneratorConfig.randomStringGenerateStrategy.startGenerateRandomString(bundle, onRandomStringGenerateListener)
+        randomStringGenerateStrategyConfig.randomStringGenerateStrategy.startGenerateRandomString(bundle, onRandomStringGenerateListener)
     }
 
     fun stopGenerateRandomString() {
-        randomStringGeneratorConfig.randomStringGenerateStrategy.stopGenerateRandomString()
+        randomStringGenerateStrategyConfig.randomStringGenerateStrategy.stopGenerateRandomString()
     }
 }

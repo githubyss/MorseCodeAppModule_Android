@@ -51,11 +51,11 @@ class MscdCharsSelectingPresenter(iView: MscdCharsSelectingContract.IView) {
             }
 
             if (needRuleless) {
-                MscdRandomStringGeneratorConfig.Builder
+                MscdRandomStringGenerateStrategyConfig.Builder
                         .setStrategy(MscdRandomStringGenerateRulelessStrategy())
                         .create()
             } else {
-                MscdRandomStringGeneratorConfig.Builder
+                MscdRandomStringGenerateStrategyConfig.Builder
                         .setStrategy(MscdRandomStringGenerateRegularStrategy())
                         .create()
             }
