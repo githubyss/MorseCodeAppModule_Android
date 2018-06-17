@@ -1,6 +1,9 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
+import android.os.Bundle
 import android.view.View
+import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
+import java.util.*
 
 /**
  * MscdTypewriterPlayer.kt
@@ -30,8 +33,12 @@ class MscdTypewriterPlayer private constructor() {
                 MscdTypewriterPlayStrategyConfig.instance
 
 
-    fun startPlayTypewriter(typewriterDataStr: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
-        typewriterPlayStrategyConfig.typewriterPlayStrategy.startPlayTypewriter(typewriterDataStr, typewriterView, onTypewriterPlayListener)
+    fun startPlayTypewriter(typewriterDataStr: String, typewriterDataList: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+        val bundle = Bundle()
+        bundle.putString(MscdKeyConstants.TypewriterKey.MESSAGE_STR, typewriterDataStr)
+        bundle.putIntegerArrayList(MscdKeyConstants.TypewriterKey.DURATION_LIST, typewriterDataList as ArrayList<Int>)
+
+        typewriterPlayStrategyConfig.typewriterPlayStrategy.startPlayTypewriter(bundle, typewriterView, onTypewriterPlayListener)
     }
 
     fun stopPlayTypewriter() {

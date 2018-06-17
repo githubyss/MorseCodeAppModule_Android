@@ -183,12 +183,10 @@ class MscdMorseCodeConverter private constructor() {
 
         var lastCharWasWhiteSpace = true
 
-        val messageLength = message.length
-
         val messageDurationPatternList = ArrayList<Int>()
         messageDurationPatternList.add(startDuration)
 
-        (0 until messageLength)
+        (0 until message.length)
                 .asSequence()
                 .map { message[it] }
                 .forEach {

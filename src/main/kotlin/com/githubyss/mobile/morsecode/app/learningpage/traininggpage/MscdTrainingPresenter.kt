@@ -7,6 +7,8 @@ import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerat
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
 import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterDataGenerateStrategy
+import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterDataGenerator
 import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
 
 /**
@@ -41,9 +43,27 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
                         }
                     }
             )
+
+            MscdTypewriterDataGenerator.instance.startGenerateTypewriteData(
+                    trainingMsgStr,
+                    object : MscdTypewriterDataGenerateStrategy.OnTypewriterDataGenerateListener {
+                        override fun onSucceeded(typewriterDataList: List<Int>) {
+                            mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdTypewriterDataGenerateSucceeded))
+                            mscdTrainingIView.onTypewriterDataBuilt(typewriterDataList)
+                        }
+
+                        override fun onFailed(failingInfo: String) {
+                            mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdTypewriterDataGenerateFailed))
+                        }
+
+                        override fun onCancelled() {
+                            mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdTypewriterDataGenerateCancelled))
+                        }
+                    }
+            )
         }
 
-        override fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View) {
+        override fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterDataDuration: List<Int>, typewriterView: View) {
             MscdPlayerController.instance.startPlay(
                     audioData,
                     object : MscdAudioPlayer.OnAudioPlayListener {
@@ -62,6 +82,7 @@ class MscdTrainingPresenter(iView: MscdTrainingContract.IView) {
                     flashlightData,
                     vibratorData,
                     typewriterData,
+                    typewriterDataDuration,
                     typewriterView,
                     object : MscdTypewriterPlayStrategy.OnTypewriterPlayListener {
                         override fun onSucceeded() {

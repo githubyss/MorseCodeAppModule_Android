@@ -16,11 +16,12 @@ interface MscdTrainingContract {
     interface IView : ComkitIBaseView<IPresenter> {
         fun showHint(hintStr: String)
         fun onAudioDataBuilt(audioDataArray: Array<Float>)
+        fun onTypewriterDataBuilt(typewriterDataList: List<Int>)
         fun onPlayFinished()
     }
 
     interface IPresenter : ComkitIBasePresenter {
         fun buildPlayData(trainingMsgStr: String)
-        fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View)
+        fun startPlay(audioData: Array<Float>, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterDataDuration: List<Int>, typewriterView: View)
     }
 }

@@ -40,11 +40,15 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
         typewriterAction = if (MscdPlayModeGlobalInfo.typewriterStatus == MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON) MscdTypewriterOnAction() else MscdTypewriterOffAction()
     }
 
-    fun startPlay(audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener, flashlightData: Array<Any>, vibratorData: Array<Any>, typewriterData: String, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+    fun startPlay(
+            audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener,
+            flashlightData: Array<Any>,
+            vibratorData: Array<Any>,
+            typewriterData: String, typewriterDataDuration: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
         audioAction.startPlay(audioData, onAudioPlayListener)
         flashlightAction.startPlay(flashlightData)
         vibratorAction.startPlay(vibratorData)
-        typewriterAction.startPlay(typewriterData, typewriterView, onTypewriterPlayListener)
+        typewriterAction.startPlay(typewriterData, typewriterDataDuration, typewriterView, onTypewriterPlayListener)
     }
 
     fun stopPlay() {

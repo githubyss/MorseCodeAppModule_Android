@@ -20,8 +20,16 @@ class MscdTypewriterPlayerConfig private constructor() {
     }
 
 
+//    enum class TypewriteTimingEnum(val timing: String) {
+//        AHEAD("ahead"), PRESENT("present"), POSTPONE("postpone")
+//    }
+
+
     var startIdx = 0
         private set
+
+//    var typewriteTiming = MscdTypewriterPlayerConfig.TypewriteTimingEnum.PRESENT
+//        private set
 
     var canAutoScrollBottom = true
         private set
@@ -32,6 +40,7 @@ class MscdTypewriterPlayerConfig private constructor() {
 
     object Builder {
         private var startIdx = 0
+        //        private var typewriteTiming = MscdTypewriterPlayerConfig.TypewriteTimingEnum.PRESENT
         private var canAutoScrollBottom = true
 
         fun setStartIdx(startIdx: Int): Builder {
@@ -43,6 +52,11 @@ class MscdTypewriterPlayerConfig private constructor() {
             this@Builder.startIdx = idx
             return this@Builder
         }
+
+//        fun setTypewriteTiming(typewriteTiming: TypewriteTimingEnum): Builder {
+//            this@Builder.typewriteTiming = typewriteTiming
+//            return this@Builder
+//        }
 
         fun setCanAutoScrollBottom(canAutoScrollBottom: Boolean): Builder {
             this@Builder.canAutoScrollBottom = canAutoScrollBottom
@@ -56,6 +70,7 @@ class MscdTypewriterPlayerConfig private constructor() {
 
         private fun applyConfig(config: MscdTypewriterPlayerConfig) {
             config.startIdx = this@Builder.startIdx
+//            config.typewriteTiming = this@Builder.typewriteTiming
             config.canAutoScrollBottom = this@Builder.canAutoScrollBottom
 
             config.hasBuilt = true

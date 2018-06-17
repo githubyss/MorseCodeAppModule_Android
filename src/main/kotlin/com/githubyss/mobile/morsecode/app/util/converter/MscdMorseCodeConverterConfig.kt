@@ -58,6 +58,9 @@ class MscdMorseCodeConverterConfig private constructor() {
     var char2DurationPatternListMap = HashMap<Char, List<Int>>()
         private set
 
+    var char2DurationMap = HashMap<Char, Int>()
+        private set
+
     var hasBuilt = false
         private set
 
@@ -97,6 +100,7 @@ class MscdMorseCodeConverterConfig private constructor() {
             }
             config.char2DurationPatternArrayMap = this@Builder.buildChar2DurationPatternArrayMap(config)
             config.char2DurationPatternListMap = this@Builder.buildChar2DurationPatternListMap(config)
+            config.char2DurationMap = this@Builder.buildChar2DurationMap(config)
 
             config.hasBuilt = true
         }
@@ -291,6 +295,41 @@ class MscdMorseCodeConverterConfig private constructor() {
             ComkitLogcatUtils.`object`(char2DurationPatternListMap)
 
             return char2DurationPatternListMap
+        }
+
+        /**
+         * Builder.buildChar2DurationMap(config)
+         * <Description>
+         * <Details>
+         *
+         * @param config
+         * @return
+         * @author Ace Yan
+         * @github githubyss
+         */
+        private fun buildChar2DurationMap(config: MscdMorseCodeConverterConfig): HashMap<Char, Int> {
+            val char2DurationPatternListMap = config.char2DurationPatternListMap
+
+            val char2DurationMap = LinkedHashMap<Char, Int>()
+
+            beginTime = ComkitTimeUtils.currentTimeMillis()
+
+            for (entry in char2DurationPatternListMap) {
+                val charKey = entry.key
+                val charDurationPatternList = entry.value
+
+                val charDuration = charDurationPatternList.sum()
+
+                char2DurationMap.put(charKey, charDuration)
+            }
+
+            endTime = ComkitTimeUtils.currentTimeMillis()
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationMap() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationMap() >>> char2DurationMap = ${char2DurationMap.size}")
+
+            ComkitLogcatUtils.`object`(char2DurationPatternListMap)
+
+            return char2DurationMap
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
+import android.os.Bundle
 import android.view.View
 
 /**
@@ -20,7 +21,7 @@ abstract class MscdTypewriterPlayStrategy {
     }
 
 
-    abstract fun startPlayTypewriter(typewriterDataStr: String, typewriterView: View, onTypewriterPlayListener: OnTypewriterPlayListener)
+    abstract fun startPlayTypewriter(bundle: Bundle, typewriterView: View, onTypewriterPlayListener: OnTypewriterPlayListener)
     abstract fun stopPlayTypewriter()
 
 

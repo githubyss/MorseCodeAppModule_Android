@@ -30,4 +30,9 @@ object MscdKeyConstants {
         val STRING_LENGTH = "stringLength"
         val WORD_SIZE = "wordSize"
     }
+
+    object TypewriterKey {
+        val MESSAGE_STR = "messageStr"
+        val DURATION_LIST = "durationList"
+    }
 }
