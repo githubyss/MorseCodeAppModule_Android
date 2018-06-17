@@ -87,7 +87,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
     }
 
 
-    private fun startTypewrite(typewriterDataStr: String, typewriterDataDurationList: List<Int>, typewriterView: TextView, typewriterPlayerConfig: MscdTypewriterPlayerConfig) {
+    private fun startTypewrite(typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: TextView, typewriterPlayerConfig: MscdTypewriterPlayerConfig) {
         if (typewriterDataStr.isEmpty()) {
             return
         }
@@ -96,7 +96,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
         val canAutoScrollBottom = typewriterPlayerConfig.canAutoScrollBottom
 
         try {
-            Thread.sleep(typewriterDataDurationList[0].toLong())
+            Thread.sleep(typewriterDurationList[0].toLong())
             for (idx in startIdx until typewriterDataStr.length) {
                 if (typewriterPlayAsyncTask?.isCancelled != false) {
                     return
@@ -107,7 +107,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
                 textViewPostByAppending(typewriterView, char, canAutoScrollBottom)
 
                 if (!Character.isWhitespace(char)) {
-                    Thread.sleep(typewriterDataDurationList[idx + 1].toLong())
+                    Thread.sleep(typewriterDurationList[idx + 1].toLong())
                 }
             }
         } catch (exception: Exception) {

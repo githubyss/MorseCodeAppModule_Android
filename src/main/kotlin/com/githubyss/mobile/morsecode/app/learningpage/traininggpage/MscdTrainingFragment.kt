@@ -49,10 +49,10 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private var baseDuration = 0
     private var trainingMessageStr = String()
 
-    private var audioData = emptyArray<Float>()
-    private var flashlightData = emptyArray<Any>()
-    private var vibratorData = emptyArray<Any>()
-    private var typewriterDataDuration = emptyList<Int>()
+    private var audioDataArray = emptyArray<Float>()
+    private var flashlightDataArray = emptyArray<Any>()
+    private var vibratorDataArray = emptyArray<Any>()
+    private var typewriterDurationList = emptyList<Int>()
 
     private var copiedMessageStr = String()
     private var copiedMessageStrBuilder = StringBuilder()
@@ -69,12 +69,12 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
             changeBtnStatus(btnStartPlay, true)
-            audioData = audioDataArray
+            this@MscdTrainingFragment.audioDataArray = audioDataArray
         }
 
-        override fun onTypewriterDataBuilt(typewriterDataList: List<Int>) {
+        override fun onTypewriterDurationBuilt(typewriterDurationList: List<Int>) {
             changeBtnStatus(btnStartPlay, true)
-            typewriterDataDuration = typewriterDataList
+            this@MscdTrainingFragment.typewriterDurationList = typewriterDurationList
         }
 
         override fun onPlayFinished() {
@@ -96,7 +96,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
                 initAudioPlayerConfig()
 
-                mscdTrainingIPresenter.startPlay(audioData, flashlightData, vibratorData, trainingMessageStr, typewriterDataDuration, tvMorseCodeCopy)
+                mscdTrainingIPresenter.startPlay(audioDataArray, flashlightDataArray, vibratorDataArray, trainingMessageStr, typewriterDurationList, tvMorseCodeCopy)
             }
 
             R.id.btnStopPlay -> {
@@ -125,7 +125,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         initAudioDataGenerateStrategyConfig()
         initTypewriterPlayerConfig()
         initTypewriterPlayStrategyConfig()
-        initTypewriterDataGenerateStrategyConfig()
+        initTypewriterDurationGenerateStrategyConfig()
     }
 
     private fun initMorseCodeConverterConfig() {
@@ -164,9 +164,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
                 .create()
     }
 
-    private fun initTypewriterDataGenerateStrategyConfig() {
-        MscdTypewriterDataGenerateStrategyConfig.Builder
-                .setStrategy(MscdTypewriterDataGeneratePresentStrategy())
+    private fun initTypewriterDurationGenerateStrategyConfig() {
+        MscdTypewriterDurationGenerateStrategyConfig.Builder
+                .setStrategy(MscdTypewriterDurationGeneratePresentStrategy())
                 .create()
     }
 
@@ -196,10 +196,10 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     private fun clearPlayerData() {
-        audioData = emptyArray()
-        flashlightData = emptyArray()
-        vibratorData = emptyArray()
-        typewriterDataDuration = emptyList()
+        audioDataArray = emptyArray()
+        flashlightDataArray = emptyArray()
+        vibratorDataArray = emptyArray()
+        typewriterDurationList = emptyList()
     }
 
     private fun getBtnInput(btnList: List<Button>, id: Int): String {
@@ -310,6 +310,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
         super.onDestroy()
 
         MscdAudioDataGenerator.instance.stopGenerateAudioData()
+        MscdTypewriterDurationGenerator.instance.stopGenerateTypewriteDuration()
 
         MscdPlayerController.instance.stopPlay()
         MscdPlayerController.instance.releaseResource()

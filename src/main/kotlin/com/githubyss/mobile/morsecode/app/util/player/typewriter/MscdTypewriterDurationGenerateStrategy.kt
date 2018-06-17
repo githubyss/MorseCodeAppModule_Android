@@ -3,23 +3,23 @@ package com.githubyss.mobile.morsecode.app.util.player.typewriter
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 
 /**
- * MscdTypewriterDataGenerateStrategy.kt
+ * MscdTypewriterDurationGenerateStrategy.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-abstract class MscdTypewriterDataGenerateStrategy {
-    interface OnTypewriterDataGenerateListener {
-        fun onSucceeded(typewriterDataList: List<Int>)
+abstract class MscdTypewriterDurationGenerateStrategy {
+    interface OnTypewriterDurationGenerateListener {
+        fun onSucceeded(typewriterDurationList: List<Int>)
         fun onFailed(failingInfo: String)
         fun onCancelled()
     }
 
 
-    abstract fun startGenerateTypewriterData(message: String, onTypewriterDataGenerateListener: OnTypewriterDataGenerateListener)
-    abstract fun stopGenerateTypewriterData()
+    abstract fun startGenerateTypewriterDuration(message: String, onTypewriterDurationGenerateListener: OnTypewriterDurationGenerateListener)
+    abstract fun stopGenerateTypewriterDuration()
 
 
     protected val morseCodeConverterConfig =

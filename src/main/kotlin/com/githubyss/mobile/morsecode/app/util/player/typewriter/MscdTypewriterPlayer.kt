@@ -33,10 +33,10 @@ class MscdTypewriterPlayer private constructor() {
                 MscdTypewriterPlayStrategyConfig.instance
 
 
-    fun startPlayTypewriter(typewriterDataStr: String, typewriterDataList: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+    fun startPlayTypewriter(typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
         val bundle = Bundle()
         bundle.putString(MscdKeyConstants.TypewriterKey.MESSAGE_STR, typewriterDataStr)
-        bundle.putIntegerArrayList(MscdKeyConstants.TypewriterKey.DURATION_LIST, typewriterDataList as ArrayList<Int>)
+        bundle.putIntegerArrayList(MscdKeyConstants.TypewriterKey.DURATION_LIST, typewriterDurationList as ArrayList<Int>)
 
         typewriterPlayStrategyConfig.typewriterPlayStrategy.startPlayTypewriter(bundle, typewriterView, onTypewriterPlayListener)
     }

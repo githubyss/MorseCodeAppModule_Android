@@ -9,15 +9,15 @@ import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterC
 import java.io.EOFException
 
 /**
- * MscdTypewriterDataGeneratePresentStrategy.kt
+ * MscdTypewriterDurationGeneratePresentStrategy.kt
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-class MscdTypewriterDataGeneratePresentStrategy : MscdTypewriterDataGenerateStrategy() {
-    private var typewriterDataGenerateAsyncTask: TypewriterDataGenerateAsyncTask? = null
+class MscdTypewriterDurationGeneratePresentStrategy : MscdTypewriterDurationGenerateStrategy() {
+    private var typewriterDurationGenerateAsyncTask: TypewriterDurationGenerateAsyncTask? = null
 
     private var beginTime = 0L
     private var endTime = 0L
@@ -25,17 +25,17 @@ class MscdTypewriterDataGeneratePresentStrategy : MscdTypewriterDataGenerateStra
     private var exceptionInfo = ""
 
 
-    private inner class TypewriterDataGenerateAsyncTask(private val onTypewriterDataGenerateListener: OnTypewriterDataGenerateListener) : AsyncTask<String, Int, List<Int>>() {
+    private inner class TypewriterDurationGenerateAsyncTask(private val onTypewriterDurationGenerateListener: OnTypewriterDurationGenerateListener) : AsyncTask<String, Int, List<Int>>() {
         override fun doInBackground(vararg params: String?): List<Int> {
             if (isCancelled) {
-                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDataGenerateAsyncTask.doInBackground() >>> isCancelled")
+                ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.doInBackground() >>> isCancelled")
                 return emptyList()
             }
 
             beginTime = ComkitTimeUtils.currentTimeMillis()
 
             return try {
-                buildTypewriterDataList(params[0] ?: String(), morseCodeConverterConfig)
+                buildTypewriterDurationList(params[0] ?: String(), morseCodeConverterConfig)
             } catch (exception: InterruptedException) {
                 ComkitLogcatUtils.e(t = exception)
                 emptyList()
@@ -48,43 +48,43 @@ class MscdTypewriterDataGeneratePresentStrategy : MscdTypewriterDataGenerateStra
             }
 
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDataGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
             ComkitLogcatUtils.`object`(result)
 
             if (result?.isEmpty() != false
                     || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
-                onTypewriterDataGenerateListener.onFailed(exceptionInfo)
+                onTypewriterDurationGenerateListener.onFailed(exceptionInfo)
                 return
             }
 
-            onTypewriterDataGenerateListener.onSucceeded(result)
+            onTypewriterDurationGenerateListener.onSucceeded(result)
         }
 
         override fun onCancelled() {
             endTime = ComkitTimeUtils.currentTimeMillis()
-            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDataGenerateAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
+            ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
 
-            onTypewriterDataGenerateListener.onCancelled()
+            onTypewriterDurationGenerateListener.onCancelled()
         }
     }
 
 
-    override fun startGenerateTypewriterData(message: String, onTypewriterDataGenerateListener: OnTypewriterDataGenerateListener) {
-        typewriterDataGenerateAsyncTask = TypewriterDataGenerateAsyncTask(onTypewriterDataGenerateListener)
-        typewriterDataGenerateAsyncTask?.execute(message)
+    override fun startGenerateTypewriterDuration(message: String, onTypewriterDurationGenerateListener: OnTypewriterDurationGenerateListener) {
+        typewriterDurationGenerateAsyncTask = TypewriterDurationGenerateAsyncTask(onTypewriterDurationGenerateListener)
+        typewriterDurationGenerateAsyncTask?.execute(message)
     }
 
-    override fun stopGenerateTypewriterData() {
-        if (typewriterDataGenerateAsyncTask?.status == AsyncTask.Status.RUNNING) {
-            typewriterDataGenerateAsyncTask?.cancel(true)
-            typewriterDataGenerateAsyncTask = null
+    override fun stopGenerateTypewriterDuration() {
+        if (typewriterDurationGenerateAsyncTask?.status == AsyncTask.Status.RUNNING) {
+            typewriterDurationGenerateAsyncTask?.cancel(true)
+            typewriterDurationGenerateAsyncTask = null
         }
     }
 
 
     /**
-     * MscdTypewriterDataGeneratePresentStrategy.buildTypewriterDataList(message)
+     * MscdTypewriterDurationGeneratePresentStrategy.buildTypewriterDurationList(message)
      * <Description>
      * <Details>
      *
@@ -93,7 +93,7 @@ class MscdTypewriterDataGeneratePresentStrategy : MscdTypewriterDataGenerateStra
      * @author Ace Yan
      * @github githubyss
      */
-    private fun buildTypewriterDataList(message: String, morseCodeConverterConfig: MscdMorseCodeConverterConfig): List<Int> {
+    private fun buildTypewriterDurationList(message: String, morseCodeConverterConfig: MscdMorseCodeConverterConfig): List<Int> {
         val charGapDuration = morseCodeConverterConfig.charGapDuration
         val wordGapDuration = morseCodeConverterConfig.wordGapDuration
         val startDuration = morseCodeConverterConfig.startDuration
@@ -114,7 +114,7 @@ class MscdTypewriterDataGeneratePresentStrategy : MscdTypewriterDataGenerateStra
                     .asSequence()
                     .map { message[it] }
                     .forEach {
-                        if (typewriterDataGenerateAsyncTask?.isCancelled != false) {
+                        if (typewriterDurationGenerateAsyncTask?.isCancelled != false) {
                             return emptyList()
                         }
 

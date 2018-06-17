@@ -41,14 +41,14 @@ class MscdPlayerController private constructor() : MscdPlayerPowerController {
     }
 
     fun startPlay(
-            audioData: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener,
-            flashlightData: Array<Any>,
-            vibratorData: Array<Any>,
-            typewriterData: String, typewriterDataDuration: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
-        audioAction.startPlay(audioData, onAudioPlayListener)
-        flashlightAction.startPlay(flashlightData)
-        vibratorAction.startPlay(vibratorData)
-        typewriterAction.startPlay(typewriterData, typewriterDataDuration, typewriterView, onTypewriterPlayListener)
+            audioDataArray: Array<Float>, onAudioPlayListener: MscdAudioPlayer.OnAudioPlayListener,
+            flashlightDataArray: Array<Any>,
+            vibratorDataArray: Array<Any>,
+            typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+        audioAction.startPlay(audioDataArray, onAudioPlayListener)
+        flashlightAction.startPlay(flashlightDataArray)
+        vibratorAction.startPlay(vibratorDataArray)
+        typewriterAction.startPlay(typewriterDataStr, typewriterDurationList, typewriterView, onTypewriterPlayListener)
     }
 
     fun stopPlay() {

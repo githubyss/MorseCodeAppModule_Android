@@ -14,7 +14,7 @@ import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterP
  * @github githubyss
  */
 class MscdTypewriterOffAction : MscdTypewriterAction {
-    override fun startPlay(typewriterData: String, typewriterDataDuration: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
+    override fun startPlay(typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: View, onTypewriterPlayListener: MscdTypewriterPlayStrategy.OnTypewriterPlayListener) {
     }
 
     override fun stopPlay() {
