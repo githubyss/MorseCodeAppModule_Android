@@ -31,7 +31,7 @@ class MscdHomepageActivity : MscdBaseActivity() {
 
         setToolbarTitle(R.string.mscdHomepageTitle)
         setToolbarOnLongClickListener(
-                object : OnComkitBaseToolbarLongClickListener {
+                object : OnComuiBaseToolbarLongClickListener {
                     override fun onLongClick(v: View): Boolean {
                         val fragment = ARouter.getInstance().build("/morsecode/app/homepage/demo/MscdHomepageDemoFragment").navigation() as Fragment
                         replaceFragment(fragment, "MscdHomepageDemoFragment", true)

@@ -9,12 +9,12 @@ import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
 import com.githubyss.mobile.common.kit.util.ComkitFontUtils
 import com.githubyss.mobile.common.kit.util.ComkitResUtils
 import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.common.kit.util.uioperate.ComkitTypewriteUtils
+import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.mscd_fragment_training.*
  * @github githubyss
  */
 @Route(path = "/morsecode/app/learningpage/traininggpage/MscdTrainingFragment")
-class MscdTrainingFragment : ComkitBaseFragment(), MscdTrainingContract.IView {
+class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
     companion object {
         val TAG = "MscdTrainingFragment"
     }

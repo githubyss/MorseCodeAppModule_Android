@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.homepage
 
-import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
-import com.githubyss.mobile.common.kit.base.ComkitIBaseView
+import com.githubyss.mobile.common.ui.basemvp.ComuiIBasePresenter
+import com.githubyss.mobile.common.ui.basemvp.ComuiIBaseView
 
 /**
  * MscdHomepageContract.kt
@@ -12,10 +12,10 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  * @github githubyss
  */
 interface MscdHomepageContract {
-    interface IView : ComkitIBaseView<IPresenter> {
+    interface IView : ComuiIBaseView<IPresenter> {
     }
 
-    interface IPresenter : ComkitIBasePresenter {
+    interface IPresenter : ComuiIBasePresenter {
         fun onActivityResult(requestCode: Int, resultCode: Int)
     }
 }

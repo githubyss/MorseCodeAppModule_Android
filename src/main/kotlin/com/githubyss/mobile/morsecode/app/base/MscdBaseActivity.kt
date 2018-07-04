@@ -3,7 +3,7 @@ package com.githubyss.mobile.morsecode.app.base
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.githubyss.mobile.common.kit.base.ComkitBaseActivity
+import com.githubyss.mobile.common.ui.basemvp.ComuiBaseActivity
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
 import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
@@ -17,7 +17,7 @@ import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerContr
  * @author Ace Yan
  * @github githubyss
  */
-abstract class MscdBaseActivity : ComkitBaseActivity() {
+abstract class MscdBaseActivity : ComuiBaseActivity() {
     /**
      * MscdBaseActivity.refreshMenuItem(menu)
      * <Description> Refresh menu item to show the latest status of action of play mode.
@@ -54,7 +54,7 @@ abstract class MscdBaseActivity : ComkitBaseActivity() {
 
         setToolbarNavigationIcon(R.drawable.mscd_ic_arrow_back_white)
         setToolbarNavigationOnClickListener(
-                object : OnComkitBaseToolbarNavigationClickListener {
+                object : OnComuiBaseToolbarNavigationClickListener {
                     override fun onClick(v: View) {
                         onBackPressed()
                     }

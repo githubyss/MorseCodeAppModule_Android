@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/comkitBothMatchParentStyle"
-        android:background="@color/comkitLayoutBgColorLightGray"
+        style="@style/comresBothMatchParentStyle"
+        android:background="@color/comresLayoutBgColorLightGray"
         android:orientation="vertical"
         >
 
     <ScrollView
-            style="@style/comkitBothMatchParentStyle"
+            style="@style/comresBothMatchParentStyle"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
         <LinearLayout
                 android:id="@+id/llSvContent"
-                style="@style/comkitBothMatchParentStyle"
-                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-                android:layout_marginRight="@dimen/comkitSideMarginDefault"
+                style="@style/comresBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comresSideMarginDefault"
+                android:layout_marginRight="@dimen/comresSideMarginDefault"
                 android:orientation="vertical"
                 >
 
             <LinearLayout
                     android:id="@+id/llMorseCodeCopyDisplay"
-                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
+                    style="@style/comresArrangeHeightUsingWeightLayoutStyle"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:visibility="visible"
@@ -37,17 +37,17 @@
                         />
             </LinearLayout>
 
-            <!--<include layout="@layout/comkit_view_separator_horizontal_common_default" />-->
+            <!--<include layout="@layout/comres_view_separator_horizontal_common_default" />-->
 
             <LinearLayout
                     android:id="@+id/llCharInputContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow1"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -89,7 +89,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow2"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -131,7 +131,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow3"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -173,7 +173,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow4"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -215,7 +215,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow5"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -257,7 +257,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow6"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -299,7 +299,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow7"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -338,7 +338,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharInputRow8"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <Button
@@ -352,12 +352,12 @@
 
             <LinearLayout
                     android:id="@+id/llBtnContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
-                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        style="@style/comresOnlyWidthMatchParentLayoutStyle"
                         android:orientation="horizontal"
                         >
 
@@ -368,7 +368,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:layout_weight="1"
-                            android:text="@string/comkitStart"
+                            android:text="@string/comresStart"
                             />
 
                     <Button
@@ -379,7 +379,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="1"
-                            android:text="@string/comkitStop"
+                            android:text="@string/comresStop"
                             />
                 </LinearLayout>
 
@@ -389,7 +389,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="@string/comkitSubmit"
+                        android:text="@string/comresSubmit"
                         />
             </LinearLayout>
         </LinearLayout>

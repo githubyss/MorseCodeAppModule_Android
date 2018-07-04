@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/comkitBothMatchParentStyle"
-        android:background="@color/comkitLayoutBgColorLightGray"
+        style="@style/comresBothMatchParentStyle"
+        android:background="@color/comresLayoutBgColorLightGray"
         android:orientation="vertical"
         >
 
     <ScrollView
-            style="@style/comkitBothMatchParentStyle"
+            style="@style/comresBothMatchParentStyle"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
         <LinearLayout
                 android:id="@+id/llSvContent"
-                style="@style/comkitBothMatchParentStyle"
-                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-                android:layout_marginRight="@dimen/comkitSideMarginDefault"
+                style="@style/comresBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comresSideMarginDefault"
+                android:layout_marginRight="@dimen/comresSideMarginDefault"
                 android:orientation="vertical"
                 >
 
             <LinearLayout
                     android:id="@+id/llBtnContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
                 <Button
                         android:id="@+id/btnMorseCodeTranslator"
-                        style="@style/comkitCommonBtnDefaultStyle"
+                        style="@style/comresCommonBtnDefaultStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mscdHomepageMorseCodeTranslator"
@@ -36,7 +36,7 @@
 
                 <Button
                         android:id="@+id/btnMorseCodeLearning"
-                        style="@style/comkitCommonBtnDefaultStyle"
+                        style="@style/comresCommonBtnDefaultStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/mscdHomepageMorseCodeLearning"

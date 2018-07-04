@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/comkitBothMatchParentStyle"
-        android:background="@color/comkitLayoutBgColorLightGray"
+        style="@style/comresBothMatchParentStyle"
+        android:background="@color/comresLayoutBgColorLightGray"
         android:orientation="vertical"
         >
 
     <ScrollView
-            style="@style/comkitBothMatchParentStyle"
+            style="@style/comresBothMatchParentStyle"
             android:fillViewport="true"
             android:scrollbars="none"
             >
 
         <LinearLayout
                 android:id="@+id/llSvContent"
-                style="@style/comkitBothMatchParentStyle"
-                android:layout_marginLeft="@dimen/comkitSideMarginDefault"
-                android:layout_marginRight="@dimen/comkitSideMarginDefault"
+                style="@style/comresBothMatchParentStyle"
+                android:layout_marginLeft="@dimen/comresSideMarginDefault"
+                android:layout_marginRight="@dimen/comresSideMarginDefault"
                 android:orientation="vertical"
                 >
 
             <LinearLayout
                     android:id="@+id/llDescriptionContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     android:visibility="invisible"
                     >
@@ -31,21 +31,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/mscdCharSelectingRecommendedSequence"
-                        android:textColor="@color/comkitColorBlack"
-                        android:textSize="@dimen/comkitTextSize20Sp"
+                        android:textColor="@color/comresColorBlack"
+                        android:textSize="@dimen/comresTextSize20Sp"
                         />
             </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/llCharSelectContainer"
-                    style="@style/comkitArrangeHeightUsingWeightLayoutStyle"
+                    style="@style/comresArrangeHeightUsingWeightLayoutStyle"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow1"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -87,7 +87,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow2"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -129,7 +129,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow3"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -171,7 +171,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow4"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -213,7 +213,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow5"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -255,7 +255,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow6"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -297,7 +297,7 @@
 
                 <LinearLayout
                         android:id="@+id/llCharSelectRow7"
-                        style="@style/comkitArrangeInOneRowLayoutStyle"
+                        style="@style/comresArrangeInOneRowLayoutStyle"
                         >
 
                     <CheckBox
@@ -342,14 +342,14 @@
 
             <LinearLayout
                     android:id="@+id/llConfigContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:orientation="vertical"
                     >
 
                 <LinearLayout
-                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        style="@style/comresOnlyWidthMatchParentLayoutStyle"
                         android:orientation="horizontal"
                         >
 
@@ -375,7 +375,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        style="@style/comresOnlyWidthMatchParentLayoutStyle"
                         android:orientation="horizontal"
                         >
 
@@ -401,18 +401,18 @@
                 </LinearLayout>
 
                 <LinearLayout
-                        style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                        style="@style/comresOnlyWidthMatchParentLayoutStyle"
                         android:orientation="horizontal"
                         >
 
                     <LinearLayout
-                            style="@style/comkitBothWrapContentStyle"
+                            style="@style/comresBothWrapContentStyle"
                             android:layout_weight="1"
                             android:orientation="vertical"
                             >
 
                         <LinearLayout
-                                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                                style="@style/comresOnlyWidthMatchParentLayoutStyle"
                                 android:orientation="horizontal"
                                 >
 
@@ -438,7 +438,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                                style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                                style="@style/comresOnlyWidthMatchParentLayoutStyle"
                                 android:orientation="horizontal"
                                 >
 
@@ -465,14 +465,14 @@
                     </LinearLayout>
 
                     <LinearLayout
-                            style="@style/comkitBothWrapContentStyle"
+                            style="@style/comresBothWrapContentStyle"
                             android:layout_gravity="center"
                             android:orientation="vertical"
                             >
 
                         <ToggleButton
                                 android:id="@+id/tglBtnRandomStringGenerateStrategy"
-                                style="@style/comkitCommonTglBtnDefaultStyle"
+                                style="@style/comresCommonTglBtnDefaultStyle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="10dp"
@@ -486,7 +486,7 @@
 
             <LinearLayout
                     android:id="@+id/llBtnContainer"
-                    style="@style/comkitOnlyWidthMatchParentLayoutStyle"
+                    style="@style/comresOnlyWidthMatchParentLayoutStyle"
                     android:orientation="vertical"
                     >
 
@@ -495,7 +495,7 @@
                         style="@style/mscdCommonBtnStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/comkitConfirm"
+                        android:text="@string/comresConfirm"
                         />
             </LinearLayout>
         </LinearLayout>

@@ -1,8 +1,8 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
 import android.view.View
-import com.githubyss.mobile.common.kit.base.ComkitIBasePresenter
-import com.githubyss.mobile.common.kit.base.ComkitIBaseView
+import com.githubyss.mobile.common.ui.basemvp.ComuiIBasePresenter
+import com.githubyss.mobile.common.ui.basemvp.ComuiIBaseView
 
 /**
  * MscdTrainingContract.kt
@@ -13,14 +13,14 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  * @github githubyss
  */
 interface MscdTrainingContract {
-    interface IView : ComkitIBaseView<IPresenter> {
+    interface IView : ComuiIBaseView<IPresenter> {
         fun showHint(hintStr: String?)
         fun onAudioDataBuilt(audioDataArray: Array<Float>)
         fun onTypewriterDurationBuilt(typewriterDurationList: List<Int>)
         fun onPlayFinished()
     }
 
-    interface IPresenter : ComkitIBasePresenter {
+    interface IPresenter : ComuiIBasePresenter {
         fun buildPlayData(trainingMsgStr: String)
         fun startPlay(audioDataArray: Array<Float>, flashlightDataArray: Array<Any>, vibratorDataArray: Array<Any>, typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: View)
     }

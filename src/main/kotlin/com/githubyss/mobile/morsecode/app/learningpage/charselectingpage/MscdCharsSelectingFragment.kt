@@ -11,12 +11,12 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
 import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
 import com.githubyss.mobile.common.kit.util.ComkitFontUtils
 import com.githubyss.mobile.common.kit.util.ComkitToastUtils
 import com.githubyss.mobile.common.kit.util.checker.ComkitNumberCheckUtils
 import com.githubyss.mobile.common.kit.util.formatter.ComkitNumberFormatUtils
+import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
 import kotlinx.android.synthetic.main.mscd_fragment_chars_selecting.*
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.mscd_fragment_chars_selecting.*
  * @github githubyss
  */
 @Route(path = "/morsecode/app/learningpage/charselectingpage/MscdCharsSelectingFragment")
-class MscdCharsSelectingFragment : ComkitBaseFragment() {
+class MscdCharsSelectingFragment : ComuiBaseFragment() {
     companion object {
         val TAG = "MscdCharsSelectingFragment"
     }

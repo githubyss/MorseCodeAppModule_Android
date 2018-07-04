@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.githubyss.mobile.common.kit.base.ComkitBaseFragment
+import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.mscd_fragment_homepage_demo.*
  * @github githubyss
  */
 @Route(path = "/morsecode/app/homepage/demo/MscdHomepageDemoFragment")
-class MscdHomepageDemoFragment : ComkitBaseFragment() {
+class MscdHomepageDemoFragment : ComuiBaseFragment() {
     companion object {
         val TAG = "MscdHomepageDemoFragment"
     }
