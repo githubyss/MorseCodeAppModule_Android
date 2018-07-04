@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mscdAppName">Morse Code Android</string>
+    <string name="mscdAppName">Morse Code App Android</string>
 
     <string name="mscdMenuActionFlashlight">Flashlight</string>
     <string name="mscdMenuActionAudio">Audio</string>
