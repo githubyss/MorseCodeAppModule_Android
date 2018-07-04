@@ -15,7 +15,7 @@ import com.githubyss.mobile.common.kit.base.ComkitIBaseView
  */
 interface MscdCharsSelectingContract {
     interface IView : ComkitIBaseView<IPresenter> {
-        fun showHint(hintStr: String)
+        fun showHint(hintStr: String?)
         fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String)
         fun gotoTrainingPage(bundle: Bundle)
     }

@@ -57,7 +57,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
 
             if (result?.isEmpty() != false
-                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
+                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo) ?: "")) {
                 onAudioDataGenerateListener.onFailed(exceptionInfo)
                 return
             }

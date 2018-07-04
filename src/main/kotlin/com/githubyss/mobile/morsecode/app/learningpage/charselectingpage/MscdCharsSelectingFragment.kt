@@ -44,9 +44,9 @@ class MscdCharsSelectingFragment : ComkitBaseFragment() {
             mscdCharsSelectingIPresenter = iPresenter
         }
 
-        override fun showHint(hintStr: String) {
+        override fun showHint(hintStr: String?) {
             changeBtnStatus(btnConfirm, true)
-            ComkitToastUtils.showMessage(msgStr = hintStr)
+            ComkitToastUtils.showMessage(msgStr = hintStr ?: "")
         }
 
         override fun onRandomTrainingMessageBuilt(randomTrainingMsgStr: String) {

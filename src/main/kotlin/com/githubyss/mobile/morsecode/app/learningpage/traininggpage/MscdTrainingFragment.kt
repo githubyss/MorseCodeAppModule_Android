@@ -38,7 +38,7 @@ import kotlinx.android.synthetic.main.mscd_fragment_training.*
  * @github githubyss
  */
 @Route(path = "/morsecode/app/learningpage/traininggpage/MscdTrainingFragment")
-class MscdTrainingFragment : ComkitBaseFragment() {
+class MscdTrainingFragment : ComkitBaseFragment(), MscdTrainingContract.IView {
     companion object {
         val TAG = "MscdTrainingFragment"
     }
@@ -58,32 +58,6 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     private var copiedMessageStrBuilder = StringBuilder()
 
     private lateinit var mscdTrainingIPresenter: MscdTrainingContract.IPresenter
-    private var mscdTrainingIView = object : MscdTrainingContract.IView {
-        override fun setPresenter(iPresenter: MscdTrainingContract.IPresenter) {
-            mscdTrainingIPresenter = iPresenter
-        }
-
-        override fun showHint(hintStr: String) {
-            ComkitToastUtils.showMessage(msgStr = hintStr)
-        }
-
-        override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
-            changeBtnStatus(btnStartPlay, true)
-            this@MscdTrainingFragment.audioDataArray = audioDataArray
-        }
-
-        override fun onTypewriterDurationBuilt(typewriterDurationList: List<Int>) {
-            changeBtnStatus(btnStartPlay, true)
-            this@MscdTrainingFragment.typewriterDurationList = typewriterDurationList
-        }
-
-        override fun onPlayFinished() {
-            changeBtnStatus(btnStartPlay, true)
-            changeBtnStatus(btnStopPlay, false)
-
-            clearPlayerData()
-        }
-    }
 
     private val onClickListener = View.OnClickListener { v ->
         val id = v.id
@@ -92,6 +66,7 @@ class MscdTrainingFragment : ComkitBaseFragment() {
                 changeBtnStatus(btnStartPlay, false)
                 changeBtnStatus(btnStopPlay, true)
 
+                refreshViewOnTypewriterStatusChanged()
                 tvMorseCodeCopy.text = ""
 
                 initAudioPlayerConfig()
@@ -114,8 +89,17 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     private val onInputBtnClickListener = View.OnClickListener { v ->
-        tvMorseCodeCopy.append(getBtnInput(inputBtnList, v.id))
-        ComkitTypewriteUtils.textViewAutoScrollBottom(tvMorseCodeCopy)
+        when (v.id) {
+            R.id.btnClean -> {
+                tvMorseCodeCopy.text = ""
+                changeBtnStatus(btnSubmit, false)
+            }
+
+            else -> {
+                tvMorseCodeCopy.append(getBtnInput(inputBtnList, v.id))
+                ComkitTypewriteUtils.textViewAutoScrollBottom(tvMorseCodeCopy)
+            }
+        }
     }
 
 
@@ -208,7 +192,6 @@ class MscdTrainingFragment : ComkitBaseFragment() {
                 .forEach {
                     return when (it.text.toString()) {
                         ComkitResUtils.getString(resId = R.string.mscdCharSignSpace) -> " "
-                        ComkitResUtils.getString(resId = R.string.mscdCharSkip) -> " "
                         else -> it.text.toString()
                     }
                 }
@@ -217,8 +200,41 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
 
+    // ---------- ---------- ---------- IView ---------- ---------- ----------
+
+    override fun setPresenter(iPresenter: MscdTrainingContract.IPresenter) {
+        mscdTrainingIPresenter = iPresenter
+    }
+
+    override fun showHint(hintStr: String?) {
+        ComkitToastUtils.showMessage(msgStr = hintStr ?: "")
+    }
+
+    override fun onAudioDataBuilt(audioDataArray: Array<Float>) {
+        changeBtnStatus(btnStartPlay, true)
+        this@MscdTrainingFragment.audioDataArray = audioDataArray
+    }
+
+    override fun onTypewriterDurationBuilt(typewriterDurationList: List<Int>) {
+        changeBtnStatus(btnStartPlay, true)
+        this@MscdTrainingFragment.typewriterDurationList = typewriterDurationList
+    }
+
+    override fun onPlayFinished() {
+        changeBtnStatus(btnStartPlay, true)
+        changeBtnStatus(btnStopPlay, false)
+
+        if (tvMorseCodeCopy != null
+                && tvMorseCodeCopy.text.isNotEmpty()) {
+            changeBtnStatus(btnSubmit, true)
+        }
+    }
+
+
+    // ---------- ---------- ---------- Super ---------- ---------- ----------
+
     override fun bindPresenter() {
-        MscdTrainingPresenter(mscdTrainingIView)
+        MscdTrainingPresenter(this)
     }
 
     override fun initView() {
@@ -272,9 +288,14 @@ class MscdTrainingFragment : ComkitBaseFragment() {
     }
 
     override fun refreshView() {
-        refreshViewOnTypewriterStatusChanged()
+        inputBtnList
+                .forEach { changeBtnStatus(it, false) }
+
+        tvMorseCodeCopy.text = trainingMessageStr
     }
 
+
+    // ---------- ---------- ---------- Lifecycle ---------- ---------- ----------
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -317,6 +338,9 @@ class MscdTrainingFragment : ComkitBaseFragment() {
 
         clearPlayerData()
     }
+
+
+    // ---------- ---------- ---------- Listener ---------- ---------- ----------
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {

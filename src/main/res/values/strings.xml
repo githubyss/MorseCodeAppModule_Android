@@ -117,5 +117,6 @@
     <!--<string name="mscdCharSignAmpersand">&</string>-->
     <string name="mscdCharSignAt">\@</string>
     <string name="mscdCharSignSpace">Space</string>
-    <string name="mscdCharSkip">Skip</string>
+
+    <string name="mscdClean">Clean</string>
 </resources>

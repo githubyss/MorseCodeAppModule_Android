@@ -327,12 +327,12 @@
                             />
 
                     <Button
-                            android:id="@+id/btnReserve1"
+                            android:id="@+id/btnClean"
                             style="@style/mscdCharInputBtnStyle"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
                             android:layout_weight="2"
-                            android:text="@string/mscdCharSkip"
+                            android:text="@string/mscdClean"
                             />
                 </LinearLayout>
 
@@ -342,7 +342,7 @@
                         >
 
                     <Button
-                            android:id="@+id/btnSkip"
+                            android:id="@+id/btnSpace"
                             style="@style/mscdCharInputBtnStyle"
                             android:layout_height="40dp"
                             android:text="@string/mscdCharSignSpace"

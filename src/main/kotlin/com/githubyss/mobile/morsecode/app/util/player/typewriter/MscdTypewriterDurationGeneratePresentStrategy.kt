@@ -53,7 +53,7 @@ class MscdTypewriterDurationGeneratePresentStrategy : MscdTypewriterDurationGene
             ComkitLogcatUtils.`object`(result)
 
             if (result?.isEmpty() != false
-                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
+                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo) ?: "")) {
                 onTypewriterDurationGenerateListener.onFailed(exceptionInfo)
                 return
             }

@@ -61,7 +61,7 @@ class MscdRandomStringGenerateRulelessStrategy : MscdRandomStringGenerateStrateg
             ComkitLogcatUtils.`object`(result)
 
             if (result?.isEmpty() != false
-                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo))) {
+                    || exceptionInfo.contains(ComkitResUtils.getString(resId = R.string.mscdFailingInfo) ?: "")) {
                 onRandomStringGenerateListener.onFailed(exceptionInfo)
                 return
             }
