@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 
 /**
  * MscdMorseCodeConverter.kt

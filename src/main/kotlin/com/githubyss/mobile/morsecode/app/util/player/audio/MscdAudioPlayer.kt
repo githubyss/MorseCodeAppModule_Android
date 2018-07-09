@@ -4,9 +4,9 @@ import android.media.AudioFormat
 import android.media.AudioTrack
 import android.os.AsyncTask
 import android.os.Build
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.util.ComkitResUtils
-import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
+import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.R
 
 /**

@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 
 import android.view.View
-import com.githubyss.mobile.common.kit.util.ComkitResUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateStrategy
 import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator

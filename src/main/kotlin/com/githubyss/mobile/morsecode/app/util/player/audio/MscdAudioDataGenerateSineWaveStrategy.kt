@@ -2,9 +2,9 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
 
 import android.media.AudioFormat
 import android.os.AsyncTask
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.util.ComkitResUtils
-import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig

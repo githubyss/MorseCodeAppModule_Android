@@ -1,6 +1,6 @@
 package com.githubyss.mobile.morsecode.app.util.player.audio
 
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
 import java.io.EOFException
 

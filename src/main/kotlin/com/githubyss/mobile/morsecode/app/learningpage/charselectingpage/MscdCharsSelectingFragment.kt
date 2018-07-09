@@ -11,11 +11,11 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
-import com.githubyss.mobile.common.kit.util.ComkitFontUtils
-import com.githubyss.mobile.common.kit.util.ComkitToastUtils
-import com.githubyss.mobile.common.kit.util.checker.ComkitNumberCheckUtils
-import com.githubyss.mobile.common.kit.util.formatter.ComkitNumberFormatUtils
+import com.githubyss.mobile.common.kit.font.ComkitFontConfig
+import com.githubyss.mobile.common.kit.font.ComkitFontUtils
+import com.githubyss.mobile.common.kit.hint.ComkitToastUtils
+import com.githubyss.mobile.common.kit.checker.ComkitNumberCheckUtils
+import com.githubyss.mobile.common.kit.formatter.ComkitNumberFormatUtils
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
@@ -173,8 +173,8 @@ class MscdCharsSelectingFragment : ComuiBaseFragment() {
 
         tglBtnRandomStringGenerateStrategy.isChecked = false
 
-        ComkitFontUtils.replaceFontFromAsset(llCharSelectContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
-        ComkitFontUtils.replaceFontFromAsset(llConfigContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llCharSelectContainer, ComkitFontConfig.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llConfigContainer, ComkitFontConfig.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {

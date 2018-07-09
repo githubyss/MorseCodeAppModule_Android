@@ -16,8 +16,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':CommonKitSdk_Android')
-    implementation project(':CommonUiSdk_Android')
     implementation project(':CommonResSdk_Android')
+    implementation project(':CommonUiSdk_Android')
+    implementation project(':MorseCodeKitSdk_Android')
 
     /* Kotlin */
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"

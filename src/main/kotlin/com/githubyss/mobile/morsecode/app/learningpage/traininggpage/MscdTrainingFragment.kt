@@ -9,11 +9,11 @@ import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.githubyss.mobile.common.kit.constant.ComkitFontConstants
-import com.githubyss.mobile.common.kit.util.ComkitFontUtils
-import com.githubyss.mobile.common.kit.util.ComkitResUtils
-import com.githubyss.mobile.common.kit.util.ComkitToastUtils
-import com.githubyss.mobile.common.kit.util.uioperate.ComkitTypewriteUtils
+import com.githubyss.mobile.common.kit.font.ComkitFontConfig
+import com.githubyss.mobile.common.kit.font.ComkitFontUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
+import com.githubyss.mobile.common.kit.hint.ComkitToastUtils
+import com.githubyss.mobile.common.kit.viewoperator.ComkitTypewriteUtils
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
@@ -266,8 +266,8 @@ class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
         changeBtnStatus(btnStopPlay, false)
         changeBtnStatus(btnSubmit, false)
 
-        ComkitFontUtils.replaceFontFromAsset(llMorseCodeCopyDisplay, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
-        ComkitFontUtils.replaceFontFromAsset(llCharInputContainer, ComkitFontConstants.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llMorseCodeCopyDisplay, ComkitFontConfig.FontPath.MONOSPACE_DEFAULT)
+        ComkitFontUtils.replaceFontFromAsset(llCharInputContainer, ComkitFontConfig.FontPath.MONOSPACE_DEFAULT)
     }
 
     override fun initData() {

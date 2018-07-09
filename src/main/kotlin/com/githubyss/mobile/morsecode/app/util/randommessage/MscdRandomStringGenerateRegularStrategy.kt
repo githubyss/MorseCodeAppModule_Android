@@ -2,9 +2,9 @@ package com.githubyss.mobile.morsecode.app.util.randommessage
 
 import android.os.AsyncTask
 import android.os.Bundle
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.util.ComkitResUtils
-import com.githubyss.mobile.common.kit.util.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
+import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import java.io.EOFException

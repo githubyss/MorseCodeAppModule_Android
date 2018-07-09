@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.githubyss.mobile.common.kit.util.ComkitLogcatUtils
+import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.base.MscdBaseActivity
 
