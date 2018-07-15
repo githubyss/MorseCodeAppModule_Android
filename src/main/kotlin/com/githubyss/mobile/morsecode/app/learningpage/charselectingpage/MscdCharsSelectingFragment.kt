@@ -14,8 +14,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.font.ComkitFontConfig
 import com.githubyss.mobile.common.kit.font.ComkitFontUtils
 import com.githubyss.mobile.common.kit.hint.ComkitToastUtils
-import com.githubyss.mobile.common.kit.checker.ComkitNumberCheckUtils
-import com.githubyss.mobile.common.kit.formatter.ComkitNumberFormatUtils
+import com.githubyss.mobile.common.kit.processor.ComkitMathematicalNumberProcessor
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.util.randommessage.MscdRandomStringGenerator
@@ -99,21 +98,14 @@ class MscdCharsSelectingFragment : ComuiBaseFragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (etKeySpeed.isFocused) {
                 when {
-                    s.isNullOrEmpty() -> {
-                        etDitDuration.setText("")
+                    s.isNullOrEmpty() -> etDitDuration.setText("")
+
+                    ComkitMathematicalNumberProcessor.checkConventionalIntegerNonNegative(s.toString()) -> when {
+                        s.toString().toLong() == 0L -> etDitDuration.setText("0")
+                        else -> etDitDuration.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
                     }
 
-                    ComkitNumberCheckUtils.checkConventionalIntegerNonNegative(s.toString()) -> {
-                        if (s.toString().toLong() == 0L) {
-                            etDitDuration.setText("0")
-                        } else {
-                            etDitDuration.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
-                        }
-                    }
-
-                    else -> {
-                        etKeySpeed.setText(ComkitNumberFormatUtils.formatConventionalIntegerNonNegative(s.toString()))
-                    }
+                    else -> etKeySpeed.setText(ComkitMathematicalNumberProcessor.string2ConventionalIntegerNonNegative(s.toString()))
                 }
             }
         }
@@ -129,21 +121,14 @@ class MscdCharsSelectingFragment : ComuiBaseFragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (etDitDuration.isFocused) {
                 when {
-                    s.isNullOrEmpty() -> {
-                        etKeySpeed.setText("")
+                    s.isNullOrEmpty() -> etKeySpeed.setText("")
+
+                    ComkitMathematicalNumberProcessor.checkConventionalIntegerNonNegative(s.toString()) -> when {
+                        s.toString().toLong() == 0L -> etKeySpeed.setText("0")
+                        else -> etKeySpeed.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
                     }
 
-                    ComkitNumberCheckUtils.checkConventionalIntegerNonNegative(s.toString()) -> {
-                        if (s.toString().toLong() == 0L) {
-                            etKeySpeed.setText("0")
-                        } else {
-                            etKeySpeed.setText(convertSpeedAndDuration(s.toString().toLong()).toString())
-                        }
-                    }
-
-                    else -> {
-                        etDitDuration.setText(ComkitNumberFormatUtils.formatConventionalIntegerNonNegative(s.toString()))
-                    }
+                    else -> etDitDuration.setText(ComkitMathematicalNumberProcessor.string2ConventionalIntegerNonNegative(s.toString()))
                 }
             }
         }

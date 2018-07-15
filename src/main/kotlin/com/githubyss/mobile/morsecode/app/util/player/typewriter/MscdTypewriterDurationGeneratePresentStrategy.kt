@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.player.typewriter
 
 import android.os.AsyncTask
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
@@ -32,7 +32,7 @@ class MscdTypewriterDurationGeneratePresentStrategy : MscdTypewriterDurationGene
                 return emptyList()
             }
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             return try {
                 buildTypewriterDurationList(params[0] ?: String(), morseCodeConverterConfig)
@@ -47,7 +47,7 @@ class MscdTypewriterDurationGeneratePresentStrategy : MscdTypewriterDurationGene
                 return
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
             ComkitLogcatUtils.`object`(result)
@@ -62,7 +62,7 @@ class MscdTypewriterDurationGeneratePresentStrategy : MscdTypewriterDurationGene
         }
 
         override fun onCancelled() {
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterDurationGenerateAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onTypewriterDurationGenerateListener.onCancelled()

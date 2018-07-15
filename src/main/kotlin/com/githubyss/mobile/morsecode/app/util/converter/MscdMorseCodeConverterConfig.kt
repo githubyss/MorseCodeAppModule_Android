@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.constant.MscdEncodeConstants
 
 /**
@@ -196,7 +196,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 
             val char2DurationPatternArrayMap = LinkedHashMap<Char, Array<Int>>()
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             /** Traverse char-ditdahString map to build char-durationPatternArray map. by Ace Yan */
             for (entry in char2DitdahStringMap.entries) {
@@ -235,7 +235,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DurationPatternArrayMap.put(charKey, charDurationPatternArray)
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternArrayMap() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternArrayMap() >>> char2DurationPatternArrayMapSize = ${char2DurationPatternArrayMap.size}")
 
@@ -263,7 +263,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 
             val char2DurationPatternListMap = LinkedHashMap<Char, List<Int>>()
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             for (entry in char2DitdahStringMap.entries) {
                 val charKey = entry.key
@@ -288,7 +288,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DurationPatternListMap.put(charKey, charDurationPatternList)
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternListMap() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationPatternListMap() >>> char2DurationPatternListMapSize = ${char2DurationPatternListMap.size}")
 
@@ -312,7 +312,7 @@ class MscdMorseCodeConverterConfig private constructor() {
 
             val char2DurationMap = LinkedHashMap<Char, Int>()
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             for (entry in char2DurationPatternListMap) {
                 val charKey = entry.key
@@ -323,7 +323,7 @@ class MscdMorseCodeConverterConfig private constructor() {
                 char2DurationMap.put(charKey, charDuration)
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationMap() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverterConfig.buildChar2DurationMap() >>> char2DurationMap = ${char2DurationMap.size}")
 

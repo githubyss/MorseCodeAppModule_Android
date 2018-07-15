@@ -4,9 +4,9 @@ import android.media.AudioFormat
 import android.media.AudioTrack
 import android.os.AsyncTask
 import android.os.Build
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 import com.githubyss.mobile.morsecode.app.R
 
 /**
@@ -59,7 +59,7 @@ class MscdAudioPlayer private constructor() {
                 return true
             }
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             logcatAudioTrackState("AudioPlayAsyncTask.doInBackground", audioPlayerConfig.audioTrack, "Execution started! Before startAudioTrack().")
 
@@ -78,7 +78,7 @@ class MscdAudioPlayer private constructor() {
                 return
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             if (result != false) {
@@ -93,7 +93,7 @@ class MscdAudioPlayer private constructor() {
         override fun onCancelled() {
             logcatAudioTrackState("AudioPlayAsyncTask.onCancelled", audioPlayerConfig.audioTrack, "Execution cancelled!")
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onAudioPlayListener.onCancelled()

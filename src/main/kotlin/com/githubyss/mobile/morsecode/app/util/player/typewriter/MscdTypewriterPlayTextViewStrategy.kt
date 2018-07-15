@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.TextView
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 
@@ -35,7 +35,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
                 ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.doInBackground() >>> isCancelled.")
             }
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             return try {
                 val bundle = params[0]
@@ -55,7 +55,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
                 return
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             if (result != false) {
@@ -66,7 +66,7 @@ class MscdTypewriterPlayTextViewStrategy : MscdTypewriterPlayStrategy() {
         }
 
         override fun onCancelled() {
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> TypewriterPlayAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onTypewriterPlayListener.onCancelled()

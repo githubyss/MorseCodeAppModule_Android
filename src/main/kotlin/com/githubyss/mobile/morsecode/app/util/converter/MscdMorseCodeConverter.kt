@@ -1,7 +1,7 @@
 package com.githubyss.mobile.morsecode.app.util.converter
 
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
 
 /**
  * MscdMorseCodeConverter.kt
@@ -52,7 +52,7 @@ class MscdMorseCodeConverter private constructor() {
 
         val char2DurationPatternArrayMap = morseCodeConverterConfig.char2DurationPatternArrayMap
 
-        beginTime = ComkitTimeUtils.currentTimeMillis()
+        beginTime = ComkitSystemInfo.currentTimeMillis()
 
         if (message.isEmpty()) {
             return arrayOf(startDuration)
@@ -149,7 +149,7 @@ class MscdMorseCodeConverter private constructor() {
                     }
                 }
 
-        endTime = ComkitTimeUtils.currentTimeMillis()
+        endTime = ComkitSystemInfo.currentTimeMillis()
         ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverter.buildMessageStringDurationPatternArray() >>> Elapsed time = ${endTime - beginTime} ms.")
         ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverter.buildMessageStringDurationPatternArray() >>> messageDurationPatternArraySize = ${messageDurationPatternArray.size}")
 
@@ -175,7 +175,7 @@ class MscdMorseCodeConverter private constructor() {
 
         val char2DurationPatternListMap = morseCodeConverterConfig.char2DurationPatternListMap
 
-        beginTime = ComkitTimeUtils.currentTimeMillis()
+        beginTime = ComkitSystemInfo.currentTimeMillis()
 
         if (message.isEmpty()) {
             return arrayListOf(startDuration)
@@ -207,7 +207,7 @@ class MscdMorseCodeConverter private constructor() {
                     }
                 }
 
-        endTime = ComkitTimeUtils.currentTimeMillis()
+        endTime = ComkitSystemInfo.currentTimeMillis()
         ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverter.buildMessageStringDurationPatternList() >>> Elapsed time = ${endTime - beginTime} ms.")
         ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> MscdMorseCodeConverter.buildMessageStringDurationPatternList() >>> messageDurationPatternListSize = ${messageDurationPatternList.size}")
 

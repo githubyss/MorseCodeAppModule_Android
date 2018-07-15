@@ -2,7 +2,7 @@ package com.githubyss.mobile.morsecode.app.util.player.audio
 
 import android.media.AudioFormat
 import android.os.AsyncTask
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
@@ -36,7 +36,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 return emptyArray()
             }
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             return try {
                 val durationPattern = params[0] ?: emptyList()
@@ -52,7 +52,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
                 return
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onPostExecute() >>> audioDataSize = ${result?.size}")
 
@@ -66,7 +66,7 @@ class MscdAudioDataGenerateSineWaveStrategy : MscdAudioDataGenerateStrategy() {
         }
 
         override fun onCancelled() {
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> AudioDataGenerateAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onAudioDataGenerateListener.onCancelled()

@@ -4,7 +4,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
-import com.githubyss.mobile.common.kit.device.ComkitTimeUtils
+import com.githubyss.mobile.common.kit.info.ComkitSystemInfo
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
 import java.io.EOFException
@@ -36,7 +36,7 @@ class MscdRandomStringGenerateRulelessStrategy : MscdRandomStringGenerateStrateg
                 return ""
             }
 
-            beginTime = ComkitTimeUtils.currentTimeMillis()
+            beginTime = ComkitSystemInfo.currentTimeMillis()
 
             return try {
                 val bundle = params[0]
@@ -55,7 +55,7 @@ class MscdRandomStringGenerateRulelessStrategy : MscdRandomStringGenerateStrateg
                 return
             }
 
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGenerateAsyncTask.onPostExecute() >>> Elapsed time = ${endTime - beginTime} ms.")
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGenerateAsyncTask.onPostExecute() >>> Actual randomStringLength = ${result.toString().replace(" ", "").length}")
             ComkitLogcatUtils.`object`(result)
@@ -70,7 +70,7 @@ class MscdRandomStringGenerateRulelessStrategy : MscdRandomStringGenerateStrateg
         }
 
         override fun onCancelled() {
-            endTime = ComkitTimeUtils.currentTimeMillis()
+            endTime = ComkitSystemInfo.currentTimeMillis()
             ComkitLogcatUtils.d(msg = "~~~Ace Yan~~~ >>> RandomStringGeneratorAsyncTask.onCancelled() >>> Elapsed time = ${endTime - beginTime} ms.")
 
             onRandomStringGenerateListener.onCancelled()
