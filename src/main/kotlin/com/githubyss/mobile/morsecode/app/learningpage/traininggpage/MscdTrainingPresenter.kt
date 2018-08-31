@@ -3,13 +3,13 @@ package com.githubyss.mobile.morsecode.app.learningpage.traininggpage
 import android.view.View
 import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.morsecode.app.R
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateStrategy
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
-import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
-import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterDurationGenerateStrategy
-import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterDurationGenerator
-import com.githubyss.mobile.morsecode.app.util.player.typewriter.MscdTypewriterPlayStrategy
+import com.githubyss.mobile.morsecode.kit.controller.MckitPlayerController
+import com.githubyss.mobile.morsecode.kit.player.audio.generator.MckitAudioDataGenerateStrategy
+import com.githubyss.mobile.morsecode.kit.player.audio.generator.MckitAudioDataGenerator
+import com.githubyss.mobile.morsecode.kit.player.audio.player.MckitAudioPlayer
+import com.githubyss.mobile.morsecode.kit.player.typewriter.generator.MckitTypewriterDurationGenerateStrategy
+import com.githubyss.mobile.morsecode.kit.player.typewriter.generator.MckitTypewriterDurationGenerator
+import com.githubyss.mobile.morsecode.kit.player.typewriter.player.MckitTypewriterPlayStrategy
 
 /**
  * MscdTrainingPresenter.kt
@@ -31,9 +31,9 @@ class MscdTrainingPresenter(private val mscdTrainingIView: MscdTrainingContract.
     }
 
     override fun buildPlayData(trainingMsgStr: String) {
-        MscdAudioDataGenerator.instance.startGenerateAudioData(
+        MckitAudioDataGenerator.instance.startGenerateAudioData(
                 trainingMsgStr,
-                object : MscdAudioDataGenerateStrategy.OnAudioDataGenerateListener {
+                object : MckitAudioDataGenerateStrategy.OnAudioDataGenerateListener {
                     override fun onSucceeded(audioDataArray: Array<Float>) {
                         mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdAudioDataGenerateSucceeded))
                         mscdTrainingIView.onAudioDataBuilt(audioDataArray)
@@ -49,9 +49,9 @@ class MscdTrainingPresenter(private val mscdTrainingIView: MscdTrainingContract.
                 }
         )
 
-        MscdTypewriterDurationGenerator.instance.startGenerateTypewriteDuration(
+        MckitTypewriterDurationGenerator.instance.startGenerateTypewriteDuration(
                 trainingMsgStr,
-                object : MscdTypewriterDurationGenerateStrategy.OnTypewriterDurationGenerateListener {
+                object : MckitTypewriterDurationGenerateStrategy.OnTypewriterDurationGenerateListener {
                     override fun onSucceeded(typewriterDurationList: List<Int>) {
                         mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdTypewriterDurationGenerateSucceeded))
                         mscdTrainingIView.onTypewriterDurationBuilt(typewriterDurationList)
@@ -69,9 +69,9 @@ class MscdTrainingPresenter(private val mscdTrainingIView: MscdTrainingContract.
     }
 
     override fun startPlay(audioDataArray: Array<Float>, flashlightDataArray: Array<Any>, vibratorDataArray: Array<Any>, typewriterDataStr: String, typewriterDurationList: List<Int>, typewriterView: View) {
-        MscdPlayerController.instance.startPlay(
+        MckitPlayerController.instance.startPlay(
                 audioDataArray,
-                object : MscdAudioPlayer.OnAudioPlayListener {
+                object : MckitAudioPlayer.OnAudioPlayListener {
                     override fun onSucceeded() {
                         mscdTrainingIView.showHint(ComkitResUtils.getString(resId = R.string.mscdAudioPlaySucceeded))
                         mscdTrainingIView.onPlayFinished()
@@ -92,7 +92,7 @@ class MscdTrainingPresenter(private val mscdTrainingIView: MscdTrainingContract.
                 typewriterDataStr,
                 typewriterDurationList,
                 typewriterView,
-                object : MscdTypewriterPlayStrategy.OnTypewriterPlayListener {
+                object : MckitTypewriterPlayStrategy.OnTypewriterPlayListener {
                     override fun onSucceeded() {
                     }
 

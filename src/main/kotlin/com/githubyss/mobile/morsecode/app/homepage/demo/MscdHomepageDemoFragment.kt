@@ -12,10 +12,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverter
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayer
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayerConfig
+import com.githubyss.mobile.morsecode.kit.converter.MckitMorseCodeConverter
+import com.githubyss.mobile.morsecode.kit.converter.MckitMorseCodeConverterConfig
+import com.githubyss.mobile.morsecode.kit.player.audio.player.MckitAudioPlayer
+import com.githubyss.mobile.morsecode.kit.player.audio.player.MckitAudioPlayerConfig
 import kotlinx.android.synthetic.main.mscd_fragment_homepage_demo.*
 
 /**
@@ -53,9 +53,9 @@ class MscdHomepageDemoFragment : ComuiBaseFragment() {
             }
 
             R.id.btnBuildAudioConfig -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "Before create().")
+                MckitAudioPlayer.instance.logcatAudioTrackState("onClick", MckitAudioPlayerConfig.instance.audioTrack, "Before create().")
 
-                MscdAudioPlayerConfig.Builder
+                MckitAudioPlayerConfig.Builder
                         .setAudioFrequencyHz(880)
                         .setAudioSampleRateHz(4000)
                         .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
@@ -64,13 +64,13 @@ class MscdHomepageDemoFragment : ComuiBaseFragment() {
                         .setAudioTrackMode(AudioTrack.MODE_STREAM)
                         .create()
 
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "After create().")
+                MckitAudioPlayer.instance.logcatAudioTrackState("onClick", MckitAudioPlayerConfig.instance.audioTrack, "After create().")
             }
 
             R.id.btnStartPlayAudio -> {
-//                MscdAudioPlayer.instance.startPlayAudio(
+//                MckitAudioPlayer.instance.startPlayAudio(
 //                        "O",
-//                        object : MscdAudioPlayer.OnAudioPlayListener {
+//                        object : MckitAudioPlayer.OnAudioPlayListener {
 //                            override fun onSucceeded() {
 //                            }
 //
@@ -84,40 +84,40 @@ class MscdHomepageDemoFragment : ComuiBaseFragment() {
             }
 
             R.id.btnStopAllPlayAudio -> {
-//                MscdAudioPlayer.instance.stopPlayAudio()
-                MscdAudioPlayer.instance.stopAllAudioTrack()
+//                MckitAudioPlayer.instance.stopPlayAudio()
+                MckitAudioPlayer.instance.stopAllAudioTrack()
             }
 
             R.id.btnStopCurrentPlayAudio -> {
-//                MscdAudioPlayer.instance.stopPlayAudio()
-                MscdAudioPlayer.instance.stopCurrentAudioTrack()
+//                MckitAudioPlayer.instance.stopPlayAudio()
+                MckitAudioPlayer.instance.stopCurrentAudioTrack()
             }
 
             R.id.btnPausePlayAudio -> {
-                MscdAudioPlayer.instance.pauseAudioTrack()
+                MckitAudioPlayer.instance.pauseAudioTrack()
             }
 
             R.id.btnResumePlayAudio -> {
-                MscdAudioPlayer.instance.resumeAudioTrack()
+                MckitAudioPlayer.instance.resumeAudioTrack()
             }
 
             R.id.btnReleaseAudioTrack -> {
-                MscdAudioPlayer.instance.releaseAudioTrack()
+                MckitAudioPlayer.instance.releaseAudioTrack()
             }
 
             R.id.btnLogcatAudioTrackState -> {
-                MscdAudioPlayer.instance.logcatAudioTrackState("onClick", MscdAudioPlayerConfig.instance.audioTrack, "Manual logcat.")
+                MckitAudioPlayer.instance.logcatAudioTrackState("onClick", MckitAudioPlayerConfig.instance.audioTrack, "Manual logcat.")
             }
 
             R.id.btnInitMorseCodeConverterConfig -> {
-                MscdMorseCodeConverterConfig.Builder
+                MckitMorseCodeConverterConfig.Builder
                         .setBaseDuration(100)
                         .create()
             }
 
             R.id.btnLogcatMessageDurationPatternArray -> {
-//                MscdMorseCodeConverter.instance.buildMessageStringDurationPatternArray("MORSE  CODE")
-                MscdMorseCodeConverter.instance.buildMessageStringDurationPatternList("MORSE  CODE")
+//                MckitMorseCodeConverter.instance.buildMessageStringDurationPatternArray("MORSE  CODE")
+                MckitMorseCodeConverter.instance.buildMessageStringDurationPatternList("MORSE  CODE")
             }
 
             else -> {

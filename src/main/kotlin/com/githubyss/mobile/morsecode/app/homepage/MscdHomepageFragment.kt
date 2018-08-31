@@ -5,24 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import kotlinx.android.synthetic.main.mscd_fragment_homepage.*
 
 /**
- * MscdHomepageFragment.kt
+ * MscdHomepageFragment
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-@Route(path = "/morsecode/app/homepage/MscdHomepageFragment")
 class MscdHomepageFragment : ComuiBaseFragment() {
     companion object {
-        val TAG = "MscdHomepageFragment"
+        val TAG = MscdHomepageFragment::class.java.simpleName
     }
 
     private lateinit var rootView: View

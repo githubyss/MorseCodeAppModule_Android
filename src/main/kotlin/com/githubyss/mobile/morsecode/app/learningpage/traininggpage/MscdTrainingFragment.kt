@@ -11,26 +11,31 @@ import android.widget.LinearLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.githubyss.mobile.common.kit.font.ComkitFontConfig
 import com.githubyss.mobile.common.kit.font.ComkitFontUtils
-import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.common.kit.hint.ComkitToastUtils
+import com.githubyss.mobile.common.kit.resource.ComkitResUtils
 import com.githubyss.mobile.common.kit.viewoperator.ComkitTypewriteUtils
 import com.githubyss.mobile.common.ui.basemvp.ComuiBaseFragment
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.constant.MscdKeyConstants
-import com.githubyss.mobile.morsecode.app.constant.MscdStatusConstants
-import com.githubyss.mobile.morsecode.app.global.MscdPlayModeGlobalInfo
-import com.githubyss.mobile.morsecode.app.util.converter.MscdMorseCodeConverterConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateSineWaveStrategy
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerateStrategyConfig
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioDataGenerator
-import com.githubyss.mobile.morsecode.app.util.player.audio.MscdAudioPlayerConfig
-import com.githubyss.mobile.morsecode.app.util.player.controller.MscdPlayerController
-import com.githubyss.mobile.morsecode.app.util.player.typewriter.*
+import com.githubyss.mobile.morsecode.kit.constant.MckitStatusConstants
+import com.githubyss.mobile.morsecode.kit.controller.MckitPlayerController
+import com.githubyss.mobile.morsecode.kit.converter.MckitMorseCodeConverterConfig
+import com.githubyss.mobile.morsecode.kit.global.MckitPlayModeGlobalInfo
+import com.githubyss.mobile.morsecode.kit.player.audio.generator.MckitAudioDataGenerateSineWaveStrategy
+import com.githubyss.mobile.morsecode.kit.player.audio.generator.MckitAudioDataGenerateStrategyConfig
+import com.githubyss.mobile.morsecode.kit.player.audio.generator.MckitAudioDataGenerator
+import com.githubyss.mobile.morsecode.kit.player.audio.player.MckitAudioPlayerConfig
+import com.githubyss.mobile.morsecode.kit.player.typewriter.generator.MckitTypewriterDurationGeneratePresentStrategy
+import com.githubyss.mobile.morsecode.kit.player.typewriter.generator.MckitTypewriterDurationGenerateStrategyConfig
+import com.githubyss.mobile.morsecode.kit.player.typewriter.generator.MckitTypewriterDurationGenerator
+import com.githubyss.mobile.morsecode.kit.player.typewriter.player.MckitTypewriterPlayStrategyConfig
+import com.githubyss.mobile.morsecode.kit.player.typewriter.player.MckitTypewriterPlayTextViewStrategy
+import com.githubyss.mobile.morsecode.kit.player.typewriter.player.MckitTypewriterPlayerConfig
 import kotlinx.android.synthetic.main.mscd_fragment_training.*
 
 
 /**
- * MscdTrainingFragment.kt
+ * MscdTrainingFragment
  * <Description>
  * <Details>
  *
@@ -77,7 +82,7 @@ class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
             R.id.btnStopPlay -> {
                 changeBtnStatus(btnStartPlay, true)
                 changeBtnStatus(btnStopPlay, false)
-                MscdPlayerController.instance.stopPlay()
+                MckitPlayerController.instance.stopPlay()
             }
 
             R.id.btnSubmit -> {
@@ -113,13 +118,13 @@ class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
     }
 
     private fun initMorseCodeConverterConfig() {
-        MscdMorseCodeConverterConfig.Builder
+        MckitMorseCodeConverterConfig.Builder
                 .setBaseDuration(baseDuration)
                 .create()
     }
 
     private fun initAudioPlayerConfig() {
-        MscdAudioPlayerConfig.Builder
+        MckitAudioPlayerConfig.Builder
                 .setAudioFrequencyHz(880)
                 .setAudioSampleRateHz(4000)
                 .setAudioChannelFormat(AudioFormat.CHANNEL_OUT_MONO)
@@ -130,40 +135,40 @@ class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
     }
 
     private fun initAudioDataGenerateStrategyConfig() {
-        MscdAudioDataGenerateStrategyConfig.Builder
-                .setStrategy(MscdAudioDataGenerateSineWaveStrategy())
+        MckitAudioDataGenerateStrategyConfig.Builder
+                .setStrategy(MckitAudioDataGenerateSineWaveStrategy())
                 .create()
     }
 
     private fun initTypewriterPlayerConfig() {
-        MscdTypewriterPlayerConfig.Builder
+        MckitTypewriterPlayerConfig.Builder
                 .setStartIdx(0)
                 .setCanAutoScrollBottom(true)
                 .create()
     }
 
     private fun initTypewriterPlayStrategyConfig() {
-        MscdTypewriterPlayStrategyConfig.Builder
-                .setStrategy(MscdTypewriterPlayTextViewStrategy())
+        MckitTypewriterPlayStrategyConfig.Builder
+                .setStrategy(MckitTypewriterPlayTextViewStrategy())
                 .create()
     }
 
     private fun initTypewriterDurationGenerateStrategyConfig() {
-        MscdTypewriterDurationGenerateStrategyConfig.Builder
-                .setStrategy(MscdTypewriterDurationGeneratePresentStrategy())
+        MckitTypewriterDurationGenerateStrategyConfig.Builder
+                .setStrategy(MckitTypewriterDurationGeneratePresentStrategy())
                 .create()
     }
 
     private fun refreshViewOnTypewriterStatusChanged() {
-        when (MscdPlayModeGlobalInfo.typewriterStatus) {
-            MscdStatusConstants.PlayModeStatus.TYPEWRITER_ON -> {
+        when (MckitPlayModeGlobalInfo.typewriterStatus) {
+            MckitStatusConstants.PlayModeStatus.TYPEWRITER_ON -> {
                 tvMorseCodeCopy.text = ComkitResUtils.getString(resId = R.string.mscdTrainingTransmitted)
 
                 inputBtnList
                         .forEach { changeBtnStatus(it, false) }
             }
 
-            MscdStatusConstants.PlayModeStatus.TYPEWRITER_OFF -> {
+            MckitStatusConstants.PlayModeStatus.TYPEWRITER_OFF -> {
                 tvMorseCodeCopy.text = ComkitResUtils.getString(resId = R.string.mscdTrainingRecoded)
 
                 inputBtnList
@@ -330,11 +335,11 @@ class MscdTrainingFragment : ComuiBaseFragment(), MscdTrainingContract.IView {
     override fun onDestroy() {
         super.onDestroy()
 
-        MscdAudioDataGenerator.instance.stopGenerateAudioData()
-        MscdTypewriterDurationGenerator.instance.stopGenerateTypewriteDuration()
+        MckitAudioDataGenerator.instance.stopGenerateAudioData()
+        MckitTypewriterDurationGenerator.instance.stopGenerateTypewriteDuration()
 
-        MscdPlayerController.instance.stopPlay()
-        MscdPlayerController.instance.releaseResource()
+        MckitPlayerController.instance.stopPlay()
+        MckitPlayerController.instance.releaseResource()
 
         clearPlayerData()
     }

@@ -8,22 +8,22 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.githubyss.mobile.common.kit.logcat.ComkitLogcatUtils
 import com.githubyss.mobile.morsecode.app.R
 import com.githubyss.mobile.morsecode.app.base.MscdBaseActivity
+import com.githubyss.mobile.morsecode.app.config.McappPageRouterConfig
 
 /**
- * MscdHomepageActivity.kt
+ * MscdHomepageActivity
  * <Description>
  * <Details>
  *
  * @author Ace Yan
  * @github githubyss
  */
-@Route(path = "/morsecode/app/homepage/MscdHomepageActivity")
+@Route(path = McappPageRouterConfig.HOMEPAGE_ACTIVITY)
 class MscdHomepageActivity : MscdBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val fragment = ARouter.getInstance().build("/morsecode/app/homepage/MscdHomepageFragment").navigation() as Fragment
-        addFragment(fragment, "MscdHomepageFragment", false)
+        addFragment(MscdHomepageFragment(), MscdHomepageFragment.TAG, false)
     }
 
     override fun onResume() {
